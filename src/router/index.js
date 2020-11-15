@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-<<<<<<< HEAD
 import HomePage from "../components/HomePage";
 import InfoManage from "../components/InfoManage";
 import Login from "../components/Login";
@@ -12,9 +11,7 @@ import Register from "../components/Register";
 import RePassword from "../components/RePassword";
 import SciAchieveShow from "../components/SciAchieveShow";
 import SearchResult from "../components/SearchResult";
-=======
 import Test from '@/components/Test'
->>>>>>> 62776edcfbab4d41e6806de1cbd9e360006a029b
 
 Vue.use(Router)
 
@@ -26,7 +23,6 @@ export default new Router({
     //   component: HelloWorld
     // },
     {
-<<<<<<< HEAD
       path: '/home',
       name: 'HomePage',
       component: HomePage
@@ -81,7 +77,7 @@ export default new Router({
       name: 'SearchResult',
       component: SearchResult
     },
-=======
+    {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
@@ -90,7 +86,6 @@ export default new Router({
       path: '/test',
       name: 'Test',
       component: Test
-    }    
->>>>>>> 62776edcfbab4d41e6806de1cbd9e360006a029b
+    }
   ]
 })
