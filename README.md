@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c62af022c8ced3d63a6c7ad48c1ac1b85ff2174f
 # 内容介绍
 
 这是径舟学术的前端。
@@ -11,6 +14,7 @@
 
 axios
 
+<<<<<<< HEAD
 element-ui：使用栅格，使得在不同宽度页面上显示效果优异。
 =======
 # jingzhou
@@ -35,3 +39,6 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 >>>>>>> ff36150... cj1
+=======
+element-ui：使用栅格，使得在不同宽度页面上显示效果优异。
+>>>>>>> c62af022c8ced3d63a6c7ad48c1ac1b85ff2174f
