@@ -1,61 +1,63 @@
 <template>
-    <div class="">
-    <el-row :gutter="20" >
-            <el-col :span="4">
-              <div>
-                  <img src="../assets/logo.png" style="width:50px;margin-left:50%">
-              </div>
-            </el-col>
-            <el-col :span="1">
-              <div>
-                <el-button type="text"><a href="#" style="font-size:10px">关于我们</a></el-button>
-              </div>
-            </el-col>
-            <el-col :span="1">
-              <div>
-                <el-button type="text"><a href="#" style="font-size:10px">版权公告</a></el-button>
-              </div>
-            </el-col>
-            <el-col :span="1">
-              <div>
-                <el-button type="text"><a href="#" style="font-size:10px">用户建议</a></el-button>
-              </div>
-            </el-col>
-            <el-col :span="12">
-              <div class="el-icon-phone" style="margin-left:100%">
-                
-              </div>
-            </el-col>
-            
-            <el-col :span="2">
-              <div class="el-icon-s-comment" style="margin-left:100%">
-                
-            </div>
-            </el-col>
+  <div id="footer">
+    
+    <div class="footer-left">
+      <img src="../assets/logo_black.png" style="height:100%;float:right;margin-right:20px">
+    </div>
+    
 
-        </el-row>
+    <div class="footer-main">
+      <a href="#" class="footer-link">版权信息</a>
+      <a href="#" class="footer-link">联系我们</a>
+      <a href="#" class="footer-link">组员信息</a>
+    </div>
+
+
+    <div class="footer-right">
+     
+    </div>
+   
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Footer.vue'
+    name: 'Footer.vue',
 }
 </script>
 
-<style>
+<style scoped>
+#footer{
+  display: flex;
+  height:52px;
+  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: white;
 
-.footer-style{
-    width: 100%;
-    height: 100px;
-    background-color: rgb(245, 245, 245);
 }
-.footer-text{
-    font-size: 10px;
-    color: black;
+.footer-left{
+  height: 100%;
+  width: 20%;
 }
+.footer-main{
+  display: flex;
+  height: 100%;
+  width: 20%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items:flex-start;
+}
+.footer-right{
+  height: 100%;
+  width: 40%;
+
+}
+
 .footer-link{
-    margin-right: 20px;
+  font-size:15px;
+  flex-grow: 1;
 }
+
 
 </style>

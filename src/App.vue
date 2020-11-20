@@ -1,13 +1,9 @@
 <template>
-<div>
-  <div>
-    <Head/>
+  <div id="app">
+      <header><Head></Head></header>
+      <main><router-view></router-view></main>
+      <footer><Footer></Footer></footer>
   </div>
-  <div style="min-height:600px">
-    <router-view></router-view>
-  </div>
-  <Footer class="footer"/>
-</div>
 </template>
 
 <script>
@@ -24,26 +20,37 @@ export default {
 
 </script>
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.footer{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-a{
-    text-decoration:none;
-    color:black;
-}
+
 *{
   margin:0;
   padding:0;
   border:0;
 }
+#app {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+header{
+  box-shadow: 5px 5px 5px #888888;
+  position:sticky;
+  top:0;
+}
+main{
+  min-height:1000px;
+  background-color: antiquewhite;
+}
+footer{
+  box-shadow: 5px 5px 5px 5px #888888;
+  position:sticky;
+  bottom:0;
+}
+
+
+
 </style>
