@@ -14,7 +14,6 @@ import SciAchieveShow from "../components/SciAchieveShow";
 import SearchResult from "../components/SearchResult";
 import Test from '@/components/Test'
 
-Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -97,3 +96,4 @@ export default new Router({
     }
   ]
 })
+Vue.use(Router)

@@ -1,12 +1,12 @@
 <template>
-  <div id="footer">
+  <div id="footer" class="frow">
     
     <div class="footer-left">
       <img src="../assets/logo_black.png" style="height:100%;float:right;margin-right:20px">
     </div>
     
 
-    <div class="footer-main">
+    <div class="footer-main frow">
       <a href="#" class="footer-link">版权信息</a>
       <a href="#" class="footer-link">联系我们</a>
       <a href="#" class="footer-link">组员信息</a>
@@ -28,11 +28,7 @@ export default {
 
 <style scoped>
 #footer{
-  display: flex;
   height:52px;
-  margin: 0 auto;
-  flex-direction: row;
-  flex-wrap: nowrap;
   background-color: white;
 
 }
@@ -41,12 +37,9 @@ export default {
   width: 20%;
 }
 .footer-main{
-  display: flex;
+
   height: 100%;
   width: 20%;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items:flex-start;
 }
 .footer-right{
   height: 100%;
@@ -55,7 +48,7 @@ export default {
 }
 
 .footer-link{
-  font-size:15px;
+  font-size:1rem;
   flex-grow: 1;
 }
 
