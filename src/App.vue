@@ -27,40 +27,42 @@ export default {
   border:0;
 }
 #app {
+  margin:auto;
+  width: 1200px;
   display: flex;
   flex-direction: column;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 
 header{
+  z-index: 9999;
   box-shadow: 5px 5px 5px #888888;
   position:sticky;
   top:0;
 }
 main{
-  min-height:1000px;
-  background-color: antiquewhite;
+ 
 }
 footer{
+  z-index: 9999;
   box-shadow: 5px 5px 5px 5px #888888;
   position:sticky;
   bottom:0;
 }
 /*------------------------------------------文字部分------------------------------------------*/
-p{
-  text-indent: 1.5rem;
-}
-.rem02{
-  font-size:0.2rem;
-}
-.rem05{
-  font-size:0.5rem;
+
+
+/* min font-size = 0.8rem = 12px */
+.rem08{
+  font-size:0.8rem;
 }
 .rem1{
   font-size:1rem;
+}
+.rem12{
+  font-size:1.2rem;
 }
 .rem15{
   font-size:1.5rem;
@@ -77,6 +79,7 @@ p{
 
 /*------------------------------------------布局部分------------------------------------------*/
 /*引入flex布局 f表示flex，x表示主轴，y表示次轴*/
+
 .f{
 
   display: flex;
@@ -138,7 +141,9 @@ p{
   flex-grow: 1;
 }
 
-
+.mt05{
+  margin-top:5px;
+}
 .mt10{
   margin-top:10px;
 }
@@ -147,6 +152,15 @@ p{
 }
 .mt20{
   margin-top:20px;
+}
+.mt30{
+  margin-top:30px;
+}
+.mt40{
+  margin-top:40px;
+}
+.mt50{
+  margin-top:50px;
 }
 .ml10{
   margin-left:10px;
@@ -157,6 +171,18 @@ p{
 .ml20{
   margin-left: 20px;
 }
+.ml30{
+  margin-left: 30px;
+}
+.ml40{
+  margin-left: 40px;
+}
+.ml50{
+  margin-left: 50px;
+}
+.ml80{
+  margin-left: 80px;
+}
 .mr10{
   margin-right:10px;
 }
@@ -166,6 +192,15 @@ p{
 .mr20{
   margin-right:20px;
 }
+.mr30{
+  margin-right:30px;
+}
+.mr40{
+  margin-right:40px;
+}
+.mr50{
+  margin-right:50px;
+}
 .mb10{
   margin-bottom:10px;
 }
@@ -174,5 +209,8 @@ p{
 }
 .mb20{
   margin-bottom:20px;
+}
+.mb50{
+  margin-bottom:50px;
 }
 </style>

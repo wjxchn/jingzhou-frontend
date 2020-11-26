@@ -12,6 +12,7 @@ import Register from "../components/Register";
 import RePassword from "../components/RePassword";
 import SciAchieveShow from "../components/SciAchieveShow";
 import SearchResult from "../components/SearchResult";
+import Edit from "../components/Edit";
 import Test from '@/components/Test'
 
 
@@ -83,6 +84,11 @@ export default new Router({
       path: '/searchresult',
       name: 'SearchResult',
       component: SearchResult
+    },
+    {
+      path: '/edit',
+      name: 'Edit',
+      component: Edit
     },
     {
       path: '/',
