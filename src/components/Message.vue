@@ -29,14 +29,14 @@
 
             <div class="chat"><!--聊天框列表-->
                 <div class="top frow fyc">
-                    <el-avatar size="small"  src="http://placehold.it/40x40"></el-avatar>
+                    <el-avatar size="small"  :src="tempchat.avatar_src"></el-avatar>
                     <span style="margin-left: 20px;">{{tempchat.name}}</span>
                 </div>
                 <div class="center">
                     <ul style="padding:10px">
 
                         <li v-for="item in tempchat.content" :key="item" class="frow fyc mt10">
-                            <el-avatar  size="small" src="http://placehold.it/40x40"></el-avatar>
+                            <el-avatar  size="small" :src="tempchat.avatar_src"></el-avatar>
                             <p class="msgcard ml10 rem08">{{item}}</p>
                         </li>
                     </ul>
@@ -47,6 +47,7 @@
                 </div>
             </div>
         </div>
+        
         <!---------------------------------------------- 系统通知部分部分------------------------------------------------>
         <div class="News fcolumn" v-show="selected_leftbar=='2'">
             <div v-for="item in news" :key="item.id" class="msg fcolumn mt10">
@@ -78,9 +79,9 @@
                     {id:'3',content:"收到关注"},
                 ],
                 chat:[
-                    {id:'1', name:'张三',date:"2019-5-5",content:["Hello, this is Zhangsan.","nice to meet you.",".",".",".",".",".","."]},
-                    {id:'2', name:'李四',date:"2019-5-5",content:["Hello, this is Lisi.","nice to meet you."]},
-                    {id:'3',name:'王五',date:"2019-5-5",content:["Hello, this is Wangwu.","nice to meet you."]},
+                    {id:'1', name:'张三',date:"2019-5-5",avatar_src:require('../assets/avatar.png'),content:["Hello, this is Zhangsan.","nice to meet you.",".",".",".",".",".","."]},
+                    {id:'2', name:'李四',date:"2019-5-5",avatar_src:require('../assets/avatar.png'),content:["Hello, this is Lisi.","nice to meet you."]},
+                    {id:'3',name:'王五',date:"2019-5-5",avatar_src:require('../assets/avatar.png'),content:["Hello, this is Wangwu.","nice to meet you."]},
                 ],
                 tempchat:{id:'1', name:'张三',date:"2019-5-5",content:["Hello, this is Zhangsan.","nice to meet you."]},
                 news:[
