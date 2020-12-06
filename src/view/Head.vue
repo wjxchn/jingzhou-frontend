@@ -1,8 +1,8 @@
 <template>
   <div id="header" class="frow">
-    
+
     <div class="header-left">
-      
+
     </div>
 
     <div class="header-main">
@@ -15,7 +15,7 @@
       <a href="/Message" class="header-link">消息</a>
       <a href="/Login" class="header-link">登录</a>
     </div>
-   
+
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
 }
 .header-left{
   height: 100%;
-  width: 20%;
+  width: 2%;
 }
 .header-main{
   height: 100%;

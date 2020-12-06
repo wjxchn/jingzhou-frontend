@@ -28,7 +28,7 @@ export default {
 }
 #app {
   margin:auto;
-  width: 1200px;
+  /*width: 1200px;*/
   display: flex;
   flex-direction: column;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -43,7 +43,7 @@ header{
   top:0;
 }
 main{
- 
+
 }
 footer{
   z-index: 9999;

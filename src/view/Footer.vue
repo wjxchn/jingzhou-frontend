@@ -1,12 +1,12 @@
 <template>
   <div id="footer" class="frow">
-    
+
     <div class="footer-left">
       <img src="../assets/logo_black.png" style="height:100%;float:right;margin-right:20px">
     </div>
-    
 
-    <div class="footer-main frow">
+
+    <div class="footer-main frow ">
       <a href="#" class="footer-link">版权信息</a>
       <a href="#" class="footer-link">联系我们</a>
       <a href="#" class="footer-link">组员信息</a>
@@ -14,9 +14,9 @@
 
 
     <div class="footer-right">
-     
+
     </div>
-   
+
   </div>
 </template>
 
@@ -34,16 +34,16 @@ export default {
 }
 .footer-left{
   height: 100%;
-  width: 20%;
+  width: 6%;
 }
 .footer-main{
 
   height: 100%;
-  width: 20%;
+  width:20%;
 }
 .footer-right{
   height: 100%;
-  width: 40%;
+  width: 0%;
 
 }
 
