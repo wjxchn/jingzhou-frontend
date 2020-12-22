@@ -113,7 +113,7 @@
         </el-col>
 
         <el-col class="col1">
-          <el-button class="searchbutton" type="primary" @click="search1(0)">检索</el-button>
+          <el-button class="searchbutton" type="primary" @click="search()">检索</el-button>
         </el-col>
 
       </el-form>
@@ -127,19 +127,19 @@
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-menu-item index="1" class="lablea-1" @click="search1(0)">
+        <el-menu-item index="1" class="lablea-1" @click="show(1)">
           <div class="labela-2">学术论文</div>
         </el-menu-item>
-        <el-menu-item index="2" class="lablea-1" @click="search2(0)">
+        <el-menu-item index="2" class="lablea-1" @click="show(2)">
           <div class="labela-2">专利</div>
         </el-menu-item>
-        <el-menu-item index="3" class="lablea-1" @click="search3(0)">
+        <el-menu-item index="3" class="lablea-1" @click="show(3)">
           <div class="labela-2">科研成果</div>
         </el-menu-item>
-        <el-menu-item index="4" class="lablea-1" @click="search4(0)">
+        <el-menu-item index="4" class="lablea-1" @click="show(4)">
           <div class="labela-2">科研人员</div>
         </el-menu-item>
-        <el-menu-item index="5" class="lablea-1" @click="search5(0)">
+        <el-menu-item index="5" class="lablea-1" @click="show(5)">
           <div class="labela-2">科研机构</div>
         </el-menu-item>
       </el-menu>
@@ -152,30 +152,27 @@
         <el-col class="paper3">来源</el-col>
         <el-col class="paper4">发表时间</el-col>
         <el-col class="paper5">被引</el-col>
-        <el-col class="paper6">下载</el-col>
       </el-row>
       <div v-for="i in itemnumber1">
         <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="paper1">{{papers[i-1].title}}</el-col>
+          <el-col class="paper1"><router-link :to="{name: 'home',params:{paperId:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
           <el-col class="paper2">{{papers[i-1].authors}}</el-col>
-          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
+          <el-col class="paper3">{{papers[i-1].venue.raw}}</el-col>
           <el-col class="paper4">{{papers[i-1].year}}</el-col>
-          <el-col class="paper5">{{papers[i-1].used}}</el-col>
-          <el-col class="paper6">{{papers[i-1].downloadtime}}</el-col>
+          <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="paper1">{{papers[i-1].title}}</el-col>
+          <el-col class="paper1"><router-link :to="{name: 'home',params:{paperId:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
           <el-col class="paper2">{{papers[i-1].authors}}</el-col>
-          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
+          <el-col class="paper3">{{papers[i-1].venue.raw}}</el-col>
           <el-col class="paper4">{{papers[i-1].year}}</el-col>
-          <el-col class="paper5">{{papers[i-1].used}}</el-col>
-          <el-col class="paper6">{{papers[i-1].downloadtime}}</el-col>
+          <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
         </el-row>
       </div>
       <el-row class="page">
         <div class="pagea">
-          <el-link :disabled="page1<2" @click="search1(1)" >上一页</el-link>
-          <el-link @click="search1(2)">下一页</el-link>
+          <el-link :disabled="page1<2" @click="search1(1)">上一页</el-link>
+          <el-link :disabled="!shownext1" @click="search1(2)">下一页</el-link>
         </div>
       </el-row>
     </div>
@@ -191,7 +188,7 @@
       </el-row>
       <div v-for="i in itemnumber2">
         <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="patent1">{{patents[i-1].patentname}}</el-col>
+          <el-col class="patent1"><router-link :to="{name: 'PatentShow', params: {patentId: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
           <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
           <el-col class="patent3">{{patents[i-1].type}}</el-col>
           <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
@@ -199,7 +196,7 @@
           <el-col class="paper6">{{patents[i-1].pubdate}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="patent1">{{patents[i-1].patentname}}</el-col>
+          <el-col class="patent1"><router-link :to="{name: 'PatentShow', params: {patentId: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
           <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
           <el-col class="patent3">{{patents[i-1].type}}</el-col>
           <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
@@ -209,8 +206,8 @@
       </div>
       <el-row class="page">
         <div class="pagea">
-          <el-link :disabled="page2<2" @click="search2(1)" >上一页</el-link>
-          <el-link @click="search2(2)">下一页</el-link>
+          <el-link :disabled="page2<2" @click="search2(1)">上一页</el-link>
+          <el-link :disabled="!shownext2" @click="search2(2)">下一页</el-link>
         </div>
       </el-row>
     </div>
@@ -224,22 +221,22 @@
       </el-row>
       <div v-for="i in itemnumber3">
         <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="project1">{{projects[i-1].title}}</el-col>
+          <el-col class="project1"><router-link :to="{name: 'Achievement', params: {projectId: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
           <el-col class="project2">{{projects[i-1].researcher}}</el-col>
           <el-col class="project3">{{projects[i-1].institution}}</el-col>
-          <el-col class="project4">{{projects[i-1].finishtime}}</el-col>
+          <el-col class="project4">{{projects[i-1].time}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="project1">{{projects[i-1].title}}</el-col>
+          <el-col class="project1"><router-link :to="{name: 'Achievement', params: {projectId: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
           <el-col class="project2">{{projects[i-1].researcher}}</el-col>
           <el-col class="project3">{{projects[i-1].institution}}</el-col>
-          <el-col class="project4">{{projects[i-1].finishtime}}</el-col>
+          <el-col class="project4">{{projects[i-1].time}}</el-col>
         </el-row>
       </div>
       <el-row class="page">
         <div class="pagea">
-          <el-link :disabled="page3<2" @click="search3(1)" >上一页</el-link>
-          <el-link @click="search3(2)">下一页</el-link>
+          <el-link :disabled="page3<2" @click="search3(1)">上一页</el-link>
+          <el-link :disabled="!shownext3" @click="search3(2)">下一页</el-link>
         </div>
       </el-row>
     </div>
@@ -250,16 +247,16 @@
       </el-row>
       <div v-for="i in itemnumber4">
         <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="orgnization1">{{organizations[i-1].name}}</el-col>
+          <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="orgnization1">{{organizations[i-1].name}}</el-col>
+          <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
         </el-row>
       </div>
       <el-row class="page">
         <div class="pagea">
-          <el-link :disabled="page5<2" @click="search5(1)" >上一页</el-link>
-          <el-link @click="search5(2)">下一页</el-link>
+          <el-link :disabled="page5<2" @click="search5(1)">上一页</el-link>
+          <el-link :disabled="!shownext5" @click="search5(2)">下一页</el-link>
         </div>
       </el-row>
     </div>
@@ -272,20 +269,20 @@
       </el-row>
       <div v-for="i in itemnumber5">
         <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="scientist1">{{scientists[i-1].name}}</el-col>
+          <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
           <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
-          <el-col class="scientist3">{{scientists[i-1].area}}</el-col>
+          <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="scientist1">{{scientists[i-1].name}}</el-col>
+          <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
           <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
-          <el-col class="scientist3">{{scientists[i-1].area}}</el-col>
+          <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
         </el-row>
       </div>
       <el-row class="page">
         <div class="pagea">
-          <el-link :disabled="page4<2" @click="search4(1)" >上一页</el-link>
-          <el-link @click="search4(2)">下一页</el-link>
+          <el-link :disabled="page4<2" @click="search4(1)">上一页</el-link>
+          <el-link :disabled="!shownext4" @click="search4(2)">下一页</el-link>
         </div>
       </el-row>
     </div>
@@ -375,33 +372,34 @@
         itemnumber4: 1,
         itemnumber5: 1,
 
-        page1:1,
-        page2:1,
-        page3:1,
-        page4:1,
-        page5:1,
+        page1: 1,
+        page2: 1,
+        page3: 1,
+        page4: 1,
+        page5: 1,
+
+        shownext1: true,
+        shownext2: true,
+        shownext3: true,
+        shownext4: true,
+        shownext5: true,
 
         papers: [
           {
+            id:1,
             title: "负担坑金龙单反",
             authors: "ddfsdfsjhvf",
-            used: "fsdfds",
+            venue:{
+              raw:"ddscd"
+            },
             year: "2020-0202",
-            publisher: "dsddas",
-            downloadtime: 56
-          },
-          {
-            title: "dsdsvcxjvoxcivjcoxijvoicjv",
-            authorname: "ddfsdf",
-            used: "fsdfds",
-            year: "2020-0202",
-            publisher: "dsddas",
-            downloadtime: 56
+            n_citation: "dsddas",
           },
         ],
 
         patents: [
           {
+            patentid:1,
             patentname: "dghgfh",
             inventor: "bcgfgb",
             type: "vxcvdfv",
@@ -413,24 +411,26 @@
 
         projects: [
           {
+            projectid:1,
             title: "cddfsds",
             researcher: "fdsfd",
             institution: "fdsf",
-            finishtime: "dcsdfs666"
+            time: "dcsdfs666"
           }
         ],
 
         scientists: [
           {
-            name: "ddcscd",
+            authuseris:1,
+            username: "ddcscd",
             organization: "csdcsc",
-            area: "dcsdc"
+            researchfield: "dcsdc"
           }
         ],
 
         organizations: [
           {
-            name: "dsfsd"
+            institutionname: "dsfsd"
           }
         ]
 
@@ -496,88 +496,201 @@
         this.ruleform.iconnumber = this.ruleform.iconnumber - 1
       },
 
-      search1(num){
-        this.showwhat=1
-        if(num===1){
-          this.page1=this.page1-1
-        }
-        else if(num===2){
-          this.page1=this.page1+1
-        }
-        const obj={
-          page:this.page1,
-          key:this.ruleform.texts.text1
-        }
-        this.$axios.get('http://localhost:9001/data/paper/fuzzytitle',obj).then((res) => {
-          this.papers=res.data.data
-        });
+      show(num) {
+        this.showwhat = num
       },
 
-      search2(num){
-        this.showwhat=2
-        if(num===1){
-          this.page2=this.page2-1
-        }
-        else if(num===2){
-          this.page2=this.page2+1
-        }
-        const obj={
-          page:this.page2,
-          key:this.ruleform.texts.text1
-        }
-        this.$axios.get('http://localhost:9001/api/fuzzysearchpatent',obj).then((res) => {
-          this.patents=res.data.data
+      search() {
+        this.$axios.get('/data/paper/fuzzytitle',
+          {
+            params: {
+              page: this.page1,
+              key: this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber1 = res.data.data.length
+          this.papers = res.data.data
+        }).catch((failResponse) => {
+          this.itemnumber1=0
+          this.shownext1 = false
         });
-      },
-
-      search3(num){
-        this.showwhat=3
-        if(num===1){
-          this.page3=this.page3-1
-        }
-        else if(num===2){
-          this.page3=this.page3+1
-        }
-        const obj={
-          page:this.page3,
-          key:this.ruleform.texts.text1
-        }
-        this.$axios.get('http://localhost:9001/api/fuzzysearchproject',obj).then((res) => {
+        this.$axios.get('/api/fuzzysearchpatent',
+          {
+            params: {
+              page: this.page2,
+              key: this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber2 = res.data.data.length
+          this.patents = res.data.data
+        }).catch((failResponse) => {
+          this.itemnumber2=0
+          this.shownext2 = false
+        });
+        this.$axios.get('/api/fuzzysearchproject',
+          {
+            params:{
+              page:this.page3,
+              key:this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber3=res.data.data.length
           this.projects=res.data.data
+        }).catch((failResponse) => {
+          this.itemnumber3=0
+          this.shownext3=false
+        });
+        this.$axios.get('/api/fuzzysearchpatent',
+          {
+            params:{
+              page:this.page4,
+              key:this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber4=res.data.data.length
+          this.papers=res.data.data
+        }).catch((failResponse) => {
+          this.itemnumber4=0
+          this.shownext4=false
+        });
+        this.$axios.get('/data/paper/fuzzytitle',
+          {
+            params:{
+              page:this.page5,
+              key:this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber5=res.data.data.length
+          this.papers=res.data.data
+        }).catch((failResponse) => {
+          this.itemnumber5=0
+          this.shownext5=false
         });
       },
 
-      search4(num){
-        this.showwhat=4
-        if(num===1){
+      search1(num) {
+        this.showwhat = 1
+        if (num === 1) {
+          this.shownext1 = true
+          this.page1 = this.page1 - 1
+        } else if (num === 2) {
+          this.page1 = this.page1 + 1
+        }
+        this.$axios.get('/data/paper/fuzzytitle',
+          {
+            params: {
+              page: this.page1,
+              key: this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber1 = res.data.data.length
+          this.papers = res.data.data
+        }).catch((failResponse) => {
+          this.page1 = this.page1 - 1
+          this.shownext1 = false
+        });
+
+      },
+
+      search2(num) {
+        this.showwhat = 2
+        if (num === 1) {
+          this.shownext2 = true
+          this.page2 = this.page2 - 1
+        } else if (num === 2) {
+          this.page2 = this.page2 + 1
+        }
+        this.$axios.get('/api/fuzzysearchpatent',
+          {
+            params: {
+              page: this.page2,
+              key: this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber2 = res.data.data.length
+          this.patents = res.data.data
+        }).catch((failResponse) => {
+          this.page2 = this.page2 - 1
+          this.shownext2 = false
+        });
+      },
+
+      search3(num) {
+        this.showwhat = 3
+        if (num === 1) {
+          this.shownext3 = true
+          this.page3 = this.page3 - 1
+        } else if (num === 2) {
+          this.page3 = this.page3 + 1
+        }
+        this.$axios.get('/api/fuzzysearchproject',
+          {
+            params:{
+              page:this.page3,
+              key:this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber3=res.data.data.length
+          this.projects=res.data.data
+        }).catch((failResponse) => {
+          this.page3=this.page3-1
+          this.shownext3=false
+        });
+      },
+
+      search4(num) {
+        this.showwhat = 4
+        if (num === 1) {
+          this.shownext4 = true
+          this.page4 = this.page4 - 1
+        } else if (num === 2) {
+          this.page4 = this.page4 + 1
+        }
+        this.$axios.get('/api/fuzzysearchpatent',
+          {
+            params:{
+              page:this.page4,
+              key:this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber4=res.data.data.length
+          this.papers=res.data.data
+        }).catch((failResponse) => {
           this.page4=this.page4-1
-        }
-        else if(num===2){
-          this.page4=this.page4+1
-        }
-        const obj={
-          page:this.page4,
-          key:this.ruleform.texts.text1
-        }
-        this.$axios.get('http://localhost:9001/api/fuzzysearchpatent',obj).then((res) => {
-          this.patents=res.data.data
+          this.shownext4=false
         });
       },
 
-      search5(num){
-        this.showwhat=5
-        if(num===1){
+      search5(num) {
+        this.showwhat = 5
+        if (num === 1) {
+          this.shownext5 = true
+          this.page5 = this.page5 - 1
+        } else if (num === 2) {
+          this.page5 = this.page5 + 1
+        }
+        this.$axios.get('/data/paper/fuzzytitle',
+          {
+            params:{
+              page:this.page5,
+              key:this.ruleform.texts.text1
+            }
+          }
+        ).then((res) => {
+          this.itemnumber5=res.data.data.length
+          this.papers=res.data.data
+        }).catch((failResponse) => {
           this.page5=this.page5-1
-        }
-        else if(num===2){
-          this.page5=this.page5+1
-        }
-        const obj={
-          page:this.page5,
-          key:this.ruleform.texts.text1
-        }
-        this.$axios.get('http://localhost:9001/api/fuzzysearchpatent',obj).then((res) => {
-          this.patents=res.data.data
+          this.shownext5=false
         });
       },
 
@@ -696,42 +809,195 @@
     min-height: 40px;
   }
 
-  .page{
+  .page {
     width: 1200px;
     height: 45px;
     background: gainsboro;
   }
 
-  .pagea{
+  .pagea {
     width: 160px;
     margin-left: 540px;
     height: 35px;
     margin-top: 10px;
   }
 
-  .paper1{width: 460px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .paper2{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .paper3{width: 140px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .paper4{width: 110px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .paper5{width: 90px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .paper6{width: 90px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper1 {
+    width: 460px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
 
-  .patent1{width: 460px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .patent2{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .patent3{width: 140px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .patent4{width: 110px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .patent5{width: 90px;margin-top:15px;margin-bottom: 10px;:15px;margin-right:10px;word-break: break-all}
-  .patent6{width: 90px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper2 {
+    width: 160px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
 
-  .project1{width: 500px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .project2{width: 230px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .project3{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .project4{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper3 {
+    width: 140px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
 
-  .orgnization1{margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper4 {
+    width: 110px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
 
-  .scientist1{width: 350px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .scientist2{width: 350px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
-  .scientist3{width: 350px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper5 {
+    width: 90px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .paper6 {
+    width: 90px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .patent1 {
+    width: 460px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .patent2 {
+    width: 160px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .patent3 {
+    width: 140px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .patent4 {
+    width: 110px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .patent5 {
+    width: 90px;
+    margin-top: 15px;
+    margin-bottom: 10px;: 15 px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .patent6 {
+    width: 90px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .project1 {
+    width: 500px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .project2 {
+    width: 230px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .project3 {
+    width: 160px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .project4 {
+    width: 160px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .orgnization1 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .scientist1 {
+    width: 350px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .scientist2 {
+    width: 350px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
+
+  .scientist3 {
+    width: 350px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    word-break: break-all
+  }
 
 </style>

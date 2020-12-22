@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -68,10 +69,32 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            type: 'success',
-            message: '注册成功'
-          });
+          axios({
+            method:"post",
+            url:'http://106.14.12.11:8443/user/register/',
+            data:{'username':this.ruleForm.name,'password':this.ruleForm.pass,'email':this.ruleForm.email}
+          }).then(
+            response=>{
+              console.log(response);
+              if(response.data.code === 200)
+              {
+                this.$message({
+                  type: 'success',
+                  message: '注册成功'
+                });
+              }
+              else if(response.data.code === 400)
+              {
+                this.$message({
+                  type:'fail',
+                  message:'用户名已存在'
+                });
+              }
+            }
+          ).catch(error=>{
+            console.log(error);
+            return false;
+          })
         } else {
           console.log('error submit!!');
           return false;
