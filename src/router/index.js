@@ -13,7 +13,10 @@ import RePassword from "../components/RePassword";
 import SciAchieveShow from "../components/SciAchieveShow";
 import SearchResult from "../components/SearchResult";
 import Edit from "../components/Edit";
-import Test from '@/components/Test'
+import Test from '@/components/Test';
+import Paper from '../components/Paper'
+import Patent from '../components/Patent'
+import Achivement from '../components/Achivement'
 
 
 export default new Router({
@@ -99,6 +102,21 @@ export default new Router({
       path: '/test',
       name: 'Test',
       component: Test
+    },
+    {
+      path: '/paper',
+      name: 'Paper',
+      component: Paper
+    },
+    {
+      path: '/patent',
+      name: 'Patent',
+      component: Patent
+    },
+    {
+      path: '/achivement',
+      name: 'Achivement',
+      component: Achivement
     }
   ]
 })
