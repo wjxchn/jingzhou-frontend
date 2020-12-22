@@ -18,7 +18,6 @@ import Paper from '../components/Paper'
 import Patent from '../components/Patent'
 import Achivement from '../components/Achivement'
 
-
 export default new Router({
   mode: 'history',
   routes: [
