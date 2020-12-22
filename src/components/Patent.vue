@@ -121,7 +121,7 @@ export default {
   methods: {
     getdata(patentid) {
       this.$axios
-        .get("http://localhost:8081//api/getpatent/{id}", {
+        .get("/api/getpatent/{id}", {
           params: {
             id: patentid,
           },

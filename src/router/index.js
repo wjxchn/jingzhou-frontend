@@ -6,11 +6,11 @@ import HomePage from "../components/HomePage";
 import InfoManage from "../components/InfoManage";
 import Login from "../components/Login";
 import Message from "../components/Message";
-import PaperShow from "../components/PaperShow";
+// import PaperShow from "../components/PaperShow";
 import PersonalPage from "../components/PersonalPage";
 import Register from "../components/Register";
 import RePassword from "../components/RePassword";
-import SciAchieveShow from "../components/SciAchieveShow";
+// import SciAchieveShow from "../components/SciAchieveShow";
 import SearchResult from "../components/SearchResult";
 import Edit from "../components/Edit";
 import Test from '@/components/Test';
@@ -52,16 +52,16 @@ export default new Router({
       name: 'Message',
       component: Message
     },
-    {
-      path: '/paper/:paperId',
-      name: 'PaperShow',
-      component: PaperShow
-    },
-    {
-      path: '/patent/:patentId',
-      name: 'PatentShow',
-      component: PaperShow
-    },
+    // {
+    //   path: '/paper/:paperId',
+    //   name: 'PaperShow',
+    //   component: PaperShow
+    // },
+    // {
+    //   path: '/patent/:patentId',
+    //   name: 'PatentShow',
+    //   component: PaperShow
+    // },
     {
       path: '/personalpage',
       name: 'PersonalPage',
@@ -77,11 +77,11 @@ export default new Router({
       name: 'RePassword',
       component: RePassword
     },
-    {
-      path: '/sciachieve/:sciachieveid',
-      name: 'SciAchieveShow',
-      component: SciAchieveShow
-    },
+    // {
+    //   path: '/sciachieve/:sciachieveid',
+    //   name: 'SciAchieveShow',
+    //   component: SciAchieveShow
+    // },
     {
       path: '/searchresult',
       name: 'SearchResult',
@@ -103,17 +103,17 @@ export default new Router({
       component: Test
     },
     {
-      path: '/paper',
+      path: '/paper/:paperid',
       name: 'Paper',
       component: Paper
     },
     {
-      path: '/patent',
+      path: '/patent/:patentid',
       name: 'Patent',
       component: Patent
     },
     {
-      path: '/achivement',
+      path: '/achivement/:achivementid',
       name: 'Achivement',
       component: Achivement
     }
