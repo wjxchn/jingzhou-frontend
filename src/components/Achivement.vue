@@ -69,7 +69,7 @@
   </div>
 </template>
 
-<<script>
+<script>
 export default {
   name: "achivement",
   data() {
