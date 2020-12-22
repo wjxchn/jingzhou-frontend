@@ -197,7 +197,7 @@
                 console.log(error)
                 alert('是否关注出现错误')
                 this.$router.go(0)
-            })  
+            });
             axios({
                 method: 'post',
                 url: 'http://localhost:8000/api/getpersonalinfo/',
@@ -208,15 +208,15 @@
                 this.introduction = response.user.introduction,  //个人简介
                 this.name = response.user.name,   //真实姓名
                 this.organization = response.user.organization,   //组织（学校或研究所等）
-                this.papers = response.user.papers  //发表论文数
-                this.fields = response.user.fields,  //研究领域
+                this.papers = response.user.papers,  //发表论文数
+                this.fields = response.user.fields  //研究领域
 
             })
             .catch(error => {
                 console.log(error)
                 alert('是否关注出现错误')
                 this.$router.go(0)
-            })  
+            })
         }, 
     }
     
