@@ -6,7 +6,7 @@
       </div>
       <div class="op">
         <!-- <i class="el-icon-star-off" style="margin-right: 10px"></i> -->
-        <i class="el-icon-download" style="margin-right: 10px"></i>
+        <!-- <i class="el-icon-download" style="margin-right: 10px"></i> -->
         <i class="el-icon-share" style="margin-right: 10px"></i>
         <!-- <div>收藏 下载 转发</div> -->
       </div>
@@ -121,33 +121,31 @@ export default {
   methods: {
     getdata(patentid) {
       this.$axios
-        .get("/api/getpatent/{id}", {
+        .get("/api/api/getpatent/" + patentid, {
           params: {
-            id: patentid,
+            // id: patentid,
           },
         })
         .then((res) => {
-          this.title = res.patentname;
-          this.type = res.type;
-          this.appcode = res.patentnumber;
-          this.apptime = res.appdate;
-          this.authcode = res.pubnumber;
-          this.authtime = res.pubdate;
-          this.apper = res.applicant;
-          this.inventor = res.inventor;
-          this.appaddr = res.address;
-          this.class = res.classification;
-          this.mclass = res.mainclassification;
-          this.provcode = res.provincecode;
-        //   this.pages = res.pages;
-          this.agentorg = res.agentpeople;
-          this.agent = res.agentinstitution;
-          this.claim = res.force;
-          this.abs = res.abstractcontent;
+          this.title = res.data.patentname;
+          this.type = res.data.type;
+          this.appcode = res.data.patentnumber;
+          this.apptime = res.data.appdate;
+          this.authcode = res.data.pubnumber;
+          this.authtime = res.data.pubdate;
+          this.apper = res.data.applicant;
+          this.inventor = res.data.inventor;
+          this.appaddr = res.data.address;
+          this.class = res.data.classification;
+          this.mclass = res.data.mainclassification;
+          this.provcode = res.data.provincecode;
+        //   this.pages = res.data.pages;
+          this.agentorg = res.data.agentpeople;
+          this.agent = res.data.agentinstitution;
+          this.claim = res.data.force;
+          this.abs = res.data.abstractcontent;
         });
     },
-    download() {},
-    share() {},
   },
   mounted() {
     var patentid = $router.query.patentid;
@@ -193,7 +191,7 @@ export default {
 .title {
   /* background-color: wheat; */
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   margin: 30px 0 12px 0;
 }
 .s-item {
