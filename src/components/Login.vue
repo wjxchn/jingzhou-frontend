@@ -74,7 +74,7 @@
 <script>
 import register from '@/components/Register';
 import qs from "qs";
-
+import axios from "axios";
 
 export default {
   name: "forgetpwd",
@@ -139,7 +139,6 @@ export default {
   },
 
   methods: {
-
     //选项卡切换
     handleClick(tab, event) {},
     //重置表单
@@ -150,15 +149,32 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message({
-            type: 'success',
-            message: '登录成功'
+          axios({
+            method:"post",
+            url:'http://106.14.12.11:8443/user/login/',
+            data:{'username':this.ruleForm.name,'password':this.ruleForm.pass}
+          }).then(response=>{
+            console.log(response);
+            if(response.data.code === 200)
+            {
+              this.$message({
+                type: 'success',
+                message: '登录成功'
+              });
+              this.$router.push('home');
+            }
+            else if (response.data.code === 400)
+            {
+              console.log('error submit!!');
+              return false;
+            }
+          }).catch(error=>{
+            console.log(error);
           });
-          this.$router.push('home');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
+      } else{
+        alert("登陆失败");
+        return false;
+      }
       });
     },
 
