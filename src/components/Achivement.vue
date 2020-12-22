@@ -91,7 +91,7 @@ export default {
   methods: {
     getdata(achivementid) {
       this.$axios
-      .get("http://localhost:8081//api/getproject/{id}",{
+      .get("/api/getproject/{id}",{
           params: {
             id: achivementid,
           }

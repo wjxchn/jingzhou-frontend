@@ -53,7 +53,7 @@ export default {
   methods: {
     getdata(paperid) {
       this.$axios
-        .get("http://localhost:8081/data/paper/id",{
+        .get("/data/paper/id",{
           params: {
             id: paperid,
           }
