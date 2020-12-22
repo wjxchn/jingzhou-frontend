@@ -113,7 +113,7 @@
         </el-col>
 
         <el-col class="col1">
-          <el-button class="searchbutton" type="primary" @click="submitform('ruleform')">检索</el-button>
+          <el-button class="searchbutton" type="primary" @click="search1(0)">检索</el-button>
         </el-col>
 
       </el-form>
@@ -127,43 +127,167 @@
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-menu-item index="1" class="lablea-1">
+        <el-menu-item index="1" class="lablea-1" @click="search1(0)">
           <div class="labela-2">学术论文</div>
         </el-menu-item>
-        <el-menu-item index="2" class="lablea-1">
+        <el-menu-item index="2" class="lablea-1" @click="search2(0)">
           <div class="labela-2">专利</div>
         </el-menu-item>
-        <el-menu-item index="3" class="lablea-1">
+        <el-menu-item index="3" class="lablea-1" @click="search3(0)">
           <div class="labela-2">科研成果</div>
         </el-menu-item>
-        <el-menu-item index="4" class="lablea-1">
+        <el-menu-item index="4" class="lablea-1" @click="search4(0)">
           <div class="labela-2">科研人员</div>
         </el-menu-item>
-        <el-menu-item index="5" class="lablea-1">
+        <el-menu-item index="5" class="lablea-1" @click="search5(0)">
           <div class="labela-2">科研机构</div>
         </el-menu-item>
       </el-menu>
     </el-row>
 
     <div v-if="showwhat===1" class="lableb">
-      <div v-for="i in itemnumber">
+      <el-row class="lableitem">
+        <el-col class="paper1">题名</el-col>
+        <el-col class="paper2">作者</el-col>
+        <el-col class="paper3">来源</el-col>
+        <el-col class="paper4">发表时间</el-col>
+        <el-col class="paper5">被引</el-col>
+        <el-col class="paper6">下载</el-col>
+      </el-row>
+      <div v-for="i in itemnumber1">
         <el-row v-if="i%2===1" class="itemsingle">
           <el-col class="paper1">{{papers[i-1].title}}</el-col>
-          <el-col class="paper2">{{papers[i-1].authorname}}</el-col>
-          <el-col class="paper3">{{papers[i-1].authororg}}</el-col>
-          <el-col class="paper4">{{papers[i-1].time}}</el-col>
-          <el-col class="paper5">{{papers[i-1].publisher}}</el-col>
+          <el-col class="paper2">{{papers[i-1].authors}}</el-col>
+          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
+          <el-col class="paper4">{{papers[i-1].year}}</el-col>
+          <el-col class="paper5">{{papers[i-1].used}}</el-col>
           <el-col class="paper6">{{papers[i-1].downloadtime}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
           <el-col class="paper1">{{papers[i-1].title}}</el-col>
-          <el-col class="paper2">{{papers[i-1].authorname}}</el-col>
-          <el-col class="paper3">{{papers[i-1].authororg}}</el-col>
-          <el-col class="paper4">{{papers[i-1].time}}</el-col>
-          <el-col class="paper5">{{papers[i-1].publisher}}</el-col>
+          <el-col class="paper2">{{papers[i-1].authors}}</el-col>
+          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
+          <el-col class="paper4">{{papers[i-1].year}}</el-col>
+          <el-col class="paper5">{{papers[i-1].used}}</el-col>
           <el-col class="paper6">{{papers[i-1].downloadtime}}</el-col>
         </el-row>
       </div>
+      <el-row class="page">
+        <div class="pagea">
+          <el-link :disabled="page1<2" @click="search1(1)" >上一页</el-link>
+          <el-link @click="search1(2)">下一页</el-link>
+        </div>
+      </el-row>
+    </div>
+
+    <div v-if="showwhat===2" class="lableb">
+      <el-row class="lableitem">
+        <el-col class="patent1">专利名称</el-col>
+        <el-col class="patent2">发明人</el-col>
+        <el-col class="patent3">专利类型</el-col>
+        <el-col class="patent4">申请人</el-col>
+        <el-col class="patent5">申请日</el-col>
+        <el-col class="paper6">公开日</el-col>
+      </el-row>
+      <div v-for="i in itemnumber2">
+        <el-row v-if="i%2===1" class="itemsingle">
+          <el-col class="patent1">{{patents[i-1].patentname}}</el-col>
+          <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
+          <el-col class="patent3">{{patents[i-1].type}}</el-col>
+          <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
+          <el-col class="patent5">{{patents[i-1].appdate}}</el-col>
+          <el-col class="paper6">{{patents[i-1].pubdate}}</el-col>
+        </el-row>
+        <el-row v-else-if="i%2===0" class="itemdouble">
+          <el-col class="patent1">{{patents[i-1].patentname}}</el-col>
+          <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
+          <el-col class="patent3">{{patents[i-1].type}}</el-col>
+          <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
+          <el-col class="patent5">{{patents[i-1].appdate}}</el-col>
+          <el-col class="patent6">{{patents[i-1].pubdate}}</el-col>
+        </el-row>
+      </div>
+      <el-row class="page">
+        <div class="pagea">
+          <el-link :disabled="page2<2" @click="search2(1)" >上一页</el-link>
+          <el-link @click="search2(2)">下一页</el-link>
+        </div>
+      </el-row>
+    </div>
+
+    <div v-if="showwhat===3" class="lableb">
+      <el-row class="lableitem">
+        <el-col class="project1">成果名称</el-col>
+        <el-col class="project2">成果完成人</el-col>
+        <el-col class="project3">第一完成单位</el-col>
+        <el-col class="project4">完成时间</el-col>
+      </el-row>
+      <div v-for="i in itemnumber3">
+        <el-row v-if="i%2===1" class="itemsingle">
+          <el-col class="project1">{{projects[i-1].title}}</el-col>
+          <el-col class="project2">{{projects[i-1].researcher}}</el-col>
+          <el-col class="project3">{{projects[i-1].institution}}</el-col>
+          <el-col class="project4">{{projects[i-1].finishtime}}</el-col>
+        </el-row>
+        <el-row v-else-if="i%2===0" class="itemdouble">
+          <el-col class="project1">{{projects[i-1].title}}</el-col>
+          <el-col class="project2">{{projects[i-1].researcher}}</el-col>
+          <el-col class="project3">{{projects[i-1].institution}}</el-col>
+          <el-col class="project4">{{projects[i-1].finishtime}}</el-col>
+        </el-row>
+      </div>
+      <el-row class="page">
+        <div class="pagea">
+          <el-link :disabled="page3<2" @click="search3(1)" >上一页</el-link>
+          <el-link @click="search3(2)">下一页</el-link>
+        </div>
+      </el-row>
+    </div>
+
+    <div v-if="showwhat===5" class="lableb">
+      <el-row class="lableitem">
+        <el-col class="orgnization1">机构名称</el-col>
+      </el-row>
+      <div v-for="i in itemnumber4">
+        <el-row v-if="i%2===1" class="itemsingle">
+          <el-col class="orgnization1">{{organizations[i-1].name}}</el-col>
+        </el-row>
+        <el-row v-else-if="i%2===0" class="itemdouble">
+          <el-col class="orgnization1">{{organizations[i-1].name}}</el-col>
+        </el-row>
+      </div>
+      <el-row class="page">
+        <div class="pagea">
+          <el-link :disabled="page5<2" @click="search5(1)" >上一页</el-link>
+          <el-link @click="search5(2)">下一页</el-link>
+        </div>
+      </el-row>
+    </div>
+
+    <div v-if="showwhat===4" class="lableb">
+      <el-row class="lableitem">
+        <el-col class="scientist1">姓名</el-col>
+        <el-col class="scientist2">单位</el-col>
+        <el-col class="scientist3">研究领域</el-col>
+      </el-row>
+      <div v-for="i in itemnumber5">
+        <el-row v-if="i%2===1" class="itemsingle">
+          <el-col class="scientist1">{{scientists[i-1].name}}</el-col>
+          <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
+          <el-col class="scientist3">{{scientists[i-1].area}}</el-col>
+        </el-row>
+        <el-row v-else-if="i%2===0" class="itemdouble">
+          <el-col class="scientist1">{{scientists[i-1].name}}</el-col>
+          <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
+          <el-col class="scientist3">{{scientists[i-1].area}}</el-col>
+        </el-row>
+      </div>
+      <el-row class="page">
+        <div class="pagea">
+          <el-link :disabled="page4<2" @click="search4(1)" >上一页</el-link>
+          <el-link @click="search4(2)">下一页</el-link>
+        </div>
+      </el-row>
     </div>
 
   </div>
@@ -175,6 +299,7 @@
     data() {
       return {
         ruleform: {
+          iconnumber: 1,
           texts: {
             text1: "",
             text2: "",
@@ -211,7 +336,7 @@
           iconshow3: false,
           iconshow4: false,
         },
-        iconnumber: 1,
+
         options: [{
           value: '选项1',
           label: '主题'
@@ -244,22 +369,32 @@
 
         showwhat: 1,
 
-        itemnumber: 2,
+        itemnumber1: 1,
+        itemnumber2: 1,
+        itemnumber3: 1,
+        itemnumber4: 1,
+        itemnumber5: 1,
+
+        page1:1,
+        page2:1,
+        page3:1,
+        page4:1,
+        page5:1,
 
         papers: [
           {
-            title: "dsdsfjskdhfjdkshfkjhkjhk",
-            authorname: "ddfsdf",
-            authororg: "fsdfds",
-            time: "2020-0202",
+            title: "负担坑金龙单反",
+            authors: "ddfsdfsjhvf",
+            used: "fsdfds",
+            year: "2020-0202",
             publisher: "dsddas",
             downloadtime: 56
           },
           {
             title: "dsdsvcxjvoxcivjcoxijvoicjv",
             authorname: "ddfsdf",
-            authororg: "fsdfds",
-            time: "2020-0202",
+            used: "fsdfds",
+            year: "2020-0202",
             publisher: "dsddas",
             downloadtime: 56
           },
@@ -303,7 +438,7 @@
     },
     methods: {
       plus(num) {
-        this.iconnumber = this.iconnumber + 1
+        this.ruleform.iconnumber = this.ruleform.iconnumber + 1
         if (num === 1) {
           this.shows.show2 = true
           this.iconshows.iconshow2 = true
@@ -345,26 +480,107 @@
           this.ruleform.values.value5 = "主题"
           this.ruleform.texts.text5 = ""
         }
-        if (this.iconnumber === 5) {
+        if (this.ruleform.iconnumber === 5) {
           this.iconshows.iconshow4 = true
           this.shows.show5 = false
-        } else if (this.iconnumber === 4) {
+        } else if (this.ruleform.iconnumber === 4) {
           this.iconshows.iconshow3 = true
           this.shows.show4 = false
-        } else if (this.iconnumber === 3) {
+        } else if (this.ruleform.iconnumber === 3) {
           this.iconshows.iconshow2 = true
           this.shows.show3 = false
-        } else if (this.iconnumber === 2) {
+        } else if (this.ruleform.iconnumber === 2) {
           this.iconshows.iconshow1 = true
           this.shows.show2 = false
         }
-        this.iconnumber = this.iconnumber - 1
+        this.ruleform.iconnumber = this.ruleform.iconnumber - 1
       },
-      submitform(formName) {
+
+      search1(num){
+        this.showwhat=1
+        if(num===1){
+          this.page1=this.page1-1
+        }
+        else if(num===2){
+          this.page1=this.page1+1
+        }
+        const obj={
+          page:this.page1,
+          key:this.ruleform.texts.text1
+        }
+        this.$axios.get('http://localhost:9001/data/paper/fuzzytitle',obj).then((res) => {
+          this.papers=res.data.data
+        });
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+
+      search2(num){
+        this.showwhat=2
+        if(num===1){
+          this.page2=this.page2-1
+        }
+        else if(num===2){
+          this.page2=this.page2+1
+        }
+        const obj={
+          page:this.page2,
+          key:this.ruleform.texts.text1
+        }
+        this.$axios.get('http://localhost:9001/api/fuzzysearchpatent',obj).then((res) => {
+          this.patents=res.data.data
+        });
+      },
+
+      search3(num){
+        this.showwhat=3
+        if(num===1){
+          this.page3=this.page3-1
+        }
+        else if(num===2){
+          this.page3=this.page3+1
+        }
+        const obj={
+          page:this.page3,
+          key:this.ruleform.texts.text1
+        }
+        this.$axios.get('http://localhost:9001/api/fuzzysearchproject',obj).then((res) => {
+          this.projects=res.data.data
+        });
+      },
+
+      search4(num){
+        this.showwhat=4
+        if(num===1){
+          this.page4=this.page4-1
+        }
+        else if(num===2){
+          this.page4=this.page4+1
+        }
+        const obj={
+          page:this.page4,
+          key:this.ruleform.texts.text1
+        }
+        this.$axios.get('http://localhost:9001/api/fuzzysearchpatent',obj).then((res) => {
+          this.patents=res.data.data
+        });
+      },
+
+      search5(num){
+        this.showwhat=5
+        if(num===1){
+          this.page5=this.page5-1
+        }
+        else if(num===2){
+          this.page5=this.page5+1
+        }
+        const obj={
+          page:this.page5,
+          key:this.ruleform.texts.text1
+        }
+        this.$axios.get('http://localhost:9001/api/fuzzysearchpatent',obj).then((res) => {
+          this.patents=res.data.data
+        });
+      },
+
     },
   }
 </script>
@@ -456,23 +672,66 @@
     margin-right: auto;
   }
 
+  .lableitem {
+    display: flex;
+    align-items: center;
+    width: 1200px;
+    height: 30px;
+    background: grey;
+  }
+
   .itemsingle {
+    display: flex;
+    align-items: center;
     width: 1200px;
     min-height: 40px;
     background: ghostwhite;
   }
 
   .itemdouble {
+    display: flex;
+    align-items: center;
     width: 1200px;
     background: white;
     min-height: 40px;
   }
 
-  .paper1{width: 500px;margin-top:10px;text-align: center;word-break: break-all}
-  .paper2{width: 150px;text-align: center;word-break: break-all}
-  .paper3{width: 180px;text-align: center;word-break: break-all}
-  .paper4{width: 120px;text-align: center;word-break: break-all}
-  .paper5{width: 90px;text-align: center;word-break: break-all}
-  .paper6{width: 90px;text-align: center;word-break: break-all}
+  .page{
+    width: 1200px;
+    height: 45px;
+    background: gainsboro;
+  }
+
+  .pagea{
+    width: 160px;
+    margin-left: 540px;
+    height: 35px;
+    margin-top: 10px;
+  }
+
+  .paper1{width: 460px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper2{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper3{width: 140px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper4{width: 110px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper5{width: 90px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .paper6{width: 90px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+
+  .patent1{width: 460px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .patent2{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .patent3{width: 140px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .patent4{width: 110px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .patent5{width: 90px;margin-top:15px;margin-bottom: 10px;:15px;margin-right:10px;word-break: break-all}
+  .patent6{width: 90px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+
+  .project1{width: 500px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .project2{width: 230px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .project3{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .project4{width: 160px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+
+  .orgnization1{margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+
+  .scientist1{width: 350px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .scientist2{width: 350px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
+  .scientist3{width: 350px;margin-top:15px;margin-bottom: 10px;margin-left:15px;margin-right:10px;word-break: break-all}
 
 </style>
