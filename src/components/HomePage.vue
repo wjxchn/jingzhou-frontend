@@ -1,19 +1,11 @@
 <template>
   <div>
     <el-row class="addspace">
-      <el-form :inline="true" :model="ruleform" status-icon :rules="rules" ref="ruleform"
+      <el-form :inline="true" :model="text" status-icon ref="text"
                class="demo-ruleForm">
 
-        <el-col class="col" v-if="shows.show1">
-          <el-select class="bind0" v-model="ruleform.binds.bind1" placeholder="AND">
-            <el-option
-              v-for="item in bindoptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-select class="select" v-model="ruleform.values.value1" placeholder="主题">
+        <el-col class="col">
+          <el-select class="select" v-model="value" placeholder="标题">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -21,95 +13,7 @@
               :value="item.label">
             </el-option>
           </el-select>
-          <el-input class="content" type="text" maxlength="25" v-model="ruleform.texts.text1"></el-input>
-          <el-button class="plus" v-if="iconshows.iconshow1" plain @click="plus(1)">添加</el-button>
-        </el-col>
-
-        <el-col class="col" v-if="shows.show2">
-          <el-select class="bind" v-model="ruleform.binds.bind2" placeholder="AND">
-            <el-option
-              v-for="item in bindoptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-select class="select" v-model="ruleform.values.value2" placeholder="主题">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-input class="content" type="text" maxlength="25" v-model="ruleform.texts.text2"></el-input>
-          <el-button plain @click="minus(2)">删除</el-button>
-          <el-button class="plus" v-if="iconshows.iconshow2" plain @click="plus(2)">添加</el-button>
-        </el-col>
-
-        <el-col class="col" v-if="shows.show3">
-          <el-select class="bind" v-model="ruleform.binds.bind3" placeholder="AND">
-            <el-option
-              v-for="item in bindoptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-select class="select" v-model="ruleform.values.value3" placeholder="主题">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-input class="content" type="text" maxlength="25" v-model="ruleform.texts.text3"></el-input>
-          <el-button plain @click="minus(3)">删除</el-button>
-          <el-button class="plus" v-if="iconshows.iconshow3" plain @click="plus(3)">添加</el-button>
-        </el-col>
-
-        <el-col class="col" v-if="shows.show4">
-          <el-select class="bind" v-model="ruleform.binds.bind4" placeholder="AND">
-            <el-option
-              v-for="item in bindoptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-select class="select" v-model="ruleform.values.value4" placeholder="主题">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-input class="content" type="text" maxlength="25" v-model="ruleform.texts.text4"></el-input>
-          <el-button plain @click="minus(4)">删除</el-button>
-          <el-button class="plus" v-if="iconshows.iconshow4" plain @click="plus(4)">添加</el-button>
-        </el-col>
-
-        <el-col class="col" v-if="shows.show5">
-          <el-select class="bind" v-model="ruleform.binds.bind5" placeholder="AND">
-            <el-option
-              v-for="item in bindoptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-select class="select" v-model="ruleform.values.value5" placeholder="主题">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-            </el-option>
-          </el-select>
-          <el-input class="content" type="text" maxlength="25" v-model="ruleform.texts.text"></el-input>
-          <el-button plain @click="minus(5)">删除</el-button>
+          <el-input class="content" type="text" maxlength="25" v-model="text"></el-input>
         </el-col>
 
         <el-col class="col1">
@@ -155,16 +59,16 @@
       </el-row>
       <div v-for="i in itemnumber1">
         <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="paper1"><router-link :to="{name: 'home',params:{paperId:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
-          <el-col class="paper2">{{papers[i-1].authors}}</el-col>
-          <el-col class="paper3">{{papers[i-1].venue.raw}}</el-col>
+          <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
+<!--          <el-col class="paper2">{{papers[i-1].authors}}</el-col>-->
+          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
           <el-col class="paper4">{{papers[i-1].year}}</el-col>
           <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
         </el-row>
         <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="paper1"><router-link :to="{name: 'home',params:{paperId:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
-          <el-col class="paper2">{{papers[i-1].authors}}</el-col>
-          <el-col class="paper3">{{papers[i-1].venue.raw}}</el-col>
+          <el-col class="paper1"><router-link :to="{name: 'home',query:{paperId:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
+<!--          <el-col class="paper2">{{papers[i-1].authors}}</el-col>-->
+          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
           <el-col class="paper4">{{papers[i-1].year}}</el-col>
           <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
         </el-row>
@@ -295,73 +199,22 @@
     name: "HomePage.vue",
     data() {
       return {
-        ruleform: {
-          iconnumber: 1,
-          texts: {
-            text1: "",
-            text2: "",
-            text3: "",
-            text4: "",
-            text5: ""
-          },
-          values: {
-            value1: "主题",
-            value2: "主题",
-            value3: "主题",
-            value4: "主题",
-            value5: "主题",
-          },
-          binds: {
-            bind1: "AND",
-            bind2: "AND",
-            bind3: "AND",
-            bind4: "AND",
-            bind5: "AND",
-          },
-        },
-        rules: {},
-        shows: {
-          show1: true,
-          show2: false,
-          show3: false,
-          show4: false,
-          show5: false
-        },
-        iconshows: {
-          iconshow1: true,
-          iconshow2: false,
-          iconshow3: false,
-          iconshow4: false,
-        },
+        text:"",
+
+        value:"",
 
         options: [{
           value: '选项1',
-          label: '主题'
+          label: '标题'
         }, {
           value: '选项2',
           label: '关键词'
         }, {
           value: '选项3',
-          label: '作者'
+          label: '科研人员'
         }, {
           value: '选项4',
-          label: '作者单位'
-        }, {
-          value: '选项5',
-          label: 'DOI'
-        }, {
-          value: '选项6',
-          label: '摘要'
-        }],
-        bindoptions: [{
-          value: '选项1',
-          label: 'AND'
-        }, {
-          value: '选项2',
-          label: 'OR'
-        }, {
-          value: '选项3',
-          label: 'NOT'
+          label: '科研机构'
         }],
 
         showwhat: 1,
@@ -389,9 +242,7 @@
             id:1,
             title: "负担坑金龙单反",
             authors: "ddfsdfsjhvf",
-            venue:{
-              raw:"ddscd"
-            },
+            publisher:"dsd",
             year: "2020-0202",
             n_citation: "dsddas",
           },
@@ -437,140 +288,82 @@
       };
     },
     methods: {
-      plus(num) {
-        this.ruleform.iconnumber = this.ruleform.iconnumber + 1
-        if (num === 1) {
-          this.shows.show2 = true
-          this.iconshows.iconshow2 = true
-          this.iconshows.iconshow1 = false
-        }
-        if (num === 2) {
-          this.shows.show3 = true
-          this.iconshows.iconshow3 = true
-          this.iconshows.iconshow2 = false
-        }
-        if (num === 3) {
-          this.shows.show4 = true
-          this.iconshows.iconshow4 = true
-          this.iconshows.iconshow3 = false
-        }
-        if (num === 4) {
-          this.shows.show5 = true
-          this.iconshows.iconshow4 = false
-        }
-      },
-      minus(num) {
-        if (num < 3) {
-          this.ruleform.binds.bind2 = this.ruleform.binds.bind3
-          this.ruleform.values.value2 = this.ruleform.values.value3
-          this.ruleform.texts.text2 = this.ruleform.texts.text3
-        }
-        if (num < 4) {
-          this.ruleform.binds.bind3 = this.ruleform.binds.bind4
-          this.ruleform.values.value3 = this.ruleform.values.value4
-          this.ruleform.texts.text3 = this.ruleform.texts.text4
-        }
-        if (num < 5) {
-          this.ruleform.binds.bind4 = this.ruleform.binds.bind5
-          this.ruleform.values.value4 = this.ruleform.values.value5
-          this.ruleform.texts.text4 = this.ruleform.texts.text5
-        }
-        if (num < 6) {
-          this.ruleform.binds.bind5 = "AND"
-          this.ruleform.values.value5 = "主题"
-          this.ruleform.texts.text5 = ""
-        }
-        if (this.ruleform.iconnumber === 5) {
-          this.iconshows.iconshow4 = true
-          this.shows.show5 = false
-        } else if (this.ruleform.iconnumber === 4) {
-          this.iconshows.iconshow3 = true
-          this.shows.show4 = false
-        } else if (this.ruleform.iconnumber === 3) {
-          this.iconshows.iconshow2 = true
-          this.shows.show3 = false
-        } else if (this.ruleform.iconnumber === 2) {
-          this.iconshows.iconshow1 = true
-          this.shows.show2 = false
-        }
-        this.ruleform.iconnumber = this.ruleform.iconnumber - 1
-      },
-
       show(num) {
         this.showwhat = num
       },
 
       search() {
-        this.$axios.get('/data/paper/fuzzytitle',
+        this.$axios.get('/api/data/paper/fuzzytitle',
           {
             params: {
-              page: this.page1,
-              key: this.ruleform.texts.text1
+              pagenum: this.page1,
+              title: this.text
             }
           }
         ).then((res) => {
-          this.itemnumber1 = res.data.data.length
-          this.papers = res.data.data
+          console.log(res)
+          this.itemnumber1 = res.data.length
+          this.papers = res.data
         }).catch((failResponse) => {
           this.itemnumber1=0
           this.shownext1 = false
         });
-        this.$axios.get('/api/fuzzysearchpatent',
-          {
-            params: {
-              page: this.page2,
-              key: this.ruleform.texts.text1
-            }
-          }
-        ).then((res) => {
-          this.itemnumber2 = res.data.data.length
-          this.patents = res.data.data
-        }).catch((failResponse) => {
-          this.itemnumber2=0
-          this.shownext2 = false
-        });
-        this.$axios.get('/api/fuzzysearchproject',
-          {
-            params:{
-              page:this.page3,
-              key:this.ruleform.texts.text1
-            }
-          }
-        ).then((res) => {
-          this.itemnumber3=res.data.data.length
-          this.projects=res.data.data
-        }).catch((failResponse) => {
-          this.itemnumber3=0
-          this.shownext3=false
-        });
-        this.$axios.get('/api/fuzzysearchpatent',
-          {
-            params:{
-              page:this.page4,
-              key:this.ruleform.texts.text1
-            }
-          }
-        ).then((res) => {
-          this.itemnumber4=res.data.data.length
-          this.papers=res.data.data
-        }).catch((failResponse) => {
-          this.itemnumber4=0
-          this.shownext4=false
-        });
-        this.$axios.get('/data/paper/fuzzytitle',
-          {
-            params:{
-              page:this.page5,
-              key:this.ruleform.texts.text1
-            }
-          }
-        ).then((res) => {
-          this.itemnumber5=res.data.data.length
-          this.papers=res.data.data
-        }).catch((failResponse) => {
-          this.itemnumber5=0
-          this.shownext5=false
-        });
+        // this.$axios.get('/api/fuzzysearchpatent',
+        //   {
+        //     params: {
+        //       page: this.page2,
+        //       keywords: this.ruleform.texts.text1
+        //     }
+        //   }
+        // ).then((res) => {
+        //   this.itemnumber2 = res.data.data.length
+        //   this.patents = res.data.data
+        // }).catch((failResponse) => {
+        //   this.itemnumber2=0
+        //   this.shownext2 = false
+        // });
+        // this.$axios.get('/api/fuzzysearchproject',
+        //   {
+        //     params:{
+        //       page:this.page3,
+        //       key:this.ruleform.texts.text1
+        //     }
+        //   }
+        // ).then((res) => {
+        //   this.itemnumber3=res.data.data.length
+        //   this.projects=res.data.data
+        // }).catch((failResponse) => {
+        //   this.itemnumber3=0
+        //   this.shownext3=false
+        // });
+        // this.$axios.get('/api/fuzzysearchpatent',
+        //   {
+        //     params:{
+        //       page:this.page4,
+        //       key:this.ruleform.texts.text1
+        //     }
+        //   }
+        // ).then((res) => {
+        //   this.itemnumber4=res.data.data.length
+        //   this.papers=res.data.data
+        // }).catch((failResponse) => {
+        //   this.itemnumber4=0
+        //   this.shownext4=false
+        // });
+        // this.$axios.get('/data/paper/fuzzytitle',
+        //   {
+        //     params:{
+        //       page:this.page5,
+        //       key:this.ruleform.texts.text1
+        //     }
+        //   }
+        // ).then((res) => {
+        //   this.itemnumber5=res.data.data.length
+        //   this.papers=res.data.data
+        // }).catch((failResponse) => {
+        //   this.itemnumber5=0
+        //   this.shownext5=false
+        // });
       },
 
       search1(num) {
