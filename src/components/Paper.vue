@@ -149,7 +149,8 @@ export default {
   mounted() {
     const paperid = this.$route.query.paperid;
     // const paperid = "53a7258520f7420be8b514a9";
-    if(paperid === 1) {
+    // const paperid = '1';
+    if(paperid === '1') {
       alert('找不到论文信息');
     }
     else {
