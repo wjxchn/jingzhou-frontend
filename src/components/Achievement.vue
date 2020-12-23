@@ -113,7 +113,7 @@ export default {
     },
   },
   mounted() {
-    var achievementid = $router.query.achievementid;
+    var achievementid = this.$route.query.achievementid;
     getdata(achievementid);
   },
 };

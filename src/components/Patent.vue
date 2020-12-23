@@ -148,7 +148,7 @@ export default {
     },
   },
   mounted() {
-    var patentid = $router.query.patentid;
+    var patentid = this.$route.query.patentid;
     getdata(patentid);
   },
 };
