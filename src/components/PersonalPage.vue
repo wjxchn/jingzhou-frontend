@@ -87,6 +87,7 @@
             return{
                 
                 Author:{
+                    id:1,
                     avatar_src:require('../assets/avatar.png'),
                     name:"张三",
                     organization:"北京航空航天大学",
@@ -111,16 +112,66 @@
         methods:{
             changeFollowState(){
                 if(this.followed){
-                    this.followtext="关注";
-                    this.followicon="el-icon-plus";
+                    
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8000/api/cancelfollow/',
+                        data: {'followerid':localStorage.getItem('userid'), 'researcherid':this.id  /*this.$route.query.userid*/ } 
+                        })
+                        .then(response => {
+                            if(response.data.code===200){
+                                alert('取消关注成功')
+                                this.followtext="关注";
+                                this.followicon="el-icon-plus";
+                                this.Author.follows = this.Author.follows + (this.followed ? -1 : 1);
+                                this.followed = !this.followed;
+                            }
+                            else if(response.data.code===400){
+                                alert('取消关注失败')
+                            }
+                            else{
+                                alert('错误')
+                                this.$router.go(0)
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                            alert('取消关注出现错误')
+                            this.$router.go(0)
+                    })
                 }
                 else{
-                    this.followtext="已关注";
-                    this.followicon="el-icon-minus";
+                    
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8000/api/follow/',
+                        data: {'followerid':localStorage.getItem('userid'), 'researcherid':this.id /*this.$route.query.userid*/}
+                        })
+                        .then(response => {
+                            if(response.data.code===200){
+                                alert('关注成功')
+                                this.followtext="已关注";
+                                this.followicon="el-icon-minus";
+                                this.Author.follows = this.Author.follows + (this.followed ? -1 : 1);
+                                this.followed = !this.followed;
+                            }
+                            else if(response.data.code===400){
+                                alert('关注失败')
+                                this.$router.go(0)
+                            }
+                            else{
+                                alert('错误')
+                                this.$router.go(0)
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                            alert('关注出现错误')
+                            this.$router.go(0)
+                    })
 
                 }
-                this.Author.follows = this.Author.follows + (this.followed ? -1 : 1);
-                this.followed = !this.followed;
+                
             },
             changePersonalPageState(){
                 this.isPersonalPage = !this.isPersonalPage;
@@ -131,7 +182,42 @@
             toMessage(){
                 location.href = "/Message";
             }
-        }
+        },
+
+        created: function(){
+            axios({
+                method: 'post',
+                url: 'http://localhost:8000/api/isfollow/',
+                data: {'followerid':localStorage.getItem('userid'), 'reseacherid': this.$route.query.userid}
+            })
+            .then(response => {
+                this.followed = response.code ;
+            })
+            .catch(error => {
+                console.log(error)
+                alert('是否关注出现错误')
+                this.$router.go(0)
+            });
+            axios({
+                method: 'post',
+                url: 'http://localhost:8000/api/getpersonalinfo/',
+                data: {'userid':this.$route.query.userid}
+            })
+            .then(response => {
+                this.fans = response.user.fans,   //关注数
+                this.introduction = response.user.introduction,  //个人简介
+                this.name = response.user.name,   //真实姓名
+                this.organization = response.user.organization,   //组织（学校或研究所等）
+                this.papers = response.user.papers,  //发表论文数
+                this.fields = response.user.fields  //研究领域
+
+            })
+            .catch(error => {
+                console.log(error)
+                alert('是否关注出现错误')
+                this.$router.go(0)
+            })
+        }, 
     }
     
     

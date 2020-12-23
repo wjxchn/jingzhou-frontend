@@ -4,7 +4,7 @@
       <div class="tnp"></div>
       <div class="op">
         <!-- <i class="el-icon-star-off" style="margin-right: 10px"></i> -->
-        <i class="el-icon-download" style="margin-right: 10px"></i>
+        <!-- <i class="el-icon-download" style="margin-right: 10px"></i> -->
         <i class="el-icon-share" style="margin-right: 10px"></i>
         <!-- <div>收藏 下载 转发</div> -->
       </div>
@@ -71,7 +71,7 @@
 
 <script>
 export default {
-  name: "achivement",
+  name: "achievement",
   data() {
     return {
       title: "",
@@ -89,34 +89,32 @@ export default {
       };
   },
   methods: {
-    getdata(achivementid) {
+    getdata(achievementid) {
       this.$axios
-      .get("/api/getproject/{id}",{
+      .get("/api/api/getproject/" + achievementid,{
           params: {
-            id: achivementid,
+            // id: achievementid,
           }
         })
       .then((res) => {
-        this.title = res.projectname;
-        this.author = res.researcher;
-        this.authororg = res.institution;
-        this.kw = res.keywords;
-        this.clclass = res.booktype;
-        this.sciclass = res.subjecttype;
-        this.intro = res.briefintro;
-        this.type = res.type;
-        this.level = res.level;
-        this.timespan = res.startandfinishtime;
-        this.estim = res.eveluatetype;
-        this.time = res.intime;
+        this.title = res.data.projectname;
+        this.author = res.data.researcher;
+        this.authororg = res.data.institution;
+        this.kw = res.data.keywords;
+        this.clclass = res.data.booktype;
+        this.sciclass = res.data.subjecttype;
+        this.intro = res.data.briefintro;
+        this.type = res.data.type;
+        this.level = res.data.level;
+        this.timespan = res.data.startandfinishtime;
+        this.estim = res.data.eveluatetype;
+        this.time = res.data.intime;
       });
     },
-    download() {},
-    share() {},
   },
   mounted() {
-    var achivementid = $router.query.achivementid;
-    getdata(achivementtid);
+    var achievementid = $router.query.achievementid;
+    getdata(achievementid);
   },
 };
 </script>
@@ -158,7 +156,7 @@ export default {
 .title {
   /* background-color: wheat; */
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   margin: 30px 0 12px 0;
 }
 .s-item {

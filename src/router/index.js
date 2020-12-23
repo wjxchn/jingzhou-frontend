@@ -16,7 +16,7 @@ import Edit from "../components/Edit";
 import Test from '@/components/Test';
 import Paper from '../components/Paper'
 import Patent from '../components/Patent'
-import Achivement from '../components/Achivement'
+import achievement from '../components/achievement'
 
 export default new Router({
   mode: 'history',
@@ -103,19 +103,19 @@ export default new Router({
       component: Test
     },
     {
-      path: '/paper/:paperid',
+      path: '/paper',
       name: 'Paper',
       component: Paper
     },
     {
-      path: '/patent/:patentid',
+      path: '/patent',
       name: 'Patent',
       component: Patent
     },
     {
-      path: '/achivement/:achivementid',
-      name: 'Achivement',
-      component: Achivement
+      path: '/achievement',
+      name: 'achievement',
+      component: achievement
     }
   ]
 })

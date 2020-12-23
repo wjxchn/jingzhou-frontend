@@ -5,11 +5,15 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import axios from 'axios'
 
+<<<<<<< HEAD
 var axios = require('axios')
 //axios.defaults.baseURL = 'http://106.14.12.11:8443'
+=======
+>>>>>>> fcfcc397de383f428d499919cc3f46d015eab314
 Vue.prototype.$axios = axios
-
+// axios.defaults.baseURL = '/api'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */

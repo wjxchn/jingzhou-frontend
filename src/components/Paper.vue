@@ -2,26 +2,43 @@
   <div class="bg">
     <div class="info clearFix">
       <div class="tnp">
-        <div>刊于：{{this.venue}}</div>
-        <div>收录时间：{{this.time}}</div>
+        <div>刊于：{{ this.venue }}{{ this.volume }}{{ this.startpage }}{{ this.endpage }}</div>
+        <div>年份：{{ this.time }}</div>
       </div>
       <div class="op">
         <!-- <i class="el-icon-star-off" style="margin-right: 10px" @click="favor"></i> -->
-        <i class="el-icon-download" style="margin-right: 10px" @click="download"></i>
-        <i class="el-icon-share" style="margin-right: 10px" @click="share"></i>
+        <!-- <i class="el-icon-download" style="margin-right: 10px" @click="download"></i> -->
+        <a :href="this.url" :underline="false" target="_blank">
+          <el-tooltip effect="dark" content="原文链接" placement="bottom">
+            <i class="el-icon-share" style="margin-right: 10px"></i>
+            <!-- <el-button>下边</el-button> -->
+          </el-tooltip>
+        </a>
         <!-- <div>收藏 下载 转发</div> -->
       </div>
     </div>
-    <div class="title">{{this.title}}这是一个标题示例</div>
-    <div class="author"><div class="one" v-for="(a, i) in author" :key="i">{{a}}&nbsp;&nbsp;</div></div>
+    <div class="title">{{ this.title }}</div>
+    <div class="author">
+      <div class="one" v-for="(a, i) in author" :key="i">
+        {{ a }};&nbsp;&nbsp;
+      </div>
+    </div>
     <!-- <div class="org"><div class="one" v-for="(o, i) in org" :key="i">{{o}}&nbsp;&nbsp;</div></div> -->
     <div class="s-item">
+      <span style="font-weight: 600">语言：</span>
+      {{ this.lang }}
+    </div>
+    <div class="s-item">
+      <span style="font-weight: 600">被引数：</span>
+      {{ this.citation }}
+    </div>
+    <div class="s-item">
       <span style="font-weight: 600">摘要：</span>
-      {{this.abs}}
+      {{ this.abs }}
     </div>
     <div class="s-item">
       <span style="font-weight: 600">关键词：</span>
-      <div class="one" v-for="(k, i) in kw" :key="i">{{k}}；</div>
+      <div class="one" v-for="(k, i) in kw" :key="i">{{ k }};&nbsp;</div>
     </div>
     <!-- <div class="s-item">
         <span style="font-weight: 600">基金支持：</span>
@@ -41,40 +58,98 @@ export default {
   data() {
     return {
       title: "",
-      venue: "北大核心",
-      time: "2016-8-9",
-      author: ['张三','李四','王五'],
+      venue: "",
+      time: "",
+      author: [],
       // org: ['xx大学', 'xx公司'],
-      abs: "为开发一种从小龙虾壳生产几丁质的工艺，研究了电解水对小龙虾壳的脱矿物质和脱蛋白质作用，并分析了制备的几丁质的理化性质和结构。结果表明，用2%NaCl制备的酸性电解水和碱性电解水分别单独处理虾壳粉6h，矿物质和蛋白质脱除率分别为99.59%和91.31%。对虾壳粉进行酸性电解水和碱性电解水的联合连续处理（9h），所得几丁质的灰分和蛋白质含量分别为0.86%和1.31%。酸性电解水还具有良好的脱色作用。与传统无机酸碱法相比，电解水处理工艺制备的几丁质具有较低的特性黏度（368mL/g）、分子质量（85ku）和脱乙酰度（12.88%）。热重分析和差热分析、扫描电镜观察、傅里叶变换红外光谱和X射线衍射图谱的结果表明，电解水处理工艺和传统无机酸碱法制备的几丁质均呈网状多孔结构，均为α-几丁质，降解温度分别为382℃和389℃，结晶度指数分别为82.48%和78.82%。电解水处理工艺有潜力成为一种生产几丁质的新方法。",
-      kw: ['电解水', '小龙虾壳', '脱矿物质', '脱蛋白质', '几丁质'],
+      abs: "",
+      kw: [],
+      url: "",
+      lang: "",
+      citation: "",
+      volume: "",
+      startpage: "",
+      endpage: "",
       // ref: ['[1]利用蟹壳制备乳酸钙和甲壳素的技术研究[J].韩晓梅,王晨笑,杨鑫,王博,桑亚新,孙纪录. 食品研究与开发. 2018(11)', '[2]低聚壳聚糖制备及其在功能食品中应用[J]. 乔德亮. 食品工业科技. 2007(04)'],
     };
   },
   methods: {
     getdata(paperid) {
+      console.log("1");
       this.$axios
-        .get("/data/paper/id",{
+        .get("/api/data/paper/id", {
           params: {
             id: paperid,
-          }
+          },
         })
         .then((res) => {
-          this.title = res.title;
-          this.venue = res.venue;
-          this.time = res.year;
-          this.author = res.authors;
+          console.log(res);
+          this.title = res.data.title;
+          if( res.data.venue !== null) {
+            this.venue = res.data.venue.raw;
+          } else {
+            this.venue = '无数据';
+          }
+          if( res.data.year !== null) {
+            this.time = res.data.year;
+          } else {
+            this.time = '无数据';
+          }
+          const len = res.data.authors.length;
+          var tmp;
+          for (var i = 0; i < len; i++) {
+            this.author[i] = res.data.authors[i].name;
+          }
+          // this.author = res.data.authors;
           // this.org = res.org;
-          this.abs = res.abstracts;
-          this.kw = res.keywords;
+          if( res.data.abstracts !== null) {
+            this.abs = res.data.abstracts;
+          } else {
+            this.abs = '无数据';
+          }
+          if( res.data.keywords !== null) {
+            this.kw = res.data.keywords;
+          } else {
+            this.kw = ['无数据'];
+          }
+          if( res.data.url !== null) {
+            this.url = res.data.url;
+          } else {
+            this.url = '/';
+          }
+          if( res.data.lang !== null) {
+            this.lang = res.data.lang;
+          } else {
+            this.lang = '未说明';
+          }
+          if( res.data.citation !== null) {
+            this.citation = res.data.n_citation;
+          } else {
+            this.citation = '无数据';
+          }
+          if( res.data.volume !== '') {
+            this.volume = '  V' + res.data.volume;
+          } else {
+            this.volume = '';
+          }
+          if( res.data.startpage !== null) {
+            this.startpage = '  P' + res.data.page_start;
+          } else {
+            this.startpage = '';
+          }
+          if( res.data.endpage !== null) {
+            this.endpage = '-P' + res.data.page_end;
+          } else {
+            this.endpage = '';
+          }
           // this.ref = res.ref;
         });
     },
-    download(){},
-    share(){},
   },
   mounted() {
-    var paperid = $router.query.paperid;
-    getdata(paperid);
+    // const paperid = $route.query.paperid;
+    const paperid = "53a7258520f7420be8b514a9";
+    this.getdata(paperid);
   },
 };
 </script>
@@ -116,7 +191,7 @@ export default {
 .title {
   /* background-color: wheat; */
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   margin: 30px 0 12px 0;
 }
 .author {
