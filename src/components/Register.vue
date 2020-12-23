@@ -36,17 +36,17 @@ export default {
       }
     };
 
-    var validateEmail = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入邮箱'));
-      } else if (value.indexOf('@') === -1) {
-        callback(new Error('错误邮箱格式'));
-      } else if (value.indexOf('.com') === -1) {
-        callback(new Error('错误邮箱格式'));
-      } else {
-        callback();
-      }
-    }
+    // var validateEmail = (rule, value, callback) => {
+    //   if (value === '') {
+    //     callback(new Error('请输入邮箱'));
+    //   } else if (value.indexOf('@') === -1) {
+    //     callback(new Error('错误邮箱格式'));
+    //   } else if (value.indexOf('.com') === -1) {
+    //     callback(new Error('错误邮箱格式'));
+    //   } else {
+    //     callback();
+    //   }
+    // }
 
     return {
       activeName: 'second',
@@ -57,8 +57,9 @@ export default {
         checkPass: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
-        email: [{ required: true, validator: validateEmail, triangle: 'blur'}],
+        name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }],
+        email: [{ required: true,message:'请输入邮箱地址' ,trigger: 'blur'},
+        {type:'email', message:'请输入正确的邮箱地址', trigger:['blur','change']}],
         pass: [{ required: true, validator: validatePass, trigger: 'blur' }],
         checkPass: [{ required: true, validator: validatePass2, trigger: 'blur' }]
       }
@@ -82,6 +83,8 @@ export default {
                   type: 'success',
                   message: '注册成功'
                 });
+                alert(response.data.msg);
+                this.$router.push('/login')
               }
               else if(response.data.code === 400)
               {
@@ -89,6 +92,7 @@ export default {
                   type:'fail',
                   message:'用户名已存在'
                 });
+                alert(response.data.msg);
               }
             }
           ).catch(error=>{
