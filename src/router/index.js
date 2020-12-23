@@ -14,9 +14,10 @@ import RePassword from "../components/RePassword";
 import SearchResult from "../components/SearchResult";
 import Edit from "../components/Edit";
 import Test from '@/components/Test';
-import Paper from '../components/Paper'
-import Patent from '../components/Patent'
-import achievement from '../components/achievement'
+import Paper from '../components/Paper';
+import Patent from '../components/Patent';
+import achievement from '../components/achievement';
+import Authentication from '../components/Authentication';
 
 export default new Router({
   mode: 'history',
@@ -116,6 +117,11 @@ export default new Router({
       path: '/achievement',
       name: 'achievement',
       component: achievement
+    },
+    {
+      path: '/authentication',
+      name: 'Authentication',
+      component: Authentication
     }
   ]
 })
