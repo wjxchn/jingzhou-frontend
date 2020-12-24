@@ -5,11 +5,11 @@
             <div class="frow">
                 <b class="rem15 mt10 ml15 sg2">作者文献</b>
                 <b class="rem10 mt20 ml15 sg2">总发文量: {{Author.papers}}</b>
-                <b class="rem10 mt20 ml15 sg1">下载次数: {{Author.downloads}}</b>
+                <b class="rem10 mt20 ml15 sg1">总被引次数: {{Author.downloads}}</b>
      
             </div>
             <el-divider></el-divider>
-            <font class="rem10 mt5 ml20">最高下载</font>
+            <font class="rem10 mt5 ml20">最高被引</font>
                 <a class="ml20 mt15">
                     [{{Paper.num}}]
                     <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
@@ -38,36 +38,7 @@
                     ({{Paper.month}})
                 </a>
             <el-divider></el-divider>
-            <font class="rem1 mt10 ml20">发在期刊上的文献</font>
-            <a class="ml20 mt15">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
-                <a class="ml20 mt5">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
-                <a class="ml20 mt5">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
-            <el-divider></el-divider>
-            <font class="rem1 mt10 ml20">曾参考的文献</font>
+            <font class="rem1 mt10 ml20">发表文献</font>
             <a class="ml20 mt15">
                     [{{Paper.num}}]
                     <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
@@ -120,8 +91,6 @@
                     <a href="#" class="mt10 rem08">关注: {{Author.follows}}</a>
                     <el-divider direction="vertical"></el-divider>
                     <a href="#" class="mt10 rem08">粉丝: {{Author.fans}}</a>
-                    <el-divider direction="vertical"></el-divider>
-                    <a href="#" class="mt10 rem08">获赞: {{Author.thumbs}}<br></a>
                 </div>
                 <div class="frow">
                 <!--浏览他人主页-->
@@ -152,7 +121,6 @@
         name: "PersonalPage",
         data(){
             return{
-                
                 Author:{
                     id:1,
                     avatar_src:require('../assets/avatar.png'),
@@ -191,7 +159,7 @@
                     
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8000/api/cancelfollow/',
+                        url: '/api/cancelfollow/',
                         data: {'followerid':localStorage.getItem('userid'), 'researcherid':this.id  /*this.$route.query.userid*/ } 
                         })
                         .then(response => {
@@ -220,7 +188,7 @@
                     
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8000/api/follow/',
+                        url: '/api/follow/',
                         data: {'followerid':localStorage.getItem('userid'), 'researcherid':this.id /*this.$route.query.userid*/}
                         })
                         .then(response => {
@@ -263,7 +231,7 @@
         created: function(){
             axios({
                 method: 'post',
-                url: 'http://localhost:8000/api/isfollow/',
+                url: '/api/isfollow/',
                 data: {'followerid':localStorage.getItem('userid'), 'reseacherid': this.$route.query.userid}
             })
             .then(response => {
@@ -276,7 +244,7 @@
             });
             axios({
                 method: 'post',
-                url: 'http://localhost:8000/api/getpersonalinfo/',
+                url: '/api/getpersonalinfo/',
                 data: {'userid':this.$route.query.userid}
             })
             .then(response => {

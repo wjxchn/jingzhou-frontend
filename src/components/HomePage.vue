@@ -14,15 +14,13 @@
             </el-option>
           </el-select>
           <el-input class="content" type="text" maxlength="25" v-model="text"></el-input>
-        </el-col>
-
-        <el-col class="col1">
           <el-button class="searchbutton" type="primary" @click="search()">检索</el-button>
         </el-col>
 
       </el-form>
     </el-row>
 
+    <div v-if="!hot">
     <el-row class="lablea">
       <el-menu
         :default-active="true"
@@ -46,149 +44,249 @@
         <el-menu-item index="5" class="lablea-1" @click="show(5)">
           <div class="labela-2">科研机构</div>
         </el-menu-item>
+        <el-menu-item index="6" class="lablea-1" @click="showhot()">
+          <div class="labela-2">返回热点</div>
+        </el-menu-item>
       </el-menu>
     </el-row>
 
     <div v-if="showwhat===1" class="lableb">
-      <el-row class="lableitem">
-        <el-col class="paper1">题名</el-col>
-        <el-col class="paper2">作者</el-col>
-        <el-col class="paper3">来源</el-col>
-        <el-col class="paper4">发表时间</el-col>
-        <el-col class="paper5">被引</el-col>
-      </el-row>
-      <div v-for="i in itemnumber1">
-        <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
-<!--          <el-col class="paper2">{{papers[i-1].authors}}</el-col>-->
-          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
-          <el-col class="paper4">{{papers[i-1].year}}</el-col>
-          <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
+      <div v-if="itemnumber1>0">
+        <el-row class="lableitem">
+          <el-col class="paper1">题名</el-col>
+          <el-col class="paper2">作者</el-col>
+          <el-col class="paper3">来源</el-col>
+          <el-col class="paper4">发表时间</el-col>
+          <el-col class="paper5">被引</el-col>
         </el-row>
-        <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="paper1"><router-link :to="{name: 'home',query:{paperId:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
-<!--          <el-col class="paper2">{{papers[i-1].authors}}</el-col>-->
-          <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
-          <el-col class="paper4">{{papers[i-1].year}}</el-col>
-          <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
+        <div v-for="i in itemnumber1">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
+            <el-col class="paper2">{{papers[i-1].authors}}</el-col>
+            <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
+            <el-col class="paper4">{{papers[i-1].year}}</el-col>
+            <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
+            <el-col class="paper2">{{papers[i-1].authors}}</el-col>
+            <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
+            <el-col class="paper4">{{papers[i-1].year}}</el-col>
+            <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
+          </el-row>
+        </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page1<2" @click="search1(1)">上一页</el-link>
+            <el-link :disabled="itemnumber1<20" @click="search1(2)">下一页</el-link>
+          </div>
         </el-row>
       </div>
-      <el-row class="page">
-        <div class="pagea">
-          <el-link :disabled="page1<2" @click="search1(1)">上一页</el-link>
-          <el-link :disabled="!shownext1" @click="search1(2)">下一页</el-link>
-        </div>
-      </el-row>
+      <div v-if="itemnumber1===0">
+        <el-row class="lableitem0"><div class="lableitema">该分类无搜索结果</div></el-row>
+      </div>
     </div>
 
     <div v-if="showwhat===2" class="lableb">
-      <el-row class="lableitem">
-        <el-col class="patent1">专利名称</el-col>
-        <el-col class="patent2">发明人</el-col>
-        <el-col class="patent3">专利类型</el-col>
-        <el-col class="patent4">申请人</el-col>
-        <el-col class="patent5">申请日</el-col>
-        <el-col class="paper6">公开日</el-col>
-      </el-row>
-      <div v-for="i in itemnumber2">
-        <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="patent1"><router-link :to="{name: 'PatentShow', params: {patentId: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
-          <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
-          <el-col class="patent3">{{patents[i-1].type}}</el-col>
-          <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
-          <el-col class="patent5">{{patents[i-1].appdate}}</el-col>
-          <el-col class="paper6">{{patents[i-1].pubdate}}</el-col>
+      <div v-if="itemnumber2>0">
+        <el-row class="lableitem">
+          <el-col class="patent1">专利名称</el-col>
+          <el-col class="patent2">发明人</el-col>
+          <el-col class="patent3">专利类型</el-col>
+          <el-col class="patent4">申请人</el-col>
+          <el-col class="patent5">申请日</el-col>
+          <el-col class="paper6">公开日</el-col>
         </el-row>
-        <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="patent1"><router-link :to="{name: 'PatentShow', params: {patentId: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
-          <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
-          <el-col class="patent3">{{patents[i-1].type}}</el-col>
-          <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
-          <el-col class="patent5">{{patents[i-1].appdate}}</el-col>
-          <el-col class="patent6">{{patents[i-1].pubdate}}</el-col>
+        <div v-for="i in itemnumber2">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="patent1"><router-link :to="{path: '/patent', params: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
+            <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
+            <el-col class="patent3">{{patents[i-1].type}}</el-col>
+            <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
+            <el-col class="patent5">{{patents[i-1].appdate}}</el-col>
+            <el-col class="paper6">{{patents[i-1].pubdate}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="patent1"><router-link :to="{path: '/patent', params: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
+            <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
+            <el-col class="patent3">{{patents[i-1].type}}</el-col>
+            <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
+            <el-col class="patent5">{{patents[i-1].appdate}}</el-col>
+            <el-col class="patent6">{{patents[i-1].pubdate}}</el-col>
+          </el-row>
+        </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page2<2" @click="search2(1)">上一页</el-link>
+            <el-link :disabled="itemnumber2<20" @click="search2(2)">下一页</el-link>
+          </div>
         </el-row>
       </div>
-      <el-row class="page">
-        <div class="pagea">
-          <el-link :disabled="page2<2" @click="search2(1)">上一页</el-link>
-          <el-link :disabled="!shownext2" @click="search2(2)">下一页</el-link>
-        </div>
-      </el-row>
+      <div v-if="itemnumber2===0">
+        <el-row class="lableitem0"><div class="lableitema">该分类无搜索结果</div></el-row>
+      </div>
     </div>
 
     <div v-if="showwhat===3" class="lableb">
-      <el-row class="lableitem">
-        <el-col class="project1">成果名称</el-col>
-        <el-col class="project2">成果完成人</el-col>
-        <el-col class="project3">第一完成单位</el-col>
-        <el-col class="project4">完成时间</el-col>
-      </el-row>
-      <div v-for="i in itemnumber3">
-        <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="project1"><router-link :to="{name: 'Achievement', params: {projectId: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
-          <el-col class="project2">{{projects[i-1].researcher}}</el-col>
-          <el-col class="project3">{{projects[i-1].institution}}</el-col>
-          <el-col class="project4">{{projects[i-1].time}}</el-col>
+      <div v-if="itemnumber3>0">
+        <el-row class="lableitem">
+          <el-col class="project1">成果名称</el-col>
+          <el-col class="project2">成果完成人</el-col>
+          <el-col class="project3">第一完成单位</el-col>
+          <el-col class="project4">完成时间</el-col>
         </el-row>
-        <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="project1"><router-link :to="{name: 'Achievement', params: {projectId: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
-          <el-col class="project2">{{projects[i-1].researcher}}</el-col>
-          <el-col class="project3">{{projects[i-1].institution}}</el-col>
-          <el-col class="project4">{{projects[i-1].time}}</el-col>
+        <div v-for="i in itemnumber3">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="project1"><router-link :to="{path: '/achievement', params: {achievementid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
+            <el-col class="project2">{{projects[i-1].researcher}}</el-col>
+            <el-col class="project3">{{projects[i-1].institution}}</el-col>
+            <el-col class="project4">{{projects[i-1].time}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="project1"><router-link :to="{path: '/achievement', params: {achieventid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
+            <el-col class="project2">{{projects[i-1].researcher}}</el-col>
+            <el-col class="project3">{{projects[i-1].institution}}</el-col>
+            <el-col class="project4">{{projects[i-1].time}}</el-col>
+          </el-row>
+        </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page3<2" @click="search3(1)">上一页</el-link>
+            <el-link :disabled="itemnumber3<20" @click="search3(2)">下一页</el-link>
+          </div>
         </el-row>
       </div>
-      <el-row class="page">
-        <div class="pagea">
-          <el-link :disabled="page3<2" @click="search3(1)">上一页</el-link>
-          <el-link :disabled="!shownext3" @click="search3(2)">下一页</el-link>
-        </div>
-      </el-row>
+      <div v-if="itemnumber3===0">
+        <el-row class="lableitem0"><div class="lableitema">该分类无搜索结果</div></el-row>
+      </div>
     </div>
 
     <div v-if="showwhat===5" class="lableb">
-      <el-row class="lableitem">
-        <el-col class="orgnization1">机构名称</el-col>
-      </el-row>
-      <div v-for="i in itemnumber4">
-        <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
+      <div v-if="itemnumber5>0">
+        <el-row class="lableitem">
+          <el-col class="orgnization1">机构名称</el-col>
         </el-row>
-        <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
+        <div v-for="i in itemnumber4">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
+          </el-row>
+        </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page5<2" @click="search5(1)">上一页</el-link>
+            <el-link :disabled="itemnumber5<20" @click="search5(2)">下一页</el-link>
+          </div>
         </el-row>
       </div>
-      <el-row class="page">
-        <div class="pagea">
-          <el-link :disabled="page5<2" @click="search5(1)">上一页</el-link>
-          <el-link :disabled="!shownext5" @click="search5(2)">下一页</el-link>
-        </div>
-      </el-row>
+      <div v-if="itemnumber5===0">
+        <el-row class="lableitem0"><div class="lableitema">该分类无搜索结果</div></el-row>
+      </div>
     </div>
 
     <div v-if="showwhat===4" class="lableb">
-      <el-row class="lableitem">
-        <el-col class="scientist1">姓名</el-col>
-        <el-col class="scientist2">单位</el-col>
-        <el-col class="scientist3">研究领域</el-col>
-      </el-row>
-      <div v-for="i in itemnumber5">
-        <el-row v-if="i%2===1" class="itemsingle">
-          <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
-          <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
-          <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
+      <div v-if="itemnumber4>0">
+        <el-row class="lableitem">
+          <el-col class="scientist1">姓名</el-col>
+          <el-col class="scientist2">单位</el-col>
+          <el-col class="scientist3">研究领域</el-col>
         </el-row>
-        <el-row v-else-if="i%2===0" class="itemdouble">
-          <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
-          <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
-          <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
+        <div v-for="i in itemnumber5">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
+            <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
+            <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
+          </el-row>
+        </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page4<2" @click="search4(1)">上一页</el-link>
+            <el-link :disabled="itemnumber4<20" @click="search4(2)">下一页</el-link>
+          </div>
         </el-row>
       </div>
-      <el-row class="page">
-        <div class="pagea">
-          <el-link :disabled="page4<2" @click="search4(1)">上一页</el-link>
-          <el-link :disabled="!shownext4" @click="search4(2)">下一页</el-link>
-        </div>
+      <div v-if="itemnumber4===0">
+        <el-row class="lableitem0"><div class="lableitema">该分类无搜索结果</div></el-row>
+      </div>
+    </div>
+    </div>
+
+    <div v-if="hot">
+      <el-row class="lablea">
+        <el-menu
+          :default-active="true"
+          class="lablec"
+          mode="horizontal"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+          <el-menu-item index="2" class="lablec-1" @click="show(6)">
+            <div class="labelc-3">热点论文</div>
+          </el-menu-item>
+          <el-menu-item index="3" class="lablec-2" @click="show(7)">
+            <div class="labelc-3">高被引论文</div>
+          </el-menu-item>
+        </el-menu>
       </el-row>
+
+      <div v-if="showwhat===6" class="lableb">
+        <el-row class="lableitem">
+          <el-col class="paper1">题名</el-col>
+          <el-col class="paper2">作者</el-col>
+          <el-col class="paper3">来源</el-col>
+          <el-col class="paper4">发表时间</el-col>
+          <el-col class="paper5">被引</el-col>
+        </el-row>
+        <div v-for="i in itemnumber6">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}">{{papers1[i-1].title}}</router-link></el-col>
+            <el-col class="paper2">{{papers1[i-1].authors}}</el-col>
+            <el-col class="paper3">{{papers1[i-1].publisher}}</el-col>
+            <el-col class="paper4">{{papers1[i-1].year}}</el-col>
+            <el-col class="paper5">{{papers1[i-1].n_citation}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}">{{papers1[i-1].title}}</router-link></el-col>
+            <el-col class="paper2">{{papers1[i-1].authors}}</el-col>
+            <el-col class="paper3">{{papers1[i-1].publisher}}</el-col>
+            <el-col class="paper4">{{papers1[i-1].year}}</el-col>
+            <el-col class="paper5">{{papers1[i-1].n_citation}}</el-col>
+          </el-row>
+        </div>
+      </div>
+
+      <div v-if="showwhat===7" class="lableb">
+        <el-row class="lableitem">
+          <el-col class="paper1">题名</el-col>
+          <el-col class="paper2">作者</el-col>
+          <el-col class="paper3">来源</el-col>
+          <el-col class="paper4">发表时间</el-col>
+          <el-col class="paper5">被引</el-col>
+        </el-row>
+        <div v-for="i in itemnumber7">
+          <el-row v-if="i%2===1" class="itemsingle">
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers2[i-1].id}}">{{papers2[i-1].title}}</router-link></el-col>
+            <el-col class="paper2">{{papers2[i-1].authors}}</el-col>
+            <el-col class="paper3">{{papers2[i-1].publisher}}</el-col>
+            <el-col class="paper4">{{papers2[i-1].year}}</el-col>
+            <el-col class="paper5">{{papers2[i-1].n_citation}}</el-col>
+          </el-row>
+          <el-row v-else-if="i%2===0" class="itemdouble">
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers2[i-1].id}}">{{papers2[i-1].title}}</router-link></el-col>
+            <el-col class="paper2">{{papers2[i-1].authors}}</el-col>
+            <el-col class="paper3">{{papers2[i-1].publisher}}</el-col>
+            <el-col class="paper4">{{papers2[i-1].year}}</el-col>
+            <el-col class="paper5">{{papers2[i-1].n_citation}}</el-col>
+          </el-row>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -201,7 +299,7 @@
       return {
         text:"",
 
-        value:"",
+        value:"标题",
 
         options: [{
           value: '选项1',
@@ -217,13 +315,15 @@
           label: '科研机构'
         }],
 
-        showwhat: 1,
+        showwhat: 6,
 
-        itemnumber1: 1,
-        itemnumber2: 1,
-        itemnumber3: 1,
-        itemnumber4: 1,
-        itemnumber5: 1,
+        itemnumber1: 0,
+        itemnumber2: 0,
+        itemnumber3: 0,
+        itemnumber4: 0,
+        itemnumber5: 0,
+        itemnumber6: 0,
+        itemnumber7: 0,
 
         page1: 1,
         page2: 1,
@@ -238,53 +338,30 @@
         shownext5: true,
 
         papers: [
-          {
-            id:1,
-            title: "负担坑金龙单反",
-            authors: "ddfsdfsjhvf",
-            publisher:"dsd",
-            year: "2020-0202",
-            n_citation: "dsddas",
-          },
+
+        ],
+
+        papers1: [
+
+        ],
+
+        papers2: [
+
         ],
 
         patents: [
-          {
-            patentid:1,
-            patentname: "dghgfh",
-            inventor: "bcgfgb",
-            type: "vxcvdfv",
-            applicant: "cdcs",
-            appdate: "dsf2323",
-            pubdate: "5464"
-          }
         ],
 
         projects: [
-          {
-            projectid:1,
-            title: "cddfsds",
-            researcher: "fdsfd",
-            institution: "fdsf",
-            time: "dcsdfs666"
-          }
         ],
 
         scientists: [
-          {
-            authuseris:1,
-            username: "ddcscd",
-            organization: "csdcsc",
-            researchfield: "dcsdc"
-          }
         ],
 
         organizations: [
-          {
-            institutionname: "dsfsd"
-          }
-        ]
+        ],
 
+        hot:true
       };
     },
     methods: {
@@ -293,200 +370,535 @@
       },
 
       search() {
-        this.$axios.get('/api/data/paper/fuzzytitle',
-          {
-            params: {
-              pagenum: this.page1,
-              title: this.text
+        this.hot=false
+        this.page1=1
+        this.page2=1
+        this.page3=1
+        this.page4=1
+        this.page5=1
+        if(this.value==="标题"){
+          this.showwhat=1
+          this.itemnumber2=0
+          this.itemnumber3=0
+          this.itemnumber4=0
+          this.itemnumber5=0
+          this.$axios.get('/api/data/paper/fuzzytitle',
+            {
+              params: {
+                pagenum: this.page1,
+                title: this.text
+              }
             }
-          }
-        ).then((res) => {
-          console.log(res)
-          this.itemnumber1 = res.data.length
-          this.papers = res.data
-        }).catch((failResponse) => {
+          ).then((res) => {
+            this.papers=[]
+            this.itemnumber1 = res.data.length
+            for(var i = 0; i < res.data.length;i++){
+              var paper={}
+              paper.title=res.data[i].title
+
+              if(res.data[i].authors.length>0)
+              {
+                var authors = res.data[i].authors[0].name
+                for(var j = 1;j<res.data[i].authors.length;j++){
+                  authors = authors +", "+ res.data[i].authors[j].name
+                }
+                paper.authors=authors
+              }
+              else{
+                paper.authors=""
+              }
+              if(res.data[i].publisher===null){
+                paper.publisher="无"
+              }
+              else{
+                paper.publisher = res.data[i].publisher
+              }
+              paper.year=res.data[i].year
+              paper.n_citation=res.data[i].n_citation
+              if(res.data[i].id!==null){
+                paper.id=res.data[i].id
+              }
+              else{
+                paper.id=1
+              }
+              this.papers[i]=paper
+            }
+          }).catch((failResponse) => {
+            this.itemnumber1=0
+          });
+        }
+        else if(this.value==="关键词"){
+          this.showwhat=1
+          this.itemnumber4=0
+          this.itemnumber5=0
+          this.$axios.get('/api/data/paper/keyword',
+            {
+              params: {
+                pagenum: this.page1,
+                keyword: this.text
+              }
+            }
+          ).then((res) => {
+            this.papers=[]
+            this.itemnumber1 = res.data.length
+            for(var i = 0; i < res.data.length;i++){
+              var paper={}
+              paper.title=res.data[i].title
+
+              if(res.data[i].authors.length>0)
+              {
+                var authors = res.data[i].authors[0].name
+                for(var j = 1;j<res.data[i].authors.length;j++){
+                  authors = authors +", "+ res.data[i].authors[j].name
+                }
+                paper.authors=authors
+              }
+              else{
+                paper.authors=""
+              }
+              if(res.data[i].publisher===null){
+                paper.publisher="无"
+              }
+              else{
+                paper.publisher = res.data[i].publisher
+              }
+              paper.year=res.data[i].year
+              paper.n_citation=res.data[i].n_citation
+              if(res.data[i].id!==null){
+                paper.id=res.data[i].id
+              }
+              else{
+                paper.id=1
+              }
+              this.papers[i]=paper
+            }
+          }).catch((failResponse) => {
+            this.itemnumber1=0
+          });
+          this.$axios.get('/api/fuzzysearchpatent',
+            {
+              params: {
+                pagenum: this.page1,
+                keywords: this.text
+              }
+            }
+          ).then((res) => {
+            this.patents=[]
+            this.itemnumber2 = res.data.length
+            for(var i = 0; i < res.data.length;i++){
+              var patent={}
+              patent.patentname=res.data[i].patentname
+              if(res.data[i].inventor===null)
+              {
+                patent.inventor="无"
+              }
+              else{
+                patent.inventor=res.data[i].inventor
+              }
+              if(res.data[i].type===null){
+                patent.type="无"
+              }
+              else{
+                patent.type = res.data[i].type
+              }
+              if(res.data[i].applicant===null){
+                patent.applicant="无"
+              }
+              else{
+                patent.applicant = res.data[i].applicant
+              }
+              if(res.data[i].appdate===null){
+                patent.appdate="无"
+              }
+              else{
+                patent.appdate = res.data[i].appdate
+              }
+              if(res.data[i].pubdate===null){
+                patent.pubdate="无"
+              }
+              else{
+                patent.pubdate = res.data[i].pubdate
+              }
+              patent.patentid=res.data[i].patentid
+              this.patents[i]=patent
+            }
+          }).catch((failResponse) => {
+            this.itemnumber2=0
+          });
+          this.$axios.get('/api/fuzzysearchproject',
+            {
+              params: {
+                pagenum: this.page1,
+                keywords: this.text
+              }
+            }
+          ).then((res) => {
+            this.projects=[]
+            this.itemnumber3 = res.data.length
+            for(var i = 0; i < res.data.length;i++){
+              var project={}
+              project.title=res.data[i].title
+              if(res.data[i].researcher===null)
+              {
+                project.researcher="无"
+              }
+              else{
+                project.researcher=res.data[i].researcher
+              }
+              if(res.data[i].institution===null){
+                project.institution="无"
+              }
+              else{
+                project.institution = res.data[i].institution
+              }
+              if(res.data[i].time===null){
+                project.time="无"
+              }
+              else{
+                project.time = res.data[i].time
+              }
+              project.achieventid=res.data[i].projectid
+              this.projects[i]=project
+            }
+          }).catch((failResponse) => {
+            this.itemnumber3=0
+          });
+        }
+        else if(this.value==="科研人员"){
+          this.showwhat=4
           this.itemnumber1=0
-          this.shownext1 = false
-        });
-        // this.$axios.get('/api/fuzzysearchpatent',
-        //   {
-        //     params: {
-        //       page: this.page2,
-        //       keywords: this.ruleform.texts.text1
-        //     }
-        //   }
-        // ).then((res) => {
-        //   this.itemnumber2 = res.data.data.length
-        //   this.patents = res.data.data
-        // }).catch((failResponse) => {
-        //   this.itemnumber2=0
-        //   this.shownext2 = false
-        // });
-        // this.$axios.get('/api/fuzzysearchproject',
-        //   {
-        //     params:{
-        //       page:this.page3,
-        //       key:this.ruleform.texts.text1
-        //     }
-        //   }
-        // ).then((res) => {
-        //   this.itemnumber3=res.data.data.length
-        //   this.projects=res.data.data
-        // }).catch((failResponse) => {
-        //   this.itemnumber3=0
-        //   this.shownext3=false
-        // });
-        // this.$axios.get('/api/fuzzysearchpatent',
-        //   {
-        //     params:{
-        //       page:this.page4,
-        //       key:this.ruleform.texts.text1
-        //     }
-        //   }
-        // ).then((res) => {
-        //   this.itemnumber4=res.data.data.length
-        //   this.papers=res.data.data
-        // }).catch((failResponse) => {
-        //   this.itemnumber4=0
-        //   this.shownext4=false
-        // });
-        // this.$axios.get('/data/paper/fuzzytitle',
-        //   {
-        //     params:{
-        //       page:this.page5,
-        //       key:this.ruleform.texts.text1
-        //     }
-        //   }
-        // ).then((res) => {
-        //   this.itemnumber5=res.data.data.length
-        //   this.papers=res.data.data
-        // }).catch((failResponse) => {
-        //   this.itemnumber5=0
-        //   this.shownext5=false
-        // });
+          this.itemnumber2=0
+          this.itemnumber3=0
+          this.itemnumber5=0
+        }
+        else if(this.value==="科研机构"){
+          this.showwhat=5
+          this.itemnumber1=0
+          this.itemnumber2=0
+          this.itemnumber3=0
+          this.itemnumber4=0
+        }
       },
 
       search1(num) {
         this.showwhat = 1
-        if (num === 1) {
-          this.shownext1 = true
-          this.page1 = this.page1 - 1
-        } else if (num === 2) {
-          this.page1 = this.page1 + 1
+        if(num===1){
+          this.page1=this.page1-1
         }
-        this.$axios.get('/data/paper/fuzzytitle',
-          {
-            params: {
-              page: this.page1,
-              key: this.ruleform.texts.text1
+        else if(num===2){
+          this.page1=this.page1+1
+        }
+        if(this.value==="标题"){
+          this.$axios.get('/api/data/paper/fuzzytitle',
+            {
+              params: {
+                pagenum: this.page1,
+                title: this.text
+              }
             }
-          }
-        ).then((res) => {
-          this.itemnumber1 = res.data.data.length
-          this.papers = res.data.data
-        }).catch((failResponse) => {
-          this.page1 = this.page1 - 1
-          this.shownext1 = false
-        });
+          ).then((res) => {
+            this.papers=[]
+            this.itemnumber1 = res.data.length
+            for(var i = 0; i < res.data.length;i++){
+              var paper={}
+              paper.title=res.data[i].title
 
+              if(res.data[i].authors.length>0)
+              {
+                var authors = res.data[i].authors[0].name
+                for(var j = 1;j<res.data[i].authors.length;j++){
+                  authors = authors +", "+ res.data[i].authors[j].name
+                }
+                paper.authors=authors
+              }
+              else{
+                paper.authors=""
+              }
+              if(res.data[i].publisher===null){
+                paper.publisher="无"
+              }
+              else{
+                paper.publisher = res.data[i].publisher
+              }
+              paper.year=res.data[i].year
+              paper.n_citation=res.data[i].n_citation
+              if(res.data[i].id!==null){
+                paper.id=res.data[i].id
+              }
+              else{
+                paper.id=1
+              }
+              this.papers[i]=paper
+            }
+          }).catch((failResponse) => {
+            this.itemnumber1=0
+          });
+        }
+        else if(this.value==="关键词"){
+          this.$axios.get('/api/data/paper/keyword',
+            {
+              params: {
+                pagenum: this.page1,
+                keyword: this.text
+              }
+            }
+          ).then((res) => {
+            this.papers=[]
+            this.itemnumber1 = res.data.length
+            for(var i = 0; i < res.data.length;i++){
+              var paper={}
+              paper.title=res.data[i].title
+
+              if(res.data[i].authors.length>0)
+              {
+                var authors = res.data[i].authors[0].name
+                for(var j = 1;j<res.data[i].authors.length;j++){
+                  authors = authors +", "+ res.data[i].authors[j].name
+                }
+                paper.authors=authors
+              }
+              else{
+                paper.authors=""
+              }
+              if(res.data[i].publisher===null){
+                paper.publisher="无"
+              }
+              else{
+                paper.publisher = res.data[i].publisher
+              }
+              paper.year=res.data[i].year
+              paper.n_citation=res.data[i].n_citation
+              if(res.data[i].id!==null){
+                paper.id=res.data[i].id
+              }
+              else{
+                paper.id=1
+              }
+              this.papers[i]=paper
+            }
+          }).catch((failResponse) => {
+            this.itemnumber1=0
+          });
+        }
       },
 
       search2(num) {
         this.showwhat = 2
-        if (num === 1) {
-          this.shownext2 = true
-          this.page2 = this.page2 - 1
-        } else if (num === 2) {
-          this.page2 = this.page2 + 1
+        if(num===1){
+          this.page2=this.page2-1
+        }
+        else if(num===2){
+          this.page2=this.page2+1
         }
         this.$axios.get('/api/fuzzysearchpatent',
           {
             params: {
-              page: this.page2,
-              key: this.ruleform.texts.text1
+              pagenum: this.page2,
+              keywords: this.text
             }
           }
         ).then((res) => {
-          this.itemnumber2 = res.data.data.length
-          this.patents = res.data.data
+          this.patents=[]
+          this.itemnumber2 = res.data.length
+          for(var i = 0; i < res.data.length;i++){
+            var patent={}
+            patent.patentname=res.data[i].patentname
+            if(res.data[i].inventor===null)
+            {
+              patent.inventor="无"
+            }
+            else{
+              patent.inventor=res.data[i].inventor
+            }
+            if(res.data[i].type===null){
+              patent.type="无"
+            }
+            else{
+              patent.type = res.data[i].type
+            }
+            if(res.data[i].applicant===null){
+              patent.applicant="无"
+            }
+            else{
+              patent.applicant = res.data[i].applicant
+            }
+            if(res.data[i].appdate===null){
+              patent.appdate="无"
+            }
+            else{
+              patent.appdate = res.data[i].appdate
+            }
+            if(res.data[i].pubdate===null){
+              patent.pubdate="无"
+            }
+            else{
+              patent.pubdate = res.data[i].pubdate
+            }
+            patent.patentid=res.data[i].patentid
+            this.patents[i]=patent
+          }
         }).catch((failResponse) => {
-          this.page2 = this.page2 - 1
-          this.shownext2 = false
+          this.itemnumber2=0
         });
       },
 
       search3(num) {
         this.showwhat = 3
-        if (num === 1) {
-          this.shownext3 = true
-          this.page3 = this.page3 - 1
-        } else if (num === 2) {
-          this.page3 = this.page3 + 1
+        if(num===1){
+          this.page3=this.page3-1
+        }
+        else if(num===2){
+          this.page3=this.page3+1
         }
         this.$axios.get('/api/fuzzysearchproject',
           {
-            params:{
-              page:this.page3,
-              key:this.ruleform.texts.text1
+            params: {
+              pagenum: this.page3,
+              keywords: this.text
             }
           }
         ).then((res) => {
-          this.itemnumber3=res.data.data.length
-          this.projects=res.data.data
+          this.projects=[]
+          this.itemnumber3 = res.data.length
+          for(var i = 0; i < res.data.length;i++){
+            var project={}
+            project.title=res.data[i].title
+            if(res.data[i].researcher===null)
+            {
+              project.researcher="无"
+            }
+            else{
+              project.researcher=res.data[i].researcher
+            }
+            if(res.data[i].institution===null){
+              project.institution="无"
+            }
+            else{
+              project.institution = res.data[i].institution
+            }
+            if(res.data[i].time===null){
+              project.time="无"
+            }
+            else{
+              project.time = res.data[i].time
+            }
+            project.achieventid=res.data[i].projectid
+            this.projects[i]=project
+          }
         }).catch((failResponse) => {
-          this.page3=this.page3-1
-          this.shownext3=false
+          this.itemnumber3=0
         });
       },
 
       search4(num) {
         this.showwhat = 4
-        if (num === 1) {
-          this.shownext4 = true
-          this.page4 = this.page4 - 1
-        } else if (num === 2) {
-          this.page4 = this.page4 + 1
-        }
-        this.$axios.get('/api/fuzzysearchpatent',
-          {
-            params:{
-              page:this.page4,
-              key:this.ruleform.texts.text1
-            }
-          }
-        ).then((res) => {
-          this.itemnumber4=res.data.data.length
-          this.papers=res.data.data
-        }).catch((failResponse) => {
+        if(num===1){
           this.page4=this.page4-1
-          this.shownext4=false
-        });
+        }
+        else if(num===2){
+          this.page4=this.page4+1
+        }
       },
 
       search5(num) {
         this.showwhat = 5
-        if (num === 1) {
-          this.shownext5 = true
-          this.page5 = this.page5 - 1
-        } else if (num === 2) {
-          this.page5 = this.page5 + 1
-        }
-        this.$axios.get('/data/paper/fuzzytitle',
-          {
-            params:{
-              page:this.page5,
-              key:this.ruleform.texts.text1
-            }
-          }
-        ).then((res) => {
-          this.itemnumber5=res.data.data.length
-          this.papers=res.data.data
-        }).catch((failResponse) => {
+        if(num===1){
           this.page5=this.page5-1
-          this.shownext5=false
+        }
+        else if(num===2){
+          this.page5=this.page5+1
+        }
+      },
+
+      showhot(){
+        this.hot=true
+        this.showwhat=6
+      },
+
+      search6(){
+        this.$axios.get('/api/trend/paperamountrank'
+        ).then((res) => {
+          this.itemnumber6 = res.data.length
+          for(var i = 0; i < res.data.length;i++){
+            var paper={}
+            paper.title=res.data[i].title
+
+            if(res.data[i].authors.length>0)
+            {
+              var authors = res.data[i].authors[0].name
+              for(var j = 1;j<res.data[i].authors.length;j++){
+                authors = authors +", "+ res.data[i].authors[j].name
+              }
+              paper.authors=authors
+            }
+            else{
+              paper.authors=""
+            }
+            if(res.data[i].publisher===null){
+              paper.publisher="无"
+            }
+            else{
+              paper.publisher = res.data[i].publisher
+            }
+            paper.year=res.data[i].year
+            paper.n_citation=res.data[i].n_citation
+            if(res.data[i].id!==null){
+              paper.id=res.data[i].id
+            }
+            else{
+              paper.id=1
+            }
+            this.papers1[i]=paper
+          }
+        }).catch((failResponse) => {
+          this.itemnumber6=0
         });
       },
 
+      search7(){
+        this.$axios.get('/api/trend/papercitationrank'
+        ).then((res) => {
+          this.itemnumber7 = res.data.length
+          for(var i = 0; i < res.data.length;i++){
+            var paper={}
+            paper.title=res.data[i].title
+
+            if(res.data[i].authors.length>0)
+            {
+              var authors = res.data[i].authors[0].name
+              for(var j = 1;j<res.data[i].authors.length;j++){
+                authors = authors +", "+ res.data[i].authors[j].name
+              }
+              paper.authors=authors
+            }
+            else{
+              paper.authors=""
+            }
+            if(res.data[i].publisher===null){
+              paper.publisher="无"
+            }
+            else{
+              paper.publisher = res.data[i].publisher
+            }
+            paper.year=res.data[i].year
+            paper.n_citation=res.data[i].n_citation
+            if(res.data[i].id!==null){
+              paper.id=res.data[i].id
+            }
+            else{
+              paper.id=1
+            }
+            this.papers2[i]=paper
+          }
+        }).catch((failResponse) => {
+          this.itemnumber7=0
+        });
+      }
+
+    },
+    mounted() {
+      this.search6()
+      this.search7()
     },
   }
 </script>
@@ -500,35 +912,20 @@
   }
 
   .demo-ruleForm {
-    width: 960px;
+    width: 840px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
   }
 
   .searchbutton {
-    width: 100px;
-    margin-top: 20px;
-    margin-left: 430px;
+    height: 38px;
+    margin-top: 5px;
+    width: 110px;
   }
 
   .col {
-    width: 960px;
-  }
-
-  .col1 {
-    width: 960px;
-  }
-
-  .bind0 {
-    width: 80px;
-    margin-top: 5px;
-    visibility: hidden;
-  }
-
-  .bind {
-    margin-top: 5px;
-    width: 80px;
+    width: 840px;
   }
 
   .select {
@@ -541,10 +938,6 @@
     width: 600px;
   }
 
-  .plus {
-    margin-left: 0px;
-  }
-
   .lablea {
     height: 80px;
     width: 100%;
@@ -554,15 +947,16 @@
 
   .lablea-1 {
     height: 80px;
-    width: 20%;
+    width: 200px;
     text-align: center;
   }
 
   .labela-2 {
-    width: 200px;
+    width: 170px;
     height: 68px;
     margin-top: 12px;
     font-size: 13pt;
+    text-align: center;
   }
 
   .el-menu-demo {
@@ -570,6 +964,32 @@
     width: 1200px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .lablec {
+    height: 80px;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .lablec-1 {
+    height: 80px;
+    width: 240px;
+    margin-left: 360px;
+  }
+
+  .lablec-2 {
+    height: 80px;
+    width: 240px;
+  }
+
+  .labelc-3 {
+    width: 200px;
+    height: 68px;
+    margin-top: 12px;
+    font-size: 13pt;
+    text-align: center;
   }
 
   .lableb {
@@ -582,8 +1002,23 @@
     display: flex;
     align-items: center;
     width: 1200px;
-    height: 30px;
-    background: grey;
+    height: 50px;
+    background: gainsboro;
+    font-size: 16px;
+  }
+
+  .lableitem0 {
+    text-align: center;
+    width: 1200px;
+    height: 70px;
+    background: beige;
+    font-size: 18px;
+  }
+
+  .lableitema {
+    width: 1200px;
+    height: 45px;
+    margin-top: 25px;
   }
 
   .itemsingle {

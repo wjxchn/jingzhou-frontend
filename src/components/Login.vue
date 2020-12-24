@@ -110,7 +110,7 @@ export default {
           repeatpassword: ""
       },
       rules: {
-          name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
+          name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 2, max: 15, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
           pass: [{ required: true, validator: validatePass, trigger: 'blur' }],
 
 
@@ -151,7 +151,7 @@ export default {
         if (valid) {
           axios({
             method:"post",
-            url:'http://106.14.12.11:8443/user/login/',
+            url:'/api/user/login/',
             data:{'username':this.ruleForm.name,'password':this.ruleForm.pass}
           }).then(response=>{
             console.log(response);
@@ -161,7 +161,9 @@ export default {
                 type: 'success',
                 message: '登录成功'
               });
+              localStorage.setItem("username",this.ruleForm.name);
               this.$router.push('home');
+              this.$router.go(0);
             }
             else if (response.data.code === 400)
             {
