@@ -147,8 +147,8 @@ export default {
     },
   },
   mounted() {
-    // const paperid = $route.query.paperid;
-    const paperid = "53a7258520f7420be8b514a9";
+    const paperid = this.$route.query.paperid;
+    //const paperid = "53a7258520f7420be8b514a9";
     this.getdata(paperid);
   },
 };
