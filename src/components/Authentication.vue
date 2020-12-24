@@ -22,7 +22,7 @@
                     <el-input v-model="ruleForm.id" placeholder="请输入身份证号"></el-input>
                 </el-form-item>
                 <el-form-item >
-                    <el-button  class="mt20" style="margin-left:45%">认证</el-button>
+                    <el-button  class="mt20" style="margin-left:45%" @click = "authenticate">认证</el-button>
                 </el-form-item>
             </el-form>
             </div>
@@ -32,13 +32,13 @@
             <h1 class="mt20" style=" text-align:center;">认证学者可为您</h1>
             <h2 class="mt10" style=" text-align:center;">提供以下服务</h2>
             <div class="mt20" style=" text-align:center;">
-                <font size="4">1.实名注册获得学者唯一标识</font></br>
+                <font size="4">1.实名注册获得学者唯一标识</font><br>
                 <i>免费ID，区分同名学者</i></div>
             <div class="mt50" style=" text-align:center;">
-                <font size="4">2.自动收集整理中外文各类型学术成果</font></br>
+                <font size="4">2.自动收集整理中外文各类型学术成果</font><br>
                 <i>例如期刊、会议、专题、专著等</i></div>
             <div class="mt50" style=" text-align:center;">
-                <font size="4">3.查询、遴选您所需的专家学者</font></br>
+                <font size="4">3.查询、遴选您所需的专家学者</font><br>
                 <i>您可以按照学科、研究方向、基金、被引频次等多个学术指标查询、遴选您所需的专家学者</i></div>
             </div>
         </div>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios'
     export default {
         name: "Edit",
         data(){
@@ -65,6 +66,30 @@
             } 
         },
         methods:{
+            authenticate(){
+                axios({
+                    method:"post",
+                    url:'/api/govern/claimportal/',
+                    data:{'username':this.ruleForm.name,'institutionname':this.ruleForm.work}
+                }).then(response=>{
+                    console.log(response);
+                    if(response.data.code === 200)
+                    {
+                    this.$message({
+                        type: 'success',
+                        message: '认证成功'
+                    });
+                    this.$router.push('personalpage');
+                    }
+                    else if (response.data.code === 400)
+                    {
+                        console.log('用户名错误');
+                        return false;
+                    }
+                }).catch(error=>{
+                    console.log(error);
+                });
+            }
         }
     }
 </script>

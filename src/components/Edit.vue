@@ -11,7 +11,7 @@
         <div class="Edit-right fcolumn">
             <!--姓名编辑-->
             <div class="frow mt20 ml20">
-                <b class="rem10 ml50 sc">姓名</b>
+                <b class="rem10 ml50 sc">用户名</b>
                 <font class="ml80 sc" v-show="!editNameText">{{Author.name}}</font>
             </div>
             <el-divider></el-divider>

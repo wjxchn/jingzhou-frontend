@@ -21,17 +21,16 @@ import Authentication from '../components/Authentication';
 export default new Router({
   mode: 'history',
   routes: [
- //   {
- //     path: '/',
- //     component: {
- //       header: Headers
-  //    }
-  //  },
-     {
-       path: '/PageDemo',
-       name: 'PageDemo',
-       component: PageDemo
-     },
+    {
+      path: '/',
+      name: 'HomePage',
+      component: HomePage
+    },
+    {
+      path: '/PageDemo',
+      name: 'PageDemo',
+      component: PageDemo
+    },
     {
       path: '/home',
       name: 'HomePage',
