@@ -151,7 +151,7 @@ export default {
         if (valid) {
           axios({
             method:"post",
-            url:'http://106.14.12.11:8443/user/login/',
+            url:'/api/user/login/',
             data:{'username':this.ruleForm.name,'password':this.ruleForm.pass}
           }).then(response=>{
             console.log(response);
@@ -161,6 +161,7 @@ export default {
                 type: 'success',
                 message: '登录成功'
               });
+              localStorage.setItem("username",this.ruleForm.name);
               this.$router.push('home');
             }
             else if (response.data.code === 400)
