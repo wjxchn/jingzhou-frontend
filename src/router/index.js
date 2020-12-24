@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import PageDemo from '../components/PageDemo';
 import HelloWorld from '@/components/HelloWorld';
 import HomePage from "../components/HomePage";
-import InfoManage from "../components/InfoManage";
 import Login from "../components/Login";
 import Message from "../components/Message";
 // import PaperShow from "../components/PaperShow";
@@ -37,11 +36,6 @@ export default new Router({
       path: '/home',
       name: 'HomePage',
       component: HomePage
-    },
-    {
-      path: '/infomanage',
-      name: 'InfoManage',
-      component: InfoManage
     },
     {
       path: '/login',

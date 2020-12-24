@@ -72,7 +72,7 @@ export default {
         if (valid) {
           axios({
             method:"post",
-            url:'http://106.14.12.11:8443/user/register/',
+            url:'/api/user/register/',
             data:{'username':this.ruleForm.name,'password':this.ruleForm.pass,'email':this.ruleForm.email}
           }).then(
             response=>{
