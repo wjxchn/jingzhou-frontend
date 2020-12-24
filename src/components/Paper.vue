@@ -77,14 +77,14 @@ export default {
     getdata(paperid) {
       console.log("1");
       this.$axios
-        .get("/api/data/paper/id", {
+        .get("/api/data/paper/idorpaperid", {
           params: {
             id: paperid,
           },
         })
         .then((res) => {
           console.log(res);
-          this.title = res.data.title;
+          this.title = res.data.paper.title;
           if( res.data.venue !== null) {
             this.venue = res.data.venue.raw;
           } else {
@@ -148,10 +148,10 @@ export default {
   },
   mounted() {
     const paperid = this.$route.query.paperid;
-<<<<<<< HEAD
-    //const paperid = "53a7258520f7420be8b514a9";
+
+    //const paperid = "53e99785b7602d9701f4471b";
     this.getdata(paperid);
-=======
+
     // const paperid = "53a7258520f7420be8b514a9";
     // const paperid = '1';
     if(paperid === '1') {
@@ -160,7 +160,6 @@ export default {
     else {
       this.getdata(paperid);
     }
->>>>>>> 90722a7993c3ff96f7019595d84f4171e0a2e44f
   },
 };
 </script>

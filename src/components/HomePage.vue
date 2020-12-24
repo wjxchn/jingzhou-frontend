@@ -77,7 +77,7 @@
         </div>
         <el-row class="page">
           <div class="pagea">
-            <el-link :disabled="page1<2" @click="search1(1)">上一页</el-link>
+            <el-link :disabled="page1<1" @click="search1(1)">上一页</el-link>
             <el-link :disabled="itemnumber1<20" @click="search1(2)">下一页</el-link>
           </div>
         </el-row>
@@ -99,7 +99,7 @@
         </el-row>
         <div v-for="i in itemnumber2">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="patent1"><router-link :to="{path: '/patent', params: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
+            <el-col class="patent1"><router-link :to="{path: '/patent', query: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
             <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
             <el-col class="patent3">{{patents[i-1].type}}</el-col>
             <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
@@ -107,7 +107,7 @@
             <el-col class="paper6">{{patents[i-1].pubdate}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="patent1"><router-link :to="{path: '/patent', params: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
+            <el-col class="patent1"><router-link :to="{path: '/patent', query: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
             <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
             <el-col class="patent3">{{patents[i-1].type}}</el-col>
             <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
@@ -117,7 +117,7 @@
         </div>
         <el-row class="page">
           <div class="pagea">
-            <el-link :disabled="page2<2" @click="search2(1)">上一页</el-link>
+            <el-link :disabled="page2<1" @click="search2(1)">上一页</el-link>
             <el-link :disabled="itemnumber2<20" @click="search2(2)">下一页</el-link>
           </div>
         </el-row>
@@ -137,13 +137,13 @@
         </el-row>
         <div v-for="i in itemnumber3">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="project1"><router-link :to="{path: '/achievement', params: {achievementid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
+            <el-col class="project1"><router-link :to="{path: '/achievement', query: {achievementid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
             <el-col class="project2">{{projects[i-1].researcher}}</el-col>
             <el-col class="project3">{{projects[i-1].institution}}</el-col>
             <el-col class="project4">{{projects[i-1].time}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="project1"><router-link :to="{path: '/achievement', params: {achieventid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
+            <el-col class="project1"><router-link :to="{path: '/achievement', query: {achieventid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
             <el-col class="project2">{{projects[i-1].researcher}}</el-col>
             <el-col class="project3">{{projects[i-1].institution}}</el-col>
             <el-col class="project4">{{projects[i-1].time}}</el-col>
@@ -151,7 +151,7 @@
         </div>
         <el-row class="page">
           <div class="pagea">
-            <el-link :disabled="page3<2" @click="search3(1)">上一页</el-link>
+            <el-link :disabled="page3<1" @click="search3(1)">上一页</el-link>
             <el-link :disabled="itemnumber3<20" @click="search3(2)">下一页</el-link>
           </div>
         </el-row>
@@ -166,7 +166,7 @@
         <el-row class="lableitem">
           <el-col class="orgnization1">机构名称</el-col>
         </el-row>
-        <div v-for="i in itemnumber4">
+        <div v-for="i in itemnumber5">
           <el-row v-if="i%2===1" class="itemsingle">
             <el-col class="orgnization1">{{organizations[i-1].institutionname}}</el-col>
           </el-row>
@@ -176,7 +176,7 @@
         </div>
         <el-row class="page">
           <div class="pagea">
-            <el-link :disabled="page5<2" @click="search5(1)">上一页</el-link>
+            <el-link :disabled="page5<1" @click="search5(1)">上一页</el-link>
             <el-link :disabled="itemnumber5<20" @click="search5(2)">下一页</el-link>
           </div>
         </el-row>
@@ -193,21 +193,21 @@
           <el-col class="scientist2">单位</el-col>
           <el-col class="scientist3">研究领域</el-col>
         </el-row>
-        <div v-for="i in itemnumber5">
+        <div v-for="i in itemnumber4">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
             <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
             <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="scientist1"><router-link :to="{name: 'PersonalPage', params: {authuserId: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
             <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
             <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
           </el-row>
         </div>
         <el-row class="page">
           <div class="pagea">
-            <el-link :disabled="page4<2" @click="search4(1)">上一页</el-link>
+            <el-link :disabled="page4<1" @click="search4(1)">上一页</el-link>
             <el-link :disabled="itemnumber4<20" @click="search4(2)">下一页</el-link>
           </div>
         </el-row>
@@ -260,6 +260,12 @@
             <el-col class="paper5">{{papers1[i-1].n_citation}}</el-col>
           </el-row>
         </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page6<1" @click="searc6(1)">上一页</el-link>
+            <el-link :disabled="itemnumber6<20" @click="search6(2)">下一页</el-link>
+          </div>
+        </el-row>
       </div>
 
       <div v-if="showwhat===7" class="lableb">
@@ -286,6 +292,12 @@
             <el-col class="paper5">{{papers2[i-1].n_citation}}</el-col>
           </el-row>
         </div>
+        <el-row class="page">
+          <div class="pagea">
+            <el-link :disabled="page7<1" @click="search7(1)">上一页</el-link>
+            <el-link :disabled="itemnumber7<20" @click="search7(2)">下一页</el-link>
+          </div>
+        </el-row>
       </div>
     </div>
 
@@ -325,11 +337,13 @@
         itemnumber6: 0,
         itemnumber7: 0,
 
-        page1: 1,
-        page2: 1,
-        page3: 1,
-        page4: 1,
-        page5: 1,
+        page1: 0,
+        page2: 0,
+        page3: 0,
+        page4: 0,
+        page5: 0,
+        page6: 0,
+        page7: 0,
 
         shownext1: true,
         shownext2: true,
@@ -371,11 +385,11 @@
 
       search() {
         this.hot=false
-        this.page1=1
-        this.page2=1
-        this.page3=1
-        this.page4=1
-        this.page5=1
+        this.page1=0
+        this.page2=0
+        this.page3=0
+        this.page4=0
+        this.page5=0
         if(this.value==="标题"){
           this.showwhat=1
           this.itemnumber2=0
@@ -390,33 +404,38 @@
               }
             }
           ).then((res) => {
+            console.log(res)
             this.papers=[]
-            this.itemnumber1 = res.data.length
-            for(var i = 0; i < res.data.length;i++){
+            this.itemnumber1 = res.data.data.paperlist.length
+            console.log(res.data.data.paperlist.length)
+            for(var i = 0; i < res.data.data.paperlist.length;i++){
               var paper={}
-              paper.title=res.data[i].title
+              paper.title=res.data.data.paperlist[i].title
 
-              if(res.data[i].authors.length>0)
+              if(res.data.data.paperlist[i].authors.length>0)
               {
-                var authors = res.data[i].authors[0].name
-                for(var j = 1;j<res.data[i].authors.length;j++){
-                  authors = authors +", "+ res.data[i].authors[j].name
+                var authors = res.data.data.paperlist[i].authors[0].name
+                for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                  authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
                 }
                 paper.authors=authors
               }
               else{
                 paper.authors=""
               }
-              if(res.data[i].publisher===null){
+              if(res.data.data.paperlist[i].publisher===null){
                 paper.publisher="无"
               }
               else{
-                paper.publisher = res.data[i].publisher
+                paper.publisher = res.data.data.paperlist[i].publisher
               }
-              paper.year=res.data[i].year
-              paper.n_citation=res.data[i].n_citation
-              if(res.data[i].id!==null){
-                paper.id=res.data[i].id
+              paper.year=res.data.data.paperlist[i].year
+              paper.n_citation=res.data.data.paperlist[i].n_citation
+              if(res.data.data.paperlist[i].id!==null){
+                paper.id=res.data.data.paperlist[i].id
+              }
+              else if(res.data.data.paperlist[i]._id!==null){
+                paper.id=res.data.data.paperlist[i]._id
               }
               else{
                 paper.id=1
@@ -431,7 +450,7 @@
           this.showwhat=1
           this.itemnumber4=0
           this.itemnumber5=0
-          this.$axios.get('/api/data/paper/keyword',
+          this.$axios.get('/api/data/paper/fuzzykeyword',
             {
               params: {
                 pagenum: this.page1,
@@ -440,32 +459,36 @@
             }
           ).then((res) => {
             this.papers=[]
-            this.itemnumber1 = res.data.length
-            for(var i = 0; i < res.data.length;i++){
+            this.itemnumber1 = res.data.data.paperlist.length
+            console.log(res.data.data.paperlist.length)
+            for(var i = 0; i < res.data.data.paperlist.length;i++){
               var paper={}
-              paper.title=res.data[i].title
+              paper.title=res.data.data.paperlist[i].title
 
-              if(res.data[i].authors.length>0)
+              if(res.data.data.paperlist[i].authors.length>0)
               {
-                var authors = res.data[i].authors[0].name
-                for(var j = 1;j<res.data[i].authors.length;j++){
-                  authors = authors +", "+ res.data[i].authors[j].name
+                var authors = res.data.data.paperlist[i].authors[0].name
+                for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                  authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
                 }
                 paper.authors=authors
               }
               else{
                 paper.authors=""
               }
-              if(res.data[i].publisher===null){
+              if(res.data.data.paperlist[i].publisher===null){
                 paper.publisher="无"
               }
               else{
-                paper.publisher = res.data[i].publisher
+                paper.publisher = res.data.data.paperlist[i].publisher
               }
-              paper.year=res.data[i].year
-              paper.n_citation=res.data[i].n_citation
-              if(res.data[i].id!==null){
-                paper.id=res.data[i].id
+              paper.year=res.data.data.paperlist[i].year
+              paper.n_citation=res.data.data.paperlist[i].n_citation
+              if(res.data.data.paperlist[i].id!==null){
+                paper.id=res.data.data.paperlist[i].id
+              }
+              else if(res.data.data.paperlist[i]._id!==null){
+                paper.id=res.data.data.paperlist[i]._id
               }
               else{
                 paper.id=1
@@ -566,10 +589,101 @@
         }
         else if(this.value==="科研人员"){
           this.showwhat=4
-          this.itemnumber1=0
           this.itemnumber2=0
           this.itemnumber3=0
           this.itemnumber5=0
+          this.$axios.get('/api/data/author/byfuzzyname',
+            {
+              params: {
+                pagenum: this.page4,
+                name: this.text
+              }
+            }
+          ).then((res) => {
+            this.scientists=[]
+            this.itemnumber4 = res.data.data.authorList.length
+            for(var i = 0; i < res.data.data.authorList.length;i++){
+              var author={}
+              author.username=res.data.data.authorList[i].name
+              if(res.data.data.authorList[i].orgs===null){
+                author.organization="无"
+              }
+              else if(res.data.data.authorList[i].orgs.length>0)
+              {
+                var orgs = res.data.data.authorList[i].orgs[0]
+                for(var j = 1;j<res.data.data.authorList[i].orgs.length;j++){
+                  orgs = orgs +", "+ res.data.data.authorList[i].orgs[j]
+                }
+                author.organization=orgs
+              }
+              else{
+                author.organization="无"
+              }
+              if(res.data.data.authorList[i].position===null){
+                author.researchfield="无"
+              }
+              else{
+                author.researchfield = res.data.data.authorList[i].position
+              }
+              if(res.data.data.authorList[i].id===null){
+                author.authuserid=1
+              }
+              else{
+                author.authuserid=res.data.data.authorList[i].id
+              }
+              this.scientists[i]=author
+            }
+          }).catch((failResponse) => {
+            this.itemnumber4=0
+          });
+          this.$axios.get('/api/data/paper/authorfuzzyname',
+            {
+              params: {
+                pagenum: this.page1,
+                author: this.text
+              }
+            }
+          ).then((res) => {
+            this.papers=[]
+            this.itemnumber1 = res.data.data.paperlist.length
+            console.log(res.data.data.paperlist.length)
+            for(var i = 0; i < res.data.data.paperlist.length;i++){
+              var paper={}
+              paper.title=res.data.data.paperlist[i].title
+
+              if(res.data.data.paperlist[i].authors.length>0)
+              {
+                var authors = res.data.data.paperlist[i].authors[0].name
+                for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                  authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
+                }
+                paper.authors=authors
+              }
+              else{
+                paper.authors=""
+              }
+              if(res.data.data.paperlist[i].publisher===null){
+                paper.publisher="无"
+              }
+              else{
+                paper.publisher = res.data.data.paperlist[i].publisher
+              }
+              paper.year=res.data.data.paperlist[i].year
+              paper.n_citation=res.data.data.paperlist[i].n_citation
+              if(res.data.data.paperlist[i].id!==null){
+                paper.id=res.data.data.paperlist[i].id
+              }
+              else if(res.data.data.paperlist[i]._id!==null){
+                paper.id=res.data.data.paperlist[i]._id
+              }
+              else{
+                paper.id=1
+              }
+              this.papers[i]=paper
+            }
+          }).catch((failResponse) => {
+            this.itemnumber1=0
+          });
         }
         else if(this.value==="科研机构"){
           this.showwhat=5
@@ -625,6 +739,9 @@
               if(res.data[i].id!==null){
                 paper.id=res.data[i].id
               }
+              else if(res.data[i]._id!==null){
+                paper.id=res.data[i]._id
+              }
               else{
                 paper.id=1
               }
@@ -634,42 +751,46 @@
             this.itemnumber1=0
           });
         }
-        else if(this.value==="关键词"){
-          this.$axios.get('/api/data/paper/keyword',
+        else if(this.value==="科研人员"){
+          this.$axios.get('/api/data/paper/authorfuzzyname',
             {
               params: {
                 pagenum: this.page1,
-                keyword: this.text
+                author: this.text
               }
             }
           ).then((res) => {
             this.papers=[]
-            this.itemnumber1 = res.data.length
-            for(var i = 0; i < res.data.length;i++){
+            this.itemnumber1 = res.data.data.paperlist.length
+            console.log(res.data.data.paperlist.length)
+            for(var i = 0; i < res.data.data.paperlist.length;i++){
               var paper={}
-              paper.title=res.data[i].title
+              paper.title=res.data.data.paperlist[i].title
 
-              if(res.data[i].authors.length>0)
+              if(res.data.data.paperlist[i].authors.length>0)
               {
-                var authors = res.data[i].authors[0].name
-                for(var j = 1;j<res.data[i].authors.length;j++){
-                  authors = authors +", "+ res.data[i].authors[j].name
+                var authors = res.data.data.paperlist[i].authors[0].name
+                for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                  authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
                 }
                 paper.authors=authors
               }
               else{
                 paper.authors=""
               }
-              if(res.data[i].publisher===null){
+              if(res.data.data.paperlist[i].publisher===null){
                 paper.publisher="无"
               }
               else{
-                paper.publisher = res.data[i].publisher
+                paper.publisher = res.data.data.paperlist[i].publisher
               }
-              paper.year=res.data[i].year
-              paper.n_citation=res.data[i].n_citation
-              if(res.data[i].id!==null){
-                paper.id=res.data[i].id
+              paper.year=res.data.data.paperlist[i].year
+              paper.n_citation=res.data.data.paperlist[i].n_citation
+              if(res.data.data.paperlist[i].id!==null){
+                paper.id=res.data.data.paperlist[i].id
+              }
+              else if(res.data.data.paperlist[i]._id!==null){
+                paper.id=res.data.data.paperlist[i]._id
               }
               else{
                 paper.id=1
@@ -798,6 +919,50 @@
         else if(num===2){
           this.page4=this.page4+1
         }
+        this.$axios.get('/api/data/author/byfuzzyname',
+          {
+            params: {
+              pagenum: this.page4,
+              name: this.text
+            }
+          }
+        ).then((res) => {
+          this.scientists=[]
+          this.itemnumber4 = res.data.data.authorList.length
+          for(var i = 0; i < res.data.data.authorList.length;i++){
+            var author={}
+            author.username=res.data.data.authorList[i].name
+            if(res.data.data.authorList[i].orgs===null){
+              author.organization="无"
+            }
+            else if(res.data.data.authorList[i].orgs.length>0)
+            {
+              var orgs = res.data.data.authorList[i].orgs[0]
+              for(var j = 1;j<res.data.data.authorList[i].orgs.length;j++){
+                orgs = orgs +", "+ res.data.data.authorList[i].orgs[j]
+              }
+              author.organization=orgs
+            }
+            else{
+              author.organization="无"
+            }
+            if(res.data.data.authorList[i].position===null){
+              author.researchfield="无"
+            }
+            else{
+              author.researchfield = res.data.data.authorList[i].position
+            }
+            if(res.data.data.authorList[i].id===null){
+              author.authuserid=1
+            }
+            else{
+              author.authuserid=res.data.data.authorList[i].id
+            }
+            this.scientists[i]=author
+          }
+        }).catch((failResponse) => {
+          this.itemnumber4=0
+        });
       },
 
       search5(num) {
@@ -815,75 +980,55 @@
         this.showwhat=6
       },
 
-      search6(){
-        this.$axios.get('/api/trend/paperamountrank'
-        ).then((res) => {
-          this.itemnumber6 = res.data.length
-          for(var i = 0; i < res.data.length;i++){
-            var paper={}
-            paper.title=res.data[i].title
+      search6(num){
 
-            if(res.data[i].authors.length>0)
-            {
-              var authors = res.data[i].authors[0].name
-              for(var j = 1;j<res.data[i].authors.length;j++){
-                authors = authors +", "+ res.data[i].authors[j].name
-              }
-              paper.authors=authors
-            }
-            else{
-              paper.authors=""
-            }
-            if(res.data[i].publisher===null){
-              paper.publisher="无"
-            }
-            else{
-              paper.publisher = res.data[i].publisher
-            }
-            paper.year=res.data[i].year
-            paper.n_citation=res.data[i].n_citation
-            if(res.data[i].id!==null){
-              paper.id=res.data[i].id
-            }
-            else{
-              paper.id=1
-            }
-            this.papers1[i]=paper
-          }
-        }).catch((failResponse) => {
-          this.itemnumber6=0
-        });
       },
 
-      search7(){
-        this.$axios.get('/api/trend/papercitationrank'
+      search7(num){
+        if(num===1){
+          this.page7=this.page7-1
+        }
+        else if(num===2){
+          this.page7=this.page7+1
+        }
+        this.$axios.get('/api/trend/paper/citation/rank',
+          {
+            params: {
+              pagenum: this.page7
+            }
+          }
         ).then((res) => {
-          this.itemnumber7 = res.data.length
-          for(var i = 0; i < res.data.length;i++){
+          this.papers=[]
+          this.itemnumber7 = res.data.data.paperlist.length
+          console.log(res.data.data.paperlist.length)
+          for(var i = 0; i < res.data.data.paperlist.length;i++){
             var paper={}
-            paper.title=res.data[i].title
+            paper.title=res.data.data.paperlist[i].title
 
-            if(res.data[i].authors.length>0)
+            if(res.data.data.paperlist[i].authors.length>0)
             {
-              var authors = res.data[i].authors[0].name
-              for(var j = 1;j<res.data[i].authors.length;j++){
-                authors = authors +", "+ res.data[i].authors[j].name
+              var authors = res.data.data.paperlist[i].authors[0].name
+              for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
               }
               paper.authors=authors
             }
             else{
               paper.authors=""
             }
-            if(res.data[i].publisher===null){
+            if(res.data.data.paperlist[i].publisher===null){
               paper.publisher="无"
             }
             else{
-              paper.publisher = res.data[i].publisher
+              paper.publisher = res.data.data.paperlist[i].publisher
             }
-            paper.year=res.data[i].year
-            paper.n_citation=res.data[i].n_citation
-            if(res.data[i].id!==null){
-              paper.id=res.data[i].id
+            paper.year=res.data.data.paperlist[i].year
+            paper.n_citation=res.data.data.paperlist[i].n_citation
+            if(res.data.data.paperlist[i].id!==null){
+              paper.id=res.data.data.paperlist[i].id
+            }
+            else if(res.data.data.paperlist[i]._id!==null){
+              paper.id=res.data.data.paperlist[i]._id
             }
             else{
               paper.id=1
@@ -897,8 +1042,8 @@
 
     },
     mounted() {
-      this.search6()
-      this.search7()
+      this.search6(0)
+      this.search7(0)
     },
   }
 </script>
