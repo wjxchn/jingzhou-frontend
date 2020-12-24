@@ -110,7 +110,7 @@ export default {
           repeatpassword: ""
       },
       rules: {
-          name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
+          name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 2, max: 15, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
           pass: [{ required: true, validator: validatePass, trigger: 'blur' }],
 
 
