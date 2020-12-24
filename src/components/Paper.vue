@@ -152,15 +152,6 @@ export default {
     const paperid = this.$route.query.paperid;
     // const paperid = "53e99893b7602d97020ca4c1";
     // const paperid = '1';
-
-      axios({
-          method:"post",
-          url:'/api/paper/addclick/',
-          data:{'paperid':this.$route.query.paperid}
-          }).then(response=>{}).catch(error=>{
-                                console.log(error);
-                                });
-
     if(paperid === '1') {
       alert('找不到论文信息');
     }
