@@ -210,6 +210,31 @@
                     this.$router.go(0)
                 });
             }
+
+            this.$axios({
+                method:'post',
+                url:'/api/community/getpersonalinfo/',
+                data: {'userid':localStorage.getItem('userid')}
+            })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+
+            this.$axios({
+                method:'post',
+                url:'http://106.14.12.11:8443/api/paper/username/',
+                data:{'userid':localStorage.getItem('userid')}
+            })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+
             this.$axios.get('/api/user/showuserinfo',
             {
                 params: {
