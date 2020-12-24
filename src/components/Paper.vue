@@ -148,8 +148,19 @@ export default {
   },
   mounted() {
     const paperid = this.$route.query.paperid;
+<<<<<<< HEAD
     //const paperid = "53a7258520f7420be8b514a9";
     this.getdata(paperid);
+=======
+    // const paperid = "53a7258520f7420be8b514a9";
+    // const paperid = '1';
+    if(paperid === '1') {
+      alert('找不到论文信息');
+    }
+    else {
+      this.getdata(paperid);
+    }
+>>>>>>> 90722a7993c3ff96f7019595d84f4171e0a2e44f
   },
 };
 </script>
