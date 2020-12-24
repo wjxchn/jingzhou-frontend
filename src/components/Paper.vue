@@ -86,9 +86,11 @@ export default {
         })
         .then((res) => {
           console.log(res);
+
           this.title = res.data.data.paper.title;
           if( res.data.data.paper.venue !== null) {
             this.venue = res.data.data.paper.venue.raw;
+
           } else {
             this.venue = '无数据';
           }
@@ -150,7 +152,15 @@ export default {
   },
   mounted() {
     const paperid = this.$route.query.paperid;
+
+
+    //const paperid = "53e99785b7602d9701f4471b";
+    this.getdata(paperid);
+
+    // const paperid = "53a7258520f7420be8b514a9";
+
     // const paperid = "53e99893b7602d97020ca4c1";
+
     // const paperid = '1';
     if(paperid === '1') {
       alert('找不到论文信息');
