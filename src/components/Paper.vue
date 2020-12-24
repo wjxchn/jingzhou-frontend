@@ -77,68 +77,68 @@ export default {
     getdata(paperid) {
       console.log("1");
       this.$axios
-        .get("/api/data/paper/id", {
+        .get("/api/data/paper/idorpaperid", {
           params: {
             id: paperid,
           },
         })
         .then((res) => {
           console.log(res);
-          this.title = res.data.title;
-          if( res.data.venue !== null) {
-            this.venue = res.data.venue.raw;
+          this.title = res.data.data.paper.title;
+          if( res.data.data.paper.venue !== null) {
+            this.venue = res.data.data.paper.venue.raw;
           } else {
             this.venue = '无数据';
           }
-          if( res.data.year !== null) {
-            this.time = res.data.year;
+          if( res.data.data.paper.year !== null) {
+            this.time = res.data.data.paper.year;
           } else {
             this.time = '无数据';
           }
-          const len = res.data.authors.length;
+          const len = res.data.data.paper.authors.length;
           var tmp;
           for (var i = 0; i < len; i++) {
-            this.author[i] = res.data.authors[i].name;
+            this.author[i] = res.data.data.paper.authors[i].name;
           }
-          // this.author = res.data.authors;
+          // this.author = res.data.data.paper.authors;
           // this.org = res.org;
-          if( res.data.abstracts !== null) {
-            this.abs = res.data.abstracts;
+          if( res.data.data.paper.abstract !== null) {
+            this.abs = res.data.data.paper.abstract;
           } else {
             this.abs = '无数据';
           }
-          if( res.data.keywords !== null) {
-            this.kw = res.data.keywords;
+          if( res.data.data.paper.keywords !== null) {
+            this.kw = res.data.data.paper.keywords;
           } else {
             this.kw = ['无数据'];
           }
-          if( res.data.url !== null) {
-            this.url = res.data.url;
+          if( res.data.data.paper.url !== null) {
+            this.url = res.data.data.paper.url;
           } else {
             this.url = '/';
           }
-          if( res.data.lang !== null) {
-            this.lang = res.data.lang;
+          if( res.data.data.paper.lang !== null) {
+            this.lang = res.data.data.paper.lang;
           } else {
             this.lang = '未说明';
           }
-          if( res.data.citation !== null) {
-            this.citation = res.data.n_citation;
+          if( res.data.data.paper.citation !== null) {
+            this.citation = res.data.data.paper.n_citation;
           } else {
             this.citation = '无数据';
           }
-          if( res.data.volume !== '') {
-            this.volume = '  V' + res.data.volume;
+          if( res.data.data.paper.volume !== '' && res.data.data.paper.volume !== null) {
+            this.volume = '  V' + res.data.data.paper.volume;
           } else {
             this.volume = '';
           }
-          if( res.data.startpage !== null) {
-            this.startpage = '  P' + res.data.page_start;
+          if( res.data.data.paper.startpage !== null) {
+            this.startpage = '  P' + res.data.data.paper.page_start;
           } else {
             this.startpage = '';
           }
-          if( res.data.endpage !== null) {
-            this.endpage = '-P' + res.data.page_end;
+          if( res.data.data.paper.endpage !== null) {
+            this.endpage = '-P' + res.data.data.paper.page_end;
           } else {
             this.endpage = '';
           }
@@ -148,7 +148,7 @@ export default {
   },
   mounted() {
     const paperid = this.$route.query.paperid;
-    // const paperid = "53a7258520f7420be8b514a9";
+    // const paperid = "53e99893b7602d97020ca4c1";
     // const paperid = '1';
     if(paperid === '1') {
       alert('找不到论文信息');
