@@ -12,9 +12,10 @@
 
     <div class="header-right frow fye">
       <a href="/" class="header-link">首页</a>
-      <a href="/PersonalPage" class="header-link">我</a>
-      <a href="/Message" class="header-link">消息</a>
-      <a href="/Login" class="header-link">登录</a>
+      <a href="/PersonalPage" v-show="islogin" class="header-link">我</a>
+      <a href="/Message" v-show="islogin" class="header-link">消息</a>
+      <a href="/Login" v-show="!islogin" class="header-link">登录</a>
+      <el-button v-show="islogin" @click="logout">退出</el-button>
     </div>
 
   </div>
@@ -23,6 +24,18 @@
 <script>
 export default {
     name: 'Head.vue',
+    data(){
+      return{
+        islogin: localStorage.getItem("username")
+      }
+    },
+    methods:{
+      logout(){
+        localStorage.removeItem("username");
+        this.$router.push('Login');
+        this.$router.go(0);
+      }
+    }
 }
 </script>
 

@@ -163,6 +163,7 @@ export default {
               });
               localStorage.setItem("username",this.ruleForm.name);
               this.$router.push('home');
+              this.$router.go(0);
             }
             else if (response.data.code === 400)
             {
