@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "paper",
   data() {
@@ -150,6 +152,15 @@ export default {
     const paperid = this.$route.query.paperid;
     // const paperid = "53a7258520f7420be8b514a9";
     // const paperid = '1';
+
+      axios({
+          method:"post",
+          url:'/api/paper/addclick/',
+          data:{'paperid':this.$route.query.paperid}
+          }).then(response=>{}).catch(error=>{
+                                console.log(error);
+                                });
+
     if(paperid === '1') {
       alert('找不到论文信息');
     }
