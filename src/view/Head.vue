@@ -11,7 +11,8 @@
 
 
     <div class="header-right frow fye">
-      <a href="/PersonalPage" class="header-link">主页</a>
+      <a href="/" class="header-link">首页</a>
+      <a href="/PersonalPage" class="header-link">我</a>
       <a href="/Message" class="header-link">消息</a>
       <a href="/Login" class="header-link">登录</a>
     </div>

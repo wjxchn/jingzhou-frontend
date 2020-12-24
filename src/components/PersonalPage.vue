@@ -191,7 +191,7 @@
                     
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8000/api/cancelfollow/',
+                        url: '/api/cancelfollow/',
                         data: {'followerid':localStorage.getItem('userid'), 'researcherid':this.id  /*this.$route.query.userid*/ } 
                         })
                         .then(response => {
@@ -220,7 +220,7 @@
                     
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8000/api/follow/',
+                        url: '/api/follow/',
                         data: {'followerid':localStorage.getItem('userid'), 'researcherid':this.id /*this.$route.query.userid*/}
                         })
                         .then(response => {
@@ -263,7 +263,7 @@
         created: function(){
             axios({
                 method: 'post',
-                url: 'http://localhost:8000/api/isfollow/',
+                url: '/api/isfollow/',
                 data: {'followerid':localStorage.getItem('userid'), 'reseacherid': this.$route.query.userid}
             })
             .then(response => {
@@ -276,7 +276,7 @@
             });
             axios({
                 method: 'post',
-                url: 'http://localhost:8000/api/getpersonalinfo/',
+                url: '/api/getpersonalinfo/',
                 data: {'userid':this.$route.query.userid}
             })
             .then(response => {

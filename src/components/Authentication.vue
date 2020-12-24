@@ -22,7 +22,7 @@
                     <el-input v-model="ruleForm.id" placeholder="请输入身份证号"></el-input>
                 </el-form-item>
                 <el-form-item >
-                    <el-button  class="mt20" style="margin-left:45%">认证</el-button>
+                    <el-button  class="mt20" style="margin-left:45%" @click = "authenticate">认证</el-button>
                 </el-form-item>
             </el-form>
             </div>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios'
     export default {
         name: "Edit",
         data(){
@@ -65,6 +66,30 @@
             } 
         },
         methods:{
+            authenticate(){
+                axios({
+                    method:"post",
+                    url:'/api/govern/claimportal/',
+                    data:{'username':this.ruleForm.name,'institutionname':this.ruleForm.work}
+                }).then(response=>{
+                    console.log(response);
+                    if(response.data.code === 200)
+                    {
+                    this.$message({
+                        type: 'success',
+                        message: '认证成功'
+                    });
+                    this.$router.push('personalpage');
+                    }
+                    else if (response.data.code === 400)
+                    {
+                        console.log('用户名错误');
+                        return false;
+                    }
+                }).catch(error=>{
+                    console.log(error);
+                });
+            }
         }
     }
 </script>
