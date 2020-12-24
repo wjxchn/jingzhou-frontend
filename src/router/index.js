@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Message from "../components/Message";
 // import PaperShow from "../components/PaperShow";
 import PersonalPage from "../components/PersonalPage";
+import SelfPage from "../components/SelfPage";
 import Register from "../components/Register";
 import RePassword from "../components/RePassword";
 // import SciAchieveShow from "../components/SciAchieveShow";
@@ -60,6 +61,11 @@ export default new Router({
       path: '/personalpage',
       name: 'PersonalPage',
       component: PersonalPage
+    },
+    {
+      path: '/selfpage',
+      name: 'SelfPage',
+      component: SelfPage
     },
     {
       path: '/register',

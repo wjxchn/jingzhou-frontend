@@ -162,6 +162,17 @@ export default {
                 message: '登录成功'
               });
               localStorage.setItem("username",this.ruleForm.name);
+              this.$axios.get('/api/user/showuserinfo',
+              {
+                  params: {
+                  username: localStorage.getItem("username"),
+                  }
+              }
+              ).then((res) => {
+              console.log(res.data.data.user.userid)
+              localStorage.setItem(res.data.data.user.userid);
+              }).catch((failResponse) => {
+              });
               this.$router.push('home');
               this.$router.go(0);
             }

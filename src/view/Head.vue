@@ -12,7 +12,7 @@
 
     <div class="header-right frow fye">
       <a href="/" class="header-link">首页</a>
-      <a href="/PersonalPage" v-show="islogin" class="header-link">我</a>
+      <a href="/SelfPage" v-show="islogin" class="header-link">我</a>
       <a href="/Message" v-show="islogin" class="header-link">消息</a>
       <a href="/Login" v-show="!islogin" class="header-link">登录</a>
       <el-button v-show="islogin" @click="logout">退出</el-button>
