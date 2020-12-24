@@ -10,61 +10,26 @@
             </div>
             <el-divider></el-divider>
             <font class="rem10 mt5 ml20">最高被引</font>
-                <a class="ml20 mt15">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
+                <a class="ml20 mt15" v-for="(item, i) in Paper">
+                    [{{item.num}}]
+                    <el-button style="color:grey" type="text">{{item.name}}</el-button>
+                    [{{item.ident}}]
+                    {{item.authors}}
+                    .{{item.press}}.
+                    {{item.year}}
+                    ({{item.month}})
                 </a>
-                <a class="ml20 mt5">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
-                <a class="ml20 mt5">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
+
             <el-divider></el-divider>
             <font class="rem1 mt10 ml20">发表文献</font>
-            <a class="ml20 mt15">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
-                <a class="ml20 mt5">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
-                </a>
-                <a class="ml20 mt5">
-                    [{{Paper.num}}]
-                    <el-button style="color:grey" type="text">{{Paper.name}}</el-button>
-                    [{{Paper.ident}}]
-                    {{Paper.authors}}
-                    .{{Paper.press}}.
-                    {{Paper.year}}
-                    ({{Paper.month}})
+                <a class="ml20 mt15" v-for="(item, i) in Paper">
+                    [{{item.num}}]
+                    <el-button style="color:grey" type="text">{{item.name}}</el-button>
+                    [{{item.ident}}]
+                    {{item.authors}}
+                    .{{item.press}}.
+                    {{item.year}}
+                    ({{item.month}})
                 </a>
             <el-divider></el-divider>
         </div>
@@ -135,7 +100,7 @@
                     thumbs:1987,
                     introduction:"小车正穿行在落基山脉蜿蜒曲折的盘山公路上。克里斯朵夫·李维静静地望着窗外，发现每当车子即将行驶到无路的关头，路边都会出现一块交通指示牌‘前方转弯’或‘注意！急转弯’。而拐过每一道弯之后，前方照例又是一片柳暗花明，豁然开朗。山路弯弯，峰回路转，‘前方转弯’几个大字一次次地冲击着他的眼球，也渐渐叩醒了他的心扉：原来，不是路已到了尽头，而是该转弯了。路在脚下，更在心中，心随路转，心路常宽。学会转弯也是人生的智慧，因为挫折往往是转折，危机同时是转机。"
                 },
-                Paper:{
+                Paper:[{
                     num:1,
                     name:"论文名",
                     ident:"J",
@@ -143,7 +108,7 @@
                     press:"这是出版社",
                     year:2004,
                     month:3
-                },
+                }],
                 /*是否是已经关注的状态 */
                 followed:false,
                 followtext:"关注",
