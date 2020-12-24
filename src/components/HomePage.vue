@@ -61,14 +61,14 @@
         </el-row>
         <div v-for="i in itemnumber1">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}" target="_blank">{{papers[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers[i-1].year}}</el-col>
             <el-col class="paper5">{{papers[i-1].n_citation}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}">{{papers[i-1].title}}</router-link></el-col>
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers[i-1].id}}" target="_blank">{{papers[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers[i-1].year}}</el-col>
@@ -99,7 +99,7 @@
         </el-row>
         <div v-for="i in itemnumber2">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="patent1"><router-link :to="{path: '/patent', query: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
+            <el-col class="patent1"><router-link :to="{path: '/patent', query: {patentid: patents[i-1].patentid}}" target="_blank">{{patents[i-1].patentname}}</router-link></el-col>
             <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
             <el-col class="patent3">{{patents[i-1].type}}</el-col>
             <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
@@ -107,7 +107,7 @@
             <el-col class="paper6">{{patents[i-1].pubdate}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="patent1"><router-link :to="{path: '/patent', query: {patentid: patents[i-1].patentid}}">{{patents[i-1].patentname}}</router-link></el-col>
+            <el-col class="patent1"><router-link :to="{path: '/patent', query: {patentid: patents[i-1].patentid}}" target="_blank">{{patents[i-1].patentname}}</router-link></el-col>
             <el-col class="patent2">{{patents[i-1].inventor}}</el-col>
             <el-col class="patent3">{{patents[i-1].type}}</el-col>
             <el-col class="patent4">{{patents[i-1].applicant}}</el-col>
@@ -137,13 +137,13 @@
         </el-row>
         <div v-for="i in itemnumber3">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="project1"><router-link :to="{path: '/achievement', query: {achievementid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
+            <el-col class="project1"><router-link :to="{path: '/achievement', query: {achievementid: projects[i-1].projectid}}" target="_blank">{{projects[i-1].title}}</router-link></el-col>
             <el-col class="project2">{{projects[i-1].researcher}}</el-col>
             <el-col class="project3">{{projects[i-1].institution}}</el-col>
             <el-col class="project4">{{projects[i-1].time}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="project1"><router-link :to="{path: '/achievement', query: {achieventid: projects[i-1].projectid}}">{{projects[i-1].title}}</router-link></el-col>
+            <el-col class="project1"><router-link :to="{path: '/achievement', query: {achieventid: projects[i-1].projectid}}" target="_blank">{{projects[i-1].title}}</router-link></el-col>
             <el-col class="project2">{{projects[i-1].researcher}}</el-col>
             <el-col class="project3">{{projects[i-1].institution}}</el-col>
             <el-col class="project4">{{projects[i-1].time}}</el-col>
@@ -195,12 +195,12 @@
         </el-row>
         <div v-for="i in itemnumber4">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}" target="_blank">{{scientists[i-1].username}}</router-link></el-col>
             <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
             <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}" target="_blank">{{scientists[i-1].username}}</router-link></el-col>
             <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
             <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
           </el-row>
@@ -246,14 +246,14 @@
         </el-row>
         <div v-for="i in itemnumber6">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}">{{papers1[i-1].title}}</router-link></el-col>
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}" target="_blank">{{papers1[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers1[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers1[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers1[i-1].year}}</el-col>
             <el-col class="paper5">{{papers1[i-1].n_citation}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}">{{papers1[i-1].title}}</router-link></el-col>
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}" target="_blank">{{papers1[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers1[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers1[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers1[i-1].year}}</el-col>
@@ -278,14 +278,14 @@
         </el-row>
         <div v-for="i in itemnumber7">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers2[i-1].id}}">{{papers2[i-1].title}}</router-link></el-col>
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers2[i-1].id}}" target="_blank">{{papers2[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers2[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers2[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers2[i-1].year}}</el-col>
             <el-col class="paper5">{{papers2[i-1].n_citation}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers2[i-1].id}}">{{papers2[i-1].title}}</router-link></el-col>
+            <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers2[i-1].id}}" target="_blank">{{papers2[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers2[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers2[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers2[i-1].year}}</el-col>
@@ -327,7 +327,7 @@
           label: '科研机构'
         }],
 
-        showwhat: 6,
+        showwhat: 7,
 
         itemnumber1: 0,
         itemnumber2: 0,
@@ -434,9 +434,6 @@
               if(res.data.data.paperlist[i].id!==null){
                 paper.id=res.data.data.paperlist[i].id
               }
-              else if(res.data.data.paperlist[i]._id!==null){
-                paper.id=res.data.data.paperlist[i]._id
-              }
               else{
                 paper.id=1
               }
@@ -487,9 +484,6 @@
               if(res.data.data.paperlist[i].id!==null){
                 paper.id=res.data.data.paperlist[i].id
               }
-              else if(res.data.data.paperlist[i]._id!==null){
-                paper.id=res.data.data.paperlist[i]._id
-              }
               else{
                 paper.id=1
               }
@@ -498,89 +492,47 @@
           }).catch((failResponse) => {
             this.itemnumber1=0
           });
-          this.$axios.get('/api/fuzzysearchpatent',
+          this.$axios.get('/api/api/fuzzysearchpatent',
             {
               params: {
-                pagenum: this.page1,
+                pagenum: this.page2,
                 keywords: this.text
               }
             }
           ).then((res) => {
             this.patents=[]
-            this.itemnumber2 = res.data.length
-            for(var i = 0; i < res.data.length;i++){
+            this.itemnumber2 = res.data.data.patents.length
+            for(var i = 0; i < res.data.data.patents.length;i++){
               var patent={}
-              patent.patentname=res.data[i].patentname
-              if(res.data[i].inventor===null)
-              {
-                patent.inventor="无"
-              }
-              else{
-                patent.inventor=res.data[i].inventor
-              }
-              if(res.data[i].type===null){
-                patent.type="无"
-              }
-              else{
-                patent.type = res.data[i].type
-              }
-              if(res.data[i].applicant===null){
-                patent.applicant="无"
-              }
-              else{
-                patent.applicant = res.data[i].applicant
-              }
-              if(res.data[i].appdate===null){
-                patent.appdate="无"
-              }
-              else{
-                patent.appdate = res.data[i].appdate
-              }
-              if(res.data[i].pubdate===null){
-                patent.pubdate="无"
-              }
-              else{
-                patent.pubdate = res.data[i].pubdate
-              }
-              patent.patentid=res.data[i].patentid
+              patent.patentid=res.data.data.patents[i].patentid
+              patent.patentname=res.data.data.patents[i].patentname
+              patent.inventor=res.data.data.patents[i].inventor
+              patent.type=res.data.data.patents[i].type
+              patent.applicant=res.data.data.patents[i].applicant
+              patent.appdate=res.data.data.patents[i].appdate
+              patent.pubdate=res.data.data.patents[i].pubdate
               this.patents[i]=patent
             }
           }).catch((failResponse) => {
             this.itemnumber2=0
           });
-          this.$axios.get('/api/fuzzysearchproject',
+          this.$axios.get('/api/api/fuzzysearchproject',
             {
               params: {
-                pagenum: this.page1,
+                pagenum: this.page3,
                 keywords: this.text
               }
             }
           ).then((res) => {
             this.projects=[]
-            this.itemnumber3 = res.data.length
-            for(var i = 0; i < res.data.length;i++){
+            this.itemnumber3 = res.data.data.projects.length
+            for(var i = 0; i < res.data.data.projects.length;i++){
               var project={}
-              project.title=res.data[i].title
-              if(res.data[i].researcher===null)
-              {
-                project.researcher="无"
-              }
-              else{
-                project.researcher=res.data[i].researcher
-              }
-              if(res.data[i].institution===null){
-                project.institution="无"
-              }
-              else{
-                project.institution = res.data[i].institution
-              }
-              if(res.data[i].time===null){
-                project.time="无"
-              }
-              else{
-                project.time = res.data[i].time
-              }
-              project.achieventid=res.data[i].projectid
+              project.projectid=res.data.data.projects[i].projectid
+              project.title=res.data.data.projects[i].projectname
+              project.researcher=res.data.data.projects[i].researcher
+              project.institution=res.data.data.projects[i].institution
+              project.time=res.data.data.projects[i].intime
               this.projects[i]=project
             }
           }).catch((failResponse) => {
@@ -673,9 +625,6 @@
               if(res.data.data.paperlist[i].id!==null){
                 paper.id=res.data.data.paperlist[i].id
               }
-              else if(res.data.data.paperlist[i]._id!==null){
-                paper.id=res.data.data.paperlist[i]._id
-              }
               else{
                 paper.id=1
               }
@@ -739,9 +688,6 @@
               if(res.data[i].id!==null){
                 paper.id=res.data[i].id
               }
-              else if(res.data[i]._id!==null){
-                paper.id=res.data[i]._id
-              }
               else{
                 paper.id=1
               }
@@ -789,9 +735,6 @@
               if(res.data.data.paperlist[i].id!==null){
                 paper.id=res.data.data.paperlist[i].id
               }
-              else if(res.data.data.paperlist[i]._id!==null){
-                paper.id=res.data.data.paperlist[i]._id
-              }
               else{
                 paper.id=1
               }
@@ -811,56 +754,7 @@
         else if(num===2){
           this.page2=this.page2+1
         }
-        this.$axios.get('/api/fuzzysearchpatent',
-          {
-            params: {
-              pagenum: this.page2,
-              keywords: this.text
-            }
-          }
-        ).then((res) => {
-          this.patents=[]
-          this.itemnumber2 = res.data.length
-          for(var i = 0; i < res.data.length;i++){
-            var patent={}
-            patent.patentname=res.data[i].patentname
-            if(res.data[i].inventor===null)
-            {
-              patent.inventor="无"
-            }
-            else{
-              patent.inventor=res.data[i].inventor
-            }
-            if(res.data[i].type===null){
-              patent.type="无"
-            }
-            else{
-              patent.type = res.data[i].type
-            }
-            if(res.data[i].applicant===null){
-              patent.applicant="无"
-            }
-            else{
-              patent.applicant = res.data[i].applicant
-            }
-            if(res.data[i].appdate===null){
-              patent.appdate="无"
-            }
-            else{
-              patent.appdate = res.data[i].appdate
-            }
-            if(res.data[i].pubdate===null){
-              patent.pubdate="无"
-            }
-            else{
-              patent.pubdate = res.data[i].pubdate
-            }
-            patent.patentid=res.data[i].patentid
-            this.patents[i]=patent
-          }
-        }).catch((failResponse) => {
-          this.itemnumber2=0
-        });
+
       },
 
       search3(num) {
@@ -871,44 +765,7 @@
         else if(num===2){
           this.page3=this.page3+1
         }
-        this.$axios.get('/api/fuzzysearchproject',
-          {
-            params: {
-              pagenum: this.page3,
-              keywords: this.text
-            }
-          }
-        ).then((res) => {
-          this.projects=[]
-          this.itemnumber3 = res.data.length
-          for(var i = 0; i < res.data.length;i++){
-            var project={}
-            project.title=res.data[i].title
-            if(res.data[i].researcher===null)
-            {
-              project.researcher="无"
-            }
-            else{
-              project.researcher=res.data[i].researcher
-            }
-            if(res.data[i].institution===null){
-              project.institution="无"
-            }
-            else{
-              project.institution = res.data[i].institution
-            }
-            if(res.data[i].time===null){
-              project.time="无"
-            }
-            else{
-              project.time = res.data[i].time
-            }
-            project.achieventid=res.data[i].projectid
-            this.projects[i]=project
-          }
-        }).catch((failResponse) => {
-          this.itemnumber3=0
-        });
+
       },
 
       search4(num) {
@@ -977,7 +834,7 @@
 
       showhot(){
         this.hot=true
-        this.showwhat=6
+        this.showwhat=7
       },
 
       search6(num){
@@ -1026,9 +883,6 @@
             paper.n_citation=res.data.data.paperlist[i].n_citation
             if(res.data.data.paperlist[i].id!==null){
               paper.id=res.data.data.paperlist[i].id
-            }
-            else if(res.data.data.paperlist[i]._id!==null){
-              paper.id=res.data.data.paperlist[i]._id
             }
             else{
               paper.id=1

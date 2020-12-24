@@ -7,12 +7,11 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 
-<<<<<<< HEAD
+
 //var axios = require('axios')
 //axios.defaults.baseURL = 'http://106.14.12.11:8443'
 
-=======
->>>>>>> 0946ad4704741c6c0f2e591fc04b0d021402643e
+
 //axios.defaults.baseURL = 'http://106.14.12.11:8443'
 Vue.prototype.$axios = axios
 // axios.defaults.baseURL = '/api'
