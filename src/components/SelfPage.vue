@@ -249,10 +249,10 @@
             this.Author.userid = res.data.data.user.userid;
             }).catch((failResponse) => {
             });
-            this.$axios.get('/api/community/follow/num',
+            this.$axios.get('/api/community/follow/num/self',
             {
                 params: {
-                userid: localStorage.getItem("userid"),
+                username: localStorage.getItem("username"),
                 }
             }
             ).then((res) => {
@@ -260,10 +260,10 @@
             this.Author.follows=res.data.data.cnt;
             }).catch((failResponse) => {
             });
-            this.$axios.get('/api/community/follower/num',
+            this.$axios.get('/api/community/follower/num/self',
             {
                 params: {
-                userid: localStorage.getItem("userid"),
+                username: localStorage.getItem("username"),
                 }
             }
             ).then((res) => {
