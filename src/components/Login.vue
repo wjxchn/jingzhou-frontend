@@ -12,55 +12,6 @@
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
-
-
-
-        <el-button type="text" @click="centerDialogVisibleSecond = true">找回密码</el-button>
-
-        <el-dialog
-          title="忘记密码"
-          :visible.sync="centerDialogVisibleSecond"
-          width="30%"
-          :before-close="handleClose">
-          <span>
-
-                    <el-form label-width="120px" ref="forgetpwdform" :model="forgetpwdform" :rules="rules">
-                        <el-row :gutter="20">
-                            <el-col :span="17">
-                                <el-form-item prop="email" label="邮箱：">
-                                    <el-input v-model="forgetpwdform.email" maxlength="20"></el-input>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="7">
-                                <el-button @click="sendEmail" :disabled="disabled">{{sendcode}}</el-button>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col>
-                                <el-form-item prop="code" label="验证码：">
-                                    <el-input v-model="forgetpwdform.code"></el-input>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-form-item prop="newpassword" label="新密码">
-                            <el-input type="password" v-model="forgetpwdform.newpassword"></el-input>
-                        </el-form-item>
-                        <el-form-item prop="repeatpassword" label="确认密码">
-                            <el-input type="password" v-model="forgetpwdform.repeatpassword"></el-input>
-                        </el-form-item>
-
-                    </el-form>
-
-
-          </span>
-          <span slot="footer" class="dialog-footer">
-            <el-button type="default" @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="handleSubmit">确 定</el-button>
-          </span>
-        </el-dialog>
-
-
-
       </el-tab-pane>
 
       <el-tab-pane label="注册" name="second">
