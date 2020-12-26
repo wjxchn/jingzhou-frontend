@@ -1,6 +1,8 @@
 <template>
 <el-container>
-  <el-main style="height:650px">
+  <el-main>
+  <div style="height:100px">
+  </div>
     <div>
     <div style="text-align:center">
     <el-image :src="src" style="max-width:10%;height:auto" lazy></el-image>
@@ -29,6 +31,18 @@
     </el-col>
     </el-row>
     </div>
+  <div>
+  <div style="height:100px">
+  </div>
+    <el-card class="box-card" style="width:30%">
+      <div slot="header" class="clearfix" style="text-align:center">
+        <span>一周学术热点</span>
+      </div>
+      <div v-for="o in 4" :key="o" class="text item">
+        {{'列表内容 ' + o }}
+      </div>
+    </el-card>
+  </div>
   </el-main>
 </el-container>
 </template>

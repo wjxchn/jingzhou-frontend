@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-      <el-header><Head></Head></el-header>
-      <el-main><router-view></router-view></el-main>
-      <el-footer><Footer></Footer></el-footer>
+  <el-header style="background-color:rgb(84,92,100)">
+     <Head></Head>
+  </el-header>
+  <el-main style="background-color:rgb(255,255,255)"><router-view></router-view></el-main>
   </div>
 </template>
 
 <script>
 import Footer from './view/Footer'
 import Head from './view/Head'
+import picture from './assets/logo_black.png'
 export default {
   name: 'App',
   components: {
@@ -38,7 +40,6 @@ export default {
 
 header{
   z-index: 9999;
-  box-shadow: 5px 5px 5px #888888;
   position:sticky;
   top:0;
 }

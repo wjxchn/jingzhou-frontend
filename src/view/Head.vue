@@ -1,24 +1,24 @@
 <template>
-  <div id="header" class="frow">
-
-    <div class="header-left">
-
-    </div>
-
-    <div class="header-main">
-      <img src="../assets/logo_black.png" style="height:100%;">
-    </div>
-
-
-    <div class="header-right frow fye">
-      <a href="/" class="header-link">首页</a>
-      <a href="/SelfPage" v-show="islogin" class="header-link">我</a>
-      <a href="/Message" v-show="islogin" class="header-link">消息</a>
-      <a href="/Login" v-show="!islogin" class="header-link">登录</a>
+<div>
+  <el-image :src="require('../assets/logo_black.png')" style="height:60px;width:60px" lazy></el-image>
+    <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect" style="float:right"  background-color="#545c64"
+  text-color="#fff"
+  active-text-color="#ffd04b">
+      <el-menu-item index="1">
+        <a href="/" class="header-link" >首页</a>
+      </el-menu-item>     
+      <el-menu-item v-show="islogin" index="3" >
+        <a href="/Message"  class="header-link">消息</a>
+      </el-menu-item>
+      <el-menu-item  v-show="islogin" index="2">
+        <a href="/SelfPage" class="header-link">我</a>
+      </el-menu-item>
+      <el-menu-item  v-show="!islogin" index="4"><a href="/Login" class="header-link">登录</a></el-menu-item>
+      <el-menu-item>
       <el-button v-show="islogin" @click="logout">退出</el-button>
-    </div>
-
-  </div>
+      </el-menu-item>
+    </el-menu>  
+</div>
 </template>
 
 <script>
@@ -40,27 +40,5 @@ export default {
 </script>
 
 <style scoped>
-#header{
-  height:52px;
-  background-color: white;
-}
-.header-left{
-  height: 100%;
-  width: 2%;
-}
-.header-main{
-  height: 100%;
-  width: 60%;
-}
-.header-right{
-  height: 100%;
-  width: 20%;
-
-}
-.header-link{
-  font-size:1.2rem;
-  flex-grow: 1;
-}
-
 
 </style>
