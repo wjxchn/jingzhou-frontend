@@ -3,33 +3,16 @@
 
         <div class="PersonalPage-main-left fcolumn">
             <div class="frow">
-                <b class="rem15 mt10 ml15 sg2">作者文献</b>
+                <b class="rem15 mt10 ml15 sg2">作者论文</b>
                 <b class="rem10 mt20 ml15 sg2">总发文量: {{Author.papers}}</b>
                 <b class="rem10 mt20 ml15 sg1">总被引次数: {{Author.downloads}}</b>
      
             </div>
             <el-divider></el-divider>
-            <font class="rem10 mt5 ml20">最高被引</font>
+            <font class="rem1 mt10 ml20">发表论文</font>
                 <a class="ml20 mt15" v-for="(item, i) in Paper">
                     [{{item.num}}]
-                    <el-button style="color:grey" type="text">{{item.name}}</el-button>
-                    [{{item.ident}}]
-                    {{item.authors}}
-                    .{{item.press}}.
-                    {{item.year}}
-                    ({{item.month}})
-                </a>
-
-            <el-divider></el-divider>
-            <font class="rem1 mt10 ml20">发表文献</font>
-                <a class="ml20 mt15" v-for="(item, i) in Paper">
-                    [{{item.num}}]
-                    <el-button style="color:grey" type="text">{{item.name}}</el-button>
-                    [{{item.ident}}]
-                    {{item.authors}}
-                    .{{item.press}}.
-                    {{item.year}}
-                    ({{item.month}})
+                    <el-button @click="toPaperPage(item.id)" style="color:grey" type="text">{{item.name}}</el-button>
                 </a>
             <el-divider></el-divider>
         </div>
@@ -41,10 +24,10 @@
             <div class="PersonalPage-main-right-top fcolumn fyc">
 
                 <img :src="Author.avatar_src" style="width:50%" class="mt20">
+                <b class="rem15">{{Author.realname}}</b>
                 <el-divider></el-divider>
 
                 <b class="rem15">{{Author.name}}</b>
-                
                 <font class="rem1 mt15"><a href="#">{{Author.organization}}</a></font>
 
             </div>
@@ -94,6 +77,7 @@
                     downloads:114,
                     references:514,
                     fields:"计算机技术",
+                    realname: "wjx",
                     fans:1024,
                     follows:15,
                     thumbs:1987,
@@ -102,11 +86,7 @@
                 Paper:[{
                     num:1,
                     name:"论文名",
-                    ident:"J",
-                    authors:"王晶,贾经冬",
-                    press:"这是出版社",
-                    year:2004,
-                    month:3
+                    id:"",
                 }],
                 /*是否是已经关注的状态 */
                 followed:false,
@@ -118,6 +98,9 @@
         },
         
         methods:{
+            toPaperPage(id){
+                this.$router.push({path: '/paper',query:{paperid:id}})
+            },
             changeFollowState(){
                 if(!this.isPersonalPage){
                     if(this.followed){ 
@@ -194,6 +177,8 @@
 
         created: function(){
             this.isPersonalPage = true
+            this.Author.papers = 0
+            this.Author.downloads = 0
             if(!this.isPersonalPage){
                 this.$axios({
                     method: 'post',
@@ -219,6 +204,7 @@
                 console.log(response)
                 this.Author.introduction = response.data.data.user.field
                 this.Author.organization = response.data.data.user.institution
+                this.Author.realname = response.data.data.user.realname
             })
             .catch(error=>{
                 console.log(error)
@@ -226,14 +212,28 @@
 
             this.$axios({
                 method:'get',
-                url:'/api/data/paper/authorname/rank',
-                data:{'authorname':localStorage.getItem('authorname')}
+                url:'/api/data/paper/authorusername/rank',
+                params:{'authorusername':localStorage.getItem("username")}
             })
-            .then(response => {
-                console.log(response)
+            .then(res => {
+                console.log(res)
+                for(var i = 0;i<res.data.data.paperlist.length;i++){
+                    var paper = {}
+                    paper.num = i+1
+                    paper.name = res.data.data.paperlist[i].title
+                    if(res.data.data.paperlist[i].id!==null){
+                        paper.id=res.data.data.paperlist[i].id
+                    }
+                    else{
+                        paper.id=res.data.data.paperlist[i].paperid
+                    }
+                    this.Author.papers = this.Author.papers + 1
+                    this.Author.downloads = this.Author.downloads + res.data.data.paperlist[i].n_citation
+                    this.Paper[i] = paper
+                } 
             })
-            .catch(error=>{
-                console.log(error)
+            .catch(err=>{
+                console.log(err)
             });
 
             this.$axios.get('/api/user/showuserinfo',
