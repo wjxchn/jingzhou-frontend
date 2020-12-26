@@ -90,7 +90,7 @@
             }
             ).then((res) => {
             console.log(res.data.data.user.userid)
-            this.Author.avatar_src = 'http://106.14.12.11:8443'+ res.data.data.user.pic;
+            this.Author.avatar_src = 'http://106.14.12.11:8443/'+ res.data.data.user.pic;
             this.Author.name=res.data.data.user.username;
             this.Author.email=res.data.data.user.email;
             this.Author.userid = res.data.data.user.userid;
