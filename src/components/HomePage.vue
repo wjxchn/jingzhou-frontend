@@ -23,7 +23,7 @@
     <div v-if="!hot">
     <el-row class="lablea">
       <el-menu
-        :default-active="true"
+        :default-active="false"
         class="el-menu-demo"
         mode="horizontal"
         background-color="#545c64"
@@ -660,33 +660,35 @@
               }
             }
           ).then((res) => {
+            console.log(res)
             this.papers=[]
-            this.itemnumber1 = res.data.length
-            for(var i = 0; i < res.data.length;i++){
+            this.itemnumber1 = res.data.data.paperlist.length
+            console.log(res.data.data.paperlist.length)
+            for(var i = 0; i < res.data.data.paperlist.length;i++){
               var paper={}
-              paper.title=res.data[i].title
+              paper.title=res.data.data.paperlist[i].title
 
-              if(res.data[i].authors.length>0)
+              if(res.data.data.paperlist[i].authors.length>0)
               {
-                var authors = res.data[i].authors[0].name
-                for(var j = 1;j<res.data[i].authors.length;j++){
-                  authors = authors +", "+ res.data[i].authors[j].name
+                var authors = res.data.data.paperlist[i].authors[0].name
+                for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                  authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
                 }
                 paper.authors=authors
               }
               else{
                 paper.authors=""
               }
-              if(res.data[i].publisher===null){
+              if(res.data.data.paperlist[i].publisher===null){
                 paper.publisher="无"
               }
               else{
-                paper.publisher = res.data[i].publisher
+                paper.publisher = res.data.data.paperlist[i].publisher
               }
-              paper.year=res.data[i].year
-              paper.n_citation=res.data[i].n_citation
-              if(res.data[i].id!==null){
-                paper.id=res.data[i].id
+              paper.year=res.data.data.paperlist[i].year
+              paper.n_citation=res.data.data.paperlist[i].n_citation
+              if(res.data.data.paperlist[i].id!==null){
+                paper.id=res.data.data.paperlist[i].id
               }
               else{
                 paper.id=1
@@ -703,6 +705,53 @@
               params: {
                 pagenum: this.page1,
                 author: this.text
+              }
+            }
+          ).then((res) => {
+            this.papers=[]
+            this.itemnumber1 = res.data.data.paperlist.length
+            console.log(res.data.data.paperlist.length)
+            for(var i = 0; i < res.data.data.paperlist.length;i++){
+              var paper={}
+              paper.title=res.data.data.paperlist[i].title
+
+              if(res.data.data.paperlist[i].authors.length>0)
+              {
+                var authors = res.data.data.paperlist[i].authors[0].name
+                for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                  authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
+                }
+                paper.authors=authors
+              }
+              else{
+                paper.authors=""
+              }
+              if(res.data.data.paperlist[i].publisher===null){
+                paper.publisher="无"
+              }
+              else{
+                paper.publisher = res.data.data.paperlist[i].publisher
+              }
+              paper.year=res.data.data.paperlist[i].year
+              paper.n_citation=res.data.data.paperlist[i].n_citation
+              if(res.data.data.paperlist[i].id!==null){
+                paper.id=res.data.data.paperlist[i].id
+              }
+              else{
+                paper.id=1
+              }
+              this.papers[i]=paper
+            }
+          }).catch((failResponse) => {
+            this.itemnumber1=0
+          });
+        }
+        else if(this.value==="关键词"){
+          this.$axios.get('/api/data/paper/fuzzykeyword',
+            {
+              params: {
+                pagenum: this.page1,
+                keyword: this.text
               }
             }
           ).then((res) => {
