@@ -23,7 +23,7 @@
     <div v-if="!hot">
     <el-row class="lablea">
       <el-menu
-        :default-active="false"
+        :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         background-color="#545c64"
@@ -310,7 +310,7 @@
     data() {
       return {
         text:"",
-
+        activeIndex: '1',
         value:"标题",
 
         options: [{
@@ -442,6 +442,53 @@
           }).catch((failResponse) => {
             this.itemnumber1=0
           });
+          this.$axios.get('/api/api/fuzzysearchpatent',
+            {
+              params: {
+                pagenum: this.page2,
+                keywords: this.text
+              }
+            }
+          ).then((res) => {
+            this.patents=[]
+            this.itemnumber2 = res.data.data.patents.length
+            for(var i = 0; i < res.data.data.patents.length;i++){
+              var patent={}
+              patent.patentid=res.data.data.patents[i].patentid
+              patent.patentname=res.data.data.patents[i].patentname
+              patent.inventor=res.data.data.patents[i].inventor
+              patent.type=res.data.data.patents[i].type
+              patent.applicant=res.data.data.patents[i].applicant
+              patent.appdate=res.data.data.patents[i].appdate
+              patent.pubdate=res.data.data.patents[i].pubdate
+              this.patents[i]=patent
+            }
+          }).catch((failResponse) => {
+            this.itemnumber2=0
+          });
+          this.$axios.get('/api/api/fuzzysearchproject',
+            {
+              params: {
+                pagenum: this.page3,
+                keywords: this.text
+              }
+            }
+          ).then((res) => {
+            this.projects=[]
+            this.itemnumber3 = res.data.data.projects.length
+            for(var i = 0; i < res.data.data.projects.length;i++){
+              var project={}
+              project.projectid=res.data.data.projects[i].projectid
+              project.title=res.data.data.projects[i].projectname
+              project.researcher=res.data.data.projects[i].researcher
+              project.institution=res.data.data.projects[i].institution
+              project.time=res.data.data.projects[i].intime
+              this.projects[i]=project
+            }
+          }).catch((failResponse) => {
+            this.itemnumber3=0
+          });
+          this.activeIndex = '1'
         }
         else if(this.value==="关键词"){
           this.showwhat=1
@@ -538,6 +585,7 @@
           }).catch((failResponse) => {
             this.itemnumber3=0
           });
+          this.activeIndex = '1'
         }
         else if(this.value==="科研人员"){
           this.showwhat=4
@@ -633,6 +681,7 @@
           }).catch((failResponse) => {
             this.itemnumber1=0
           });
+          this.activeIndex = '4'
         }
         else if(this.value==="科研机构"){
           this.showwhat=5
@@ -803,6 +852,30 @@
         else if(num===2){
           this.page2=this.page2+1
         }
+        this.$axios.get('/api/api/fuzzysearchpatent',
+          {
+            params: {
+              pagenum: this.page2,
+              keywords: this.text
+            }
+          }
+        ).then((res) => {
+          this.patents=[]
+          this.itemnumber2 = res.data.data.patents.length
+          for(var i = 0; i < res.data.data.patents.length;i++){
+            var patent={}
+            patent.patentid=res.data.data.patents[i].patentid
+            patent.patentname=res.data.data.patents[i].patentname
+            patent.inventor=res.data.data.patents[i].inventor
+            patent.type=res.data.data.patents[i].type
+            patent.applicant=res.data.data.patents[i].applicant
+            patent.appdate=res.data.data.patents[i].appdate
+            patent.pubdate=res.data.data.patents[i].pubdate
+            this.patents[i]=patent
+          }
+        }).catch((failResponse) => {
+          this.itemnumber2=0
+        });
 
       },
 
@@ -814,7 +887,28 @@
         else if(num===2){
           this.page3=this.page3+1
         }
-
+        this.$axios.get('/api/api/fuzzysearchproject',
+          {
+            params: {
+              pagenum: this.page3,
+              keywords: this.text
+            }
+          }
+        ).then((res) => {
+          this.projects=[]
+          this.itemnumber3 = res.data.data.projects.length
+          for(var i = 0; i < res.data.data.projects.length;i++){
+            var project={}
+            project.projectid=res.data.data.projects[i].projectid
+            project.title=res.data.data.projects[i].projectname
+            project.researcher=res.data.data.projects[i].researcher
+            project.institution=res.data.data.projects[i].institution
+            project.time=res.data.data.projects[i].intime
+            this.projects[i]=project
+          }
+        }).catch((failResponse) => {
+          this.itemnumber3=0
+        });
       },
 
       search4(num) {
