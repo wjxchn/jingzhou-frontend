@@ -23,7 +23,7 @@
                     <el-input  v-model="ruleForm.field" placeholder="请输入您的研究领域"></el-input>
                 </el-form-item>
                 <el-form-item >
-                    <el-button  class="mt20" style="margin-left:45%" @click = "authenticate">认证</el-button>
+                    <el-button  class="mt20" style="margin-left:45%" @click = "authenticate('ruleForm')">认证</el-button>
                 </el-form-item>
             </el-form>
             </div>
@@ -67,38 +67,46 @@ import axios from 'axios'
             } 
         },
         methods:{
-            authenticate(){
-                this.$axios({
-                    method:"post",
-                    url:'/api/govern/claimportal/',
-                    params:{'username':localStorage.getItem('username'),'institutionname':this.ruleForm.work, 'realname':this.ruleForm.name, 'field':this.ruleForm.field}
-                }).then(response=>{
-                    console.log(response);
-                    if(response.data.code === 200)
-                    {
-                        localStorage.setItem("isauth",1);
-                    this.$message({
-                        type: 'success',
-                        message: '认证成功'
-                    });
-                    
-                    this.$router.push('selfpage');
-                    this.$router.go(0);
-                    }
-                    else if (response.data.code === 400)
-                    {
-                        console.log('用户名错误');
-                        this.$router.push('selfpage');
+            authenticate(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$axios({
+                            method:"post",
+                            url:'/api/govern/claimportal/',
+                            params:{'username':localStorage.getItem('username'),'institutionname':this.ruleForm.work, 'realname':this.ruleForm.name, 'field':this.ruleForm.field}
+                        }).then(response=>{
+                            console.log(response);
+                            if(response.data.code === 200)
+                            {
+                                localStorage.setItem("isauth",1);
+                            this.$message({
+                                type: 'success',
+                                message: '认证成功'
+                            });
+                            
+                            this.$router.push('selfpage');
+                            this.$router.go(0);
+                            }
+                            else if (response.data.code === 400)
+                            {
+                                console.log('用户名错误');
+                                this.$router.push('selfpage');
+                                return false;
+                            }
+                            else if (response.data.code === 500)
+                            {
+                                console.log('用户名已认证');
+                                this.$router.push('selfpage');
+                                return false;
+                            }
+                        }).catch(error=>{
+                            console.log(error);
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        alert('填写错误，请清空重新编写!');
                         return false;
                     }
-                    else if (response.data.code === 500)
-                    {
-                        console.log('用户名已认证');
-                        this.$router.push('selfpage');
-                        return false;
-                    }
-                }).catch(error=>{
-                    console.log(error);
                 });
             }
         }
