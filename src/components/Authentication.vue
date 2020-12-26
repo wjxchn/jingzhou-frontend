@@ -9,17 +9,18 @@
                 <h3 align="center" >届时可免费下载您的全部文献</h3>
             </el-card>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-                <el-form-item  label="邮箱" prop="email">
-                    <el-input  v-model="ruleForm.email" placeholder="请输入您的真实邮箱"></el-input>
-                </el-form-item>
+                
                 <el-form-item label="真实姓名" prop="name">
                     <el-input v-model="ruleForm.name" placeholder="请输入您的真实姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="身份证号" prop="id">
+                    <el-input v-model="ruleForm.id" placeholder="请输入身份证号"></el-input>
                 </el-form-item>
                  <el-form-item label="现工作单位" prop="work">
                     <el-input v-model="ruleForm.work" placeholder="请输入您目前所在单位名称"></el-input>
                 </el-form-item>
-                <el-form-item label="身份证号" prop="id">
-                    <el-input v-model="ruleForm.id" placeholder="请输入身份证号"></el-input>
+                <el-form-item  label="研究领域" prop="field">
+                    <el-input  v-model="ruleForm.email" placeholder="请输入您的研究领域"></el-input>
                 </el-form-item>
                 <el-form-item >
                     <el-button  class="mt20" style="margin-left:45%" @click = "authenticate">认证</el-button>
@@ -52,7 +53,7 @@ import axios from 'axios'
         data(){
             return{
                 ruleForm: {
-                    email: '',
+                    field: '',
                     name: '',
                     work: '',
                     id:'',
@@ -67,10 +68,10 @@ import axios from 'axios'
         },
         methods:{
             authenticate(){
-                axios({
+                this.$axios({
                     method:"post",
                     url:'/api/govern/claimportal/',
-                    data:{'username':this.ruleForm.name,'institutionname':this.ruleForm.work}
+                    params:{'username':localStorage.getItem('username'),'institutionname':this.ruleForm.work, 'realname':this.ruleForm.name, 'field':this.ruleForm.field}
                 }).then(response=>{
                     console.log(response);
                     if(response.data.code === 200)
@@ -79,11 +80,18 @@ import axios from 'axios'
                         type: 'success',
                         message: '认证成功'
                     });
-                    this.$router.push('personalpage');
+                    this.$router.push('selfpage');
                     }
                     else if (response.data.code === 400)
                     {
                         console.log('用户名错误');
+                        this.$router.push('selfpage');
+                        return false;
+                    }
+                    else if (response.data.code === 500)
+                    {
+                        console.log('用户名已认证');
+                        this.$router.push('selfpage');
                         return false;
                     }
                 }).catch(error=>{
