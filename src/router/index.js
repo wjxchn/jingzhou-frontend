@@ -18,10 +18,16 @@ import Paper from '../components/Paper';
 import Patent from '../components/Patent';
 import achievement from '../components/achievement';
 import Authentication from '../components/Authentication';
+import NewHomePage from '../components/NewHomePage'
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/NewHomePage',
+      name:'NewHomePage',
+      component: NewHomePage
+    },
     {
       path: '/',
       name: 'HomePage',
