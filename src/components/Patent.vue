@@ -126,29 +126,56 @@ export default {
           },
         })
         .then((res) => {
-          this.title = res.data.patentname;
-          this.type = res.data.type;
-          this.appcode = res.data.patentnumber;
-          this.apptime = res.data.appdate;
-          this.authcode = res.data.pubnumber;
-          this.authtime = res.data.pubdate;
-          this.apper = res.data.applicant;
-          this.inventor = res.data.inventor;
-          this.appaddr = res.data.address;
-          this.class = res.data.classification;
-          this.mclass = res.data.mainclassification;
-          this.provcode = res.data.provincecode;
-        //   this.pages = res.data.pages;
-          this.agentorg = res.data.agentpeople;
-          this.agent = res.data.agentinstitution;
-          this.claim = res.data.force;
-          this.abs = res.data.abstractcontent;
+          console.log(res);
+          this.title = res.data.data.patent.patentname;
+          this.type = res.data.data.patent.type;
+          this.appcode = res.data.data.patent.patentnumber;
+          this.apptime = res.data.data.patent.appdate;
+          this.authcode = res.data.data.patent.pubnumber;
+          this.authtime = res.data.data.patent.pubdate;
+          this.apper = res.data.data.patent.applicant;
+          this.inventor = res.data.data.patent.inventor;
+          this.appaddr = res.data.data.patent.address;
+          this.class = res.data.data.patent.classification;
+          if(res.data.data.patent.mainclassification !== null) {
+            this.mclass = res.data.data.patent.mainclassification;
+          }
+          else {
+            this.mclass = '无数据';
+          }
+          if(res.data.data.patent.provincecode !== null) {
+            this.provcode = res.data.data.patent.provincecode;
+          }
+          else {
+            this.provcode = '无数据';
+          }
+        //   this.pages = res.data.data.patent.pages;
+        if(res.data.data.patent.agentpeople !== null) {
+            this.agent = res.data.data.patent.agentpeople;
+          }
+          else {
+            this.agent = '无数据';
+          }
+          if(res.data.data.patent.agentinstitution !== null) {
+            this.agentorg = res.data.data.patent.agentinstitution;
+          }
+          else {
+            this.agentorg = '无数据';
+          }
+          if(res.data.data.patent.force !== null) {
+            this.claim = res.data.data.patent.force;
+          }
+          else {
+            this.claim = '无数据';
+          }
+          this.abs = res.data.data.patent.abstractcontent;
         });
     },
   },
   mounted() {
-    var patentid = this.$route.query.patentid;
-    getdata(patentid);
+    const patentid = this.$route.query.patentid;
+    // const patentid = '2';
+    this.getdata(patentid);
   },
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-      <header><Head></Head></header>
-      <main><router-view></router-view></main>
-      <footer><Footer></Footer></footer>
+      <el-header><Head></Head></el-header>
+      <el-main><router-view></router-view></el-main>
+      <el-footer><Footer></Footer></el-footer>
   </div>
 </template>
 
@@ -43,7 +43,6 @@ header{
   top:0;
 }
 main{
-
 }
 footer{
   z-index: 9999;

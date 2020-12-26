@@ -161,6 +161,7 @@ export default {
                 type: 'success',
                 message: '登录成功'
               });
+              console.log(response.data);
               localStorage.setItem("username",this.ruleForm.name);
               this.$router.push('home');
               this.$router.go(0);

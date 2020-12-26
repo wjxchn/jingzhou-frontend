@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Message from "../components/Message";
 // import PaperShow from "../components/PaperShow";
 import PersonalPage from "../components/PersonalPage";
+import SelfPage from "../components/SelfPage";
 import Register from "../components/Register";
 import RePassword from "../components/RePassword";
 // import SciAchieveShow from "../components/SciAchieveShow";
@@ -17,10 +18,16 @@ import Paper from '../components/Paper';
 import Patent from '../components/Patent';
 import achievement from '../components/achievement';
 import Authentication from '../components/Authentication';
+import NewHomePage from '../components/NewHomePage'
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/NewHomePage',
+      name:'NewHomePage',
+      component: NewHomePage
+    },
     {
       path: '/',
       name: 'HomePage',
@@ -60,6 +67,11 @@ export default new Router({
       path: '/personalpage',
       name: 'PersonalPage',
       component: PersonalPage
+    },
+    {
+      path: '/selfpage',
+      name: 'SelfPage',
+      component: SelfPage
     },
     {
       path: '/register',

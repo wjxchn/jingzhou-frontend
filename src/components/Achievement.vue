@@ -89,24 +89,56 @@ export default {
           }
         })
       .then((res) => {
-        this.title = res.data.projectname;
-        this.author = res.data.researcher;
-        this.authororg = res.data.institution;
-        this.kw = res.data.keywords;
-        this.clclass = res.data.booktype;
-        this.sciclass = res.data.subjecttype;
-        this.intro = res.data.briefintro;
-        this.type = res.data.type;
-        this.level = res.data.level;
-        this.timespan = res.data.startandfinishtime;
-        this.estim = res.data.eveluatetype;
-        this.time = res.data.intime;
+        console.log(res);
+        this.title = res.data.data.project.projectname;
+        this.author = res.data.data.project.researcher;
+        this.authororg = res.data.data.project.institution;
+        if(res.data.data.project.keywords !== null) {
+          this.kw = res.data.data.project.keywords;
+        }
+        else {
+          this.kw = '无数据';
+        }
+        if(res.data.data.project.booktype !== null) {
+          this.clclass = res.data.data.project.booktype;
+        }
+        else {
+          this.clclass = '无数据';
+        }
+        if(res.data.data.project.subjecttype !== null) {
+          this.sciclass = res.data.data.project.subjecttype;
+        }
+        else {
+          this.sciclass = '无数据';
+        }
+        if(res.data.data.project.startandfinishtime !== null) {
+          this.timespan = res.data.data.project.startandfinishtime;
+        }
+        else {
+          this.timespan = '无数据';
+        }
+        if(res.data.data.project.eveluatetype !== null) {
+          this.estim = res.data.data.project.eveluatetype;
+        }
+        else {
+          this.estim = '无数据';
+        }
+        // this.kw = res.data.data.project.keywords;
+        // this.clclass = res.data.data.project.booktype;
+        // this.sciclass = res.data.data.project.subjecttype;
+        this.intro = res.data.data.project.briefintro;
+        this.type = res.data.data.project.type;
+        this.level = res.data.data.project.level;
+        // this.timespan = res.data.data.project.startandfinishtime;
+        // this.estim = res.data.data.project.eveluatetype;
+        this.time = res.data.data.project.intime;
       });
     },
   },
   mounted() {
-    var achievementid = this.$route.query.achievementid;
-    getdata(achievementid);
+    // const achievementid = this.$route.query.achievementid;
+    const achievementid = '1';
+    this.getdata(achievementid);
   },
 };
 </script>
