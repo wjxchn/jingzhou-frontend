@@ -46,7 +46,6 @@
                 <b class="rem15">{{Author.name}}</b>
                 
                 <font class="rem1 mt15"><a href="#">{{Author.organization}}</a></font>
-                <font class="rem08 mt15">{{Author.fields}}</font>
 
             </div>
             
@@ -71,7 +70,7 @@
 
 
             <div class="PersonalPage-main-right-bottom fcolumn fys">
-                <b class="rem1 mt10 ml10">个人简介：</b>
+                <b class="rem1 mt10 ml10">研究领域：</b>
                 <p class="rem08 mt10 ml10 mr10 mb10" style="line-height:2;">{{Author.introduction}}</p>
             </div>
 
@@ -214,19 +213,21 @@
             this.$axios({
                 method:'post',
                 url:'/api/community/getpersonalinfo/',
-                data: {'userid':localStorage.getItem('userid')}
+                data: {'username':localStorage.getItem('username')}
             })
             .then(response => {
                 console.log(response)
+                this.Author.introduction = response.data.data.user.field
+                this.Author.organization = response.data.data.user.institution
             })
             .catch(error=>{
                 console.log(error)
             });
 
             this.$axios({
-                method:'post',
-                url:'http://106.14.12.11:8443/api/paper/username/',
-                data:{'userid':localStorage.getItem('userid')}
+                method:'get',
+                url:'/api/data/paper/authorname/rank',
+                data:{'authorname':localStorage.getItem('authorname')}
             })
             .then(response => {
                 console.log(response)

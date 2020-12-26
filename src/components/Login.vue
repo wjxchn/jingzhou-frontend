@@ -163,6 +163,10 @@ export default {
               });
               console.log(response.data);
               localStorage.setItem("username",this.ruleForm.name);
+              if(response.data.data.user.isauth==1){
+                localStorage.setItem("isauth",response.data.data.user.isauth);
+              }
+              
               this.$router.push('home');
               this.$router.go(0);
             }

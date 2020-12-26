@@ -20,7 +20,7 @@
                     <el-input v-model="ruleForm.work" placeholder="请输入您目前所在单位名称"></el-input>
                 </el-form-item>
                 <el-form-item  label="研究领域" prop="field">
-                    <el-input  v-model="ruleForm.email" placeholder="请输入您的研究领域"></el-input>
+                    <el-input  v-model="ruleForm.field" placeholder="请输入您的研究领域"></el-input>
                 </el-form-item>
                 <el-form-item >
                     <el-button  class="mt20" style="margin-left:45%" @click = "authenticate">认证</el-button>
@@ -76,11 +76,14 @@ import axios from 'axios'
                     console.log(response);
                     if(response.data.code === 200)
                     {
+                        localStorage.setItem("isauth",1);
                     this.$message({
                         type: 'success',
                         message: '认证成功'
                     });
+                    
                     this.$router.push('selfpage');
+                    this.$router.go(0);
                     }
                     else if (response.data.code === 400)
                     {
