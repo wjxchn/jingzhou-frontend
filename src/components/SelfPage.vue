@@ -206,7 +206,6 @@
                 this.Author.introduction = response.data.data.user.field
                 this.Author.organization = response.data.data.user.institution
                 this.Author.realname = response.data.data.user.realname
-                this.Author.avatar_src = 'http://106.14.12.11:8443/'+response.data.data.user.pic
             })
             .catch(error=>{
                 console.log(error)
@@ -250,6 +249,7 @@
             this.Author.password=res.data.data.user.password;
             this.Author.email=res.data.data.user.email;
             this.Author.userid = res.data.data.user.userid;
+            this.Author.avatar_src = 'http://106.14.12.11:8443'+ response.data.data.user.pic;
             }).catch((failResponse) => {
             });
             this.$axios.get('/api/community/follow/num/self',
