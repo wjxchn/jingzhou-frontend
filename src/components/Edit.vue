@@ -105,29 +105,6 @@
             toChangePassword(){
                 location.href = "/RePassword";
             },
-            editPassword(){
-                this.temp.password = this.Author.password;
-                this.editPasswordText = true;
-            },
-            savePassword(){
-                console.log(this.Author.password);
-                console.log(this.temp.password);
-                console.log(this.temp.userid);
-                this.$axios({
-                    method:"post",
-                    url:'/api/user/changeuserinfo/password',
-                    data:{'password1':this.Author.password,'password2':this.temp.password,'userid':this.temp.userid}
-                }).then((res) => {
-                console.log("success")
-                alert('修改密码成功')
-                }).catch((failResponse) => {
-                });
-                this.Author.password = this.temp.password;
-                this.editPasswordText = false;
-            },
-            unsavePassword(){
-                this.editPasswordText = false;
-            },
             editEmail(){
                 this.temp.email = this.Author.email;
                 this.editEmailText = true;
@@ -149,7 +126,7 @@
                 this.editEmailText = false;
             },
             toPersonalPage(){
-                location.href = "/PersonalPage";
+                location.href = "/SelfPage";
             }
         }
     }
