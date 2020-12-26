@@ -242,7 +242,7 @@
           <el-col class="paper2">作者</el-col>
           <el-col class="paper3">来源</el-col>
           <el-col class="paper4">发表时间</el-col>
-          <el-col class="paper5">被引</el-col>
+          <el-col class="paper5">点击次数</el-col>
         </el-row>
         <div v-for="i in itemnumber6">
           <el-row v-if="i%2===1" class="itemsingle">
@@ -250,14 +250,14 @@
             <el-col class="paper2">{{papers1[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers1[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers1[i-1].year}}</el-col>
-            <el-col class="paper5">{{papers1[i-1].n_citation}}</el-col>
+            <el-col class="paper5">{{papers1[i-1].amount}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
             <el-col class="paper1"><router-link :to="{path: '/paper',query:{paperid:papers1[i-1].id}}" target="_blank">{{papers1[i-1].title}}</router-link></el-col>
             <el-col class="paper2">{{papers1[i-1].authors}}</el-col>
             <el-col class="paper3">{{papers1[i-1].publisher}}</el-col>
             <el-col class="paper4">{{papers1[i-1].year}}</el-col>
-            <el-col class="paper5">{{papers1[i-1].n_citation}}</el-col>
+            <el-col class="paper5">{{papers1[i-1].amount}}</el-col>
           </el-row>
         </div>
         <el-row class="page">
@@ -421,10 +421,10 @@
                 paper.authors=authors
               }
               else{
-                paper.authors=""
+                paper.authors="暂无相关信息"
               }
               if(res.data.data.paperlist[i].publisher===null){
-                paper.publisher="无"
+                paper.publisher="暂无相关信息"
               }
               else{
                 paper.publisher = res.data.data.paperlist[i].publisher
@@ -435,7 +435,7 @@
                 paper.id=res.data.data.paperlist[i].id
               }
               else{
-                paper.id=1
+                paper.id=res.data.data.paperlist[i].paperid
               }
               this.papers[i]=paper
             }
@@ -471,10 +471,10 @@
                 paper.authors=authors
               }
               else{
-                paper.authors=""
+                paper.authors="暂无相关信息"
               }
               if(res.data.data.paperlist[i].publisher===null){
-                paper.publisher="无"
+                paper.publisher="暂无相关信息"
               }
               else{
                 paper.publisher = res.data.data.paperlist[i].publisher
@@ -485,7 +485,7 @@
                 paper.id=res.data.data.paperlist[i].id
               }
               else{
-                paper.id=1
+                paper.id=res.data.data.paperlist[i].paperid
               }
               this.papers[i]=paper
             }
@@ -626,7 +626,7 @@
                 paper.id=res.data.data.paperlist[i].id
               }
               else{
-                paper.id=1
+                paper.id=res.data.data.paperlist[i].paperid
               }
               this.papers[i]=paper
             }
@@ -677,10 +677,10 @@
                 paper.authors=authors
               }
               else{
-                paper.authors=""
+                paper.authors="暂无相关信息"
               }
               if(res.data.data.paperlist[i].publisher===null){
-                paper.publisher="无"
+                paper.publisher="暂无相关信息"
               }
               else{
                 paper.publisher = res.data.data.paperlist[i].publisher
@@ -691,7 +691,7 @@
                 paper.id=res.data.data.paperlist[i].id
               }
               else{
-                paper.id=1
+                paper.id=res.data.data.paperlist[i].paperid
               }
               this.papers[i]=paper
             }
@@ -724,10 +724,10 @@
                 paper.authors=authors
               }
               else{
-                paper.authors=""
+                paper.authors="暂无相关信息"
               }
               if(res.data.data.paperlist[i].publisher===null){
-                paper.publisher="无"
+                paper.publisher="暂无相关信息"
               }
               else{
                 paper.publisher = res.data.data.paperlist[i].publisher
@@ -738,7 +738,7 @@
                 paper.id=res.data.data.paperlist[i].id
               }
               else{
-                paper.id=1
+                paper.id=res.data.data.paperlist[i].paperid
               }
               this.papers[i]=paper
             }
@@ -785,7 +785,7 @@
                 paper.id=res.data.data.paperlist[i].id
               }
               else{
-                paper.id=1
+                paper.id=res.data.data.paperlist[i].paperid
               }
               this.papers[i]=paper
             }
@@ -887,7 +887,58 @@
       },
 
       search6(num){
-
+        if(num===1){
+          this.page6=this.page6-1
+        }
+        else if(num===2){
+          this.page6=this.page6+1
+        }
+        this.$axios.get('/api/trend/paper/amount/rank',
+          {
+            params: {
+              pagenum: this.page6
+            }
+          }
+        ).then((res) => {
+          this.papers=[]
+          this.itemnumber6 = res.data.data.paperlist.length
+          console.log(res.data.data.paperlist.length)
+          console.log(res.data.data.paperlist)
+          console.log(res.data.data.amountlist)
+          for(var i = 0; i < res.data.data.paperlist.length;i++){
+            var paper={}
+            paper.title=res.data.data.paperlist[i].title
+            paper.amount = res.data.data.amountlist[i]
+            if(res.data.data.paperlist[i].authors.length>0)
+            {
+              var authors = res.data.data.paperlist[i].authors[0].name
+              for(var j = 1;j<res.data.data.paperlist[i].authors.length;j++){
+                authors = authors +", "+ res.data.data.paperlist[i].authors[j].name
+              }
+              paper.authors=authors
+            }
+            else{
+              paper.authors="暂无相关信息"
+            }
+            if(res.data.data.paperlist[i].publisher===null){
+              paper.publisher="暂无相关信息"
+            }
+            else{
+              paper.publisher = res.data.data.paperlist[i].publisher
+            }
+            paper.year=res.data.data.paperlist[i].year
+            paper.n_citation=res.data.data.paperlist[i].n_citation
+            if(res.data.data.paperlist[i].id!==null){
+              paper.id=res.data.data.paperlist[i].id
+            }
+            else{
+              paper.id=res.data.data.paperlist[i].paperid
+            }
+            this.papers1[i]=paper
+          }
+        }).catch((failResponse) => {
+          this.itemnumber6=0
+        });
       },
 
       search7(num){
@@ -920,10 +971,10 @@
               paper.authors=authors
             }
             else{
-              paper.authors=""
+              paper.authors="暂无相关信息"
             }
             if(res.data.data.paperlist[i].publisher===null){
-              paper.publisher="无"
+              paper.publisher="暂无相关信息"
             }
             else{
               paper.publisher = res.data.data.paperlist[i].publisher
@@ -934,7 +985,7 @@
               paper.id=res.data.data.paperlist[i].id
             }
             else{
-              paper.id=1
+              paper.id=res.data.data.paperlist[i].paperid
             }
             this.papers2[i]=paper
           }

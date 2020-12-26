@@ -149,6 +149,23 @@ export default {
           // this.ref = res.ref;
         });
     },
+        addclick(paperid){
+      this.$axios
+        .get("/api/data/paper/addclick", {
+          params: {
+            paperid: paperid,
+          },
+        })
+        .then((res) =>{
+
+          if(res.data.code === 200){
+            console.log(res);
+          }
+        })
+        .catch((error) =>{
+          console.log(error);
+        })
+    }
   },
   mounted() {
     const paperid = this.$route.query.paperid;
@@ -156,6 +173,7 @@ export default {
 
     //const paperid = "53e99785b7602d9701f4471b";
     this.getdata(paperid);
+    this.addclick(paperid);
 
     // const paperid = "53a7258520f7420be8b514a9";
 
