@@ -12,8 +12,7 @@
 
     <div class="header-right frow fye">
       <a href="/" class="header-link">首页</a>
-      <a href="/SelfPage" v-show="isauth" class="header-link">我</a>
-      <a href="/Authentication" v-show="!isauth&&islogin" class="header-link">认证</a>
+      <a href="/SelfPage" v-show="islogin" class="header-link">我</a>
       <a href="/Message" v-show="islogin" class="header-link">消息</a>
       <a href="/Login" v-show="!islogin" class="header-link">登录</a>
       <el-button v-show="islogin" @click="logout">退出</el-button>
@@ -27,14 +26,12 @@ export default {
     name: 'Head.vue',
     data(){
       return{
-        islogin: localStorage.getItem("username"),
-        isauth: localStorage.getItem("isauth")
+        islogin: localStorage.getItem("username")
       }
     },
     methods:{
       logout(){
         localStorage.removeItem("username");
-        localStorage.removeItem("isauth");
         this.$router.push('Login');
         this.$router.go(0);
       }
@@ -45,7 +42,7 @@ export default {
 <style scoped>
 #header{
   height:52px;
-  background-color: white;
+  
 }
 .header-left{
   height: 100%;

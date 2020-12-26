@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-      <el-header><Head></Head></el-header>
-      <el-main><router-view></router-view></el-main>
-      <el-footer><Footer></Footer></el-footer>
+      <header><Head></Head></header>
+      <main><router-view></router-view></main>
+      <footer><Footer></Footer></footer>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
 }
 #app {
   margin:auto;
-  /*width: 1200px;*/
+  width: 1200px;
   display: flex;
   flex-direction: column;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -39,14 +39,17 @@ export default {
 header{
   z-index: 9999;
   box-shadow: 5px 5px 5px #888888;
+  background-color:white;
   position:sticky;
   top:0;
 }
 main{
+
 }
 footer{
   z-index: 9999;
   box-shadow: 5px 5px 5px 5px #888888;
+  background-color:white;
   position:sticky;
   bottom:0;
 }

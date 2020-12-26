@@ -29,7 +29,6 @@ export default {
 <style scoped>
 #footer{
   height:52px;
-  background-color: white;
 
 }
 .footer-left{
