@@ -3,7 +3,8 @@
         <div class="Edit-left fcolumn">
             <div style="height:180px;" class="fcolumn fyc">
                 <img :src="Author.avatar_src" style="width:80%;" class="mt20">
-                <el-button size="mini" class="mt10" @click="editAvatar">编辑头像</el-button>
+                <el-button size="mini" class="mt10" @click="editAvatar">编辑个人头像</el-button>
+                <el-button size="mini" class="mt10" @click="toChangePassword">修改账号密码</el-button>
                 <el-button size="mini" class="mt10" @click="toPersonalPage">返回个人主页</el-button>
             </div>
         </div>
@@ -15,26 +16,6 @@
                 <font class="ml80 sc" v-show="!editNameText">{{Author.name}}</font>
             </div>
             <el-divider></el-divider>
-
-
-
-
-
-            <!--密码编辑-->
-            <div class="frow mt20 ml20">
-                <b class="rem10 ml50 sc">密码</b>
-                <font class="ml80 sc" v-show="!editPasswordText">{{Author.password}}</font>
-                <div class="fcolumn ml80"  v-show="editPasswordText">
-                    <el-input type="textarea" autosize v-model="temp.password"></el-input>
-                    <div class="frow fxb">
-                        <el-button type="primary" size="mini" class="mt10" @click="savePassword">保存</el-button>
-                        <el-button size="mini" class="mt10" @click="unsavePassword">取消</el-button>
-                    </div>
-                </div>
-                <el-button class="ml50 el-icon-edit" type="text" @click="editPassword" v-show="!editPasswordText"></el-button>
-            </div>
-            <el-divider></el-divider>
-
 
             <!--邮箱编辑-->
             <div class="frow mt20 ml20">
@@ -63,10 +44,9 @@
             return{
 
                 Author:{
-                    avatar_src:require('../assets/avatar.png'),
+                    avatar_src:'http://106.14.12.11:8443/pic.jpg',
                     name:"张三",
                     organization:"北京航空航天大学",
-                    password:"1234567",
                     email:"2500608052@qq.com",
                     papers:15,
                     downloads:114,
@@ -82,7 +62,6 @@
                     avatar_src:require('../assets/avatar.png'),
                     name:"张三",
                     organization:"北京航空航天大学",
-                    password:"1234567",
                     email:"2500608052@qq.com",
                     papers:15,
                     downloads:114,
@@ -111,12 +90,11 @@
             }
             ).then((res) => {
             console.log(res.data.data.user.userid)
+            this.Author.avatar_src = 'http://106.14.12.11:8443'+ res.data.data.user.pic;
             this.Author.name=res.data.data.user.username;
-            this.Author.password=res.data.data.user.password;
             this.Author.email=res.data.data.user.email;
             this.Author.userid = res.data.data.user.userid;
             this.temp.name=res.data.data.user.username;
-            this.temp.password=res.data.data.user.password;
             this.temp.email=res.data.data.user.email;
             this.temp.userid = res.data.data.user.userid;
             }).catch((failResponse) => {
@@ -124,10 +102,9 @@
 
         },
         methods:{
-            editavatar(){
-                this.Author="";
+            toChangePassword(){
+                location.href = "/RePassword";
             },
-
             editPassword(){
                 this.temp.password = this.Author.password;
                 this.editPasswordText = true;
