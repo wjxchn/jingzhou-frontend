@@ -24,10 +24,10 @@
             <div class="PersonalPage-main-right-top fcolumn fyc">
 
                 <img :src="Author.avatar_src" style="width:50%" class="mt20">
-                <b class="rem15">{{Author.realname}}</b>
+                <b class="rem15">{{Author.name}}</b>
                 <el-divider></el-divider>
 
-                <b class="rem15">{{Author.name}}</b>
+                <b class="rem15">{{Author.realname}}</b>
                 <font class="rem1 mt15"><a href="#">{{Author.organization}}</a></font>
 
             </div>
@@ -70,7 +70,7 @@
             return{
                 Author:{
                     id:1,
-                    avatar_src:require('../assets/avatar.png'),
+                    avatar_src:'http://106.14.12.11:8443/pic.jpg',
                     name:"张三",
                     organization:"北京航空航天大学",
                     papers:15,
@@ -202,9 +202,11 @@
             })
             .then(response => {
                 console.log(response)
+                this.Author.name = localStorage.getItem('username')
                 this.Author.introduction = response.data.data.user.field
                 this.Author.organization = response.data.data.user.institution
                 this.Author.realname = response.data.data.user.realname
+                this.Author.avatar_src = 'http://106.14.12.11:8443/'+response.data.data.user.pic
             })
             .catch(error=>{
                 console.log(error)
