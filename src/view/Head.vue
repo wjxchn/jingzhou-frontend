@@ -10,8 +10,11 @@
       <el-menu-item v-show="islogin" index="3" >
         <a href="/Message"  class="header-link">消息</a>
       </el-menu-item>
-      <el-menu-item  v-show="islogin" index="2">
+      <el-menu-item  v-show="islogin&&isauth" index="2">
         <a href="/SelfPage" class="header-link">我</a>
+      </el-menu-item>
+      <el-menu-item  v-show="islogin&&!isauth" index="2">
+        <a href="/Authentication" class="header-link">认证</a>
       </el-menu-item>
       <el-menu-item  v-show="!islogin" index="4"><a href="/Login" class="header-link">登录</a></el-menu-item>
       <el-menu-item>
@@ -26,12 +29,14 @@ export default {
     name: 'Head.vue',
     data(){
       return{
-        islogin: localStorage.getItem("username")
+        islogin: localStorage.getItem("username"),
+        isauth: localStorage.getItem("isauth")
       }
     },
     methods:{
       logout(){
         localStorage.removeItem("username");
+        localStorage.removeItem("isauth");
         this.$router.push('Login');
         this.$router.go(0);
       }

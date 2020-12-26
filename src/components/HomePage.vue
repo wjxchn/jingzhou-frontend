@@ -262,7 +262,7 @@
         </div>
         <el-row class="page">
           <div class="pagea">
-            <el-link :disabled="page6<1" @click="searc6(1)">上一页</el-link>
+            <el-link :disabled="page6<1" @click="search6(1)">上一页</el-link>
             <el-link :disabled="itemnumber6<20" @click="search6(2)">下一页</el-link>
           </div>
         </el-row>
