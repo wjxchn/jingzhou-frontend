@@ -195,12 +195,12 @@
         </el-row>
         <div v-for="i in itemnumber4">
           <el-row v-if="i%2===1" class="itemsingle">
-            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}" target="_blank">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {username: scientists[i-1].username}}" target="_blank">{{scientists[i-1].username}}</router-link></el-col>
             <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
             <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
           </el-row>
           <el-row v-else-if="i%2===0" class="itemdouble">
-            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {userid: scientists[i-1].authuserid}}" target="_blank">{{scientists[i-1].username}}</router-link></el-col>
+            <el-col class="scientist1"><router-link :to="{path: '/personalpage', query: {username: scientists[i-1].username}}" target="_blank">{{scientists[i-1].username}}</router-link></el-col>
             <el-col class="scientist2">{{scientists[i-1].organization}}</el-col>
             <el-col class="scientist3">{{scientists[i-1].researchfield}}</el-col>
           </el-row>
