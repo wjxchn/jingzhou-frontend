@@ -3,16 +3,16 @@
 
         <div class="PersonalPage-main-left fcolumn">
             <div class="frow">
-                <b class="rem15 mt10 ml15 sg2">作者文献</b>
+                <b class="rem15 mt10 ml15 sg2">作者论文</b>
                 <b class="rem10 mt20 ml15 sg2">总发文量: {{Author.papers}}</b>
                 <b class="rem10 mt20 ml15 sg1">总被引次数: {{Author.downloads}}</b>
      
             </div>
             <el-divider></el-divider>
-            <font class="rem1 mt10 ml20">发表文献</font>
+            <font class="rem1 mt10 ml20">发表论文</font>
                 <a class="ml20 mt15" v-for="(item, i) in Paper">
                     [{{item.num}}]
-                    <el-button style="color:grey" type="text">{{item.name}}</el-button>
+                    <el-button @click="toPaperPage(item.id)" style="color:grey" type="text">{{item.name}}</el-button>
                 </a>
             <el-divider></el-divider>
         </div>
@@ -87,7 +87,6 @@
                     num:1,
                     name:"论文名",
                     id:"",
-                    paperid:"",
                 }],
                 /*是否是已经关注的状态 */
                 followed:false,
@@ -99,6 +98,9 @@
         },
         
         methods:{
+            toPaperPage(id){
+                this.$router.push({path: '/paper',query:{paperid:id}})
+            },
             changeFollowState(){
                 if(!this.isPersonalPage){
                     if(this.followed){ 
@@ -219,8 +221,12 @@
                     var paper = {}
                     paper.num = i+1
                     paper.name = res.data.data.paperlist[i].title
-                    paper.id = res.data.data.paperlist[i].id
-                    paper.paperid = res.data.data.paperlist[i].paperid
+                    if(res.data.data.paperlist[i].id!==null){
+                        paper.id=res.data.data.paperlist[i].id
+                    }
+                    else{
+                        paper.id=res.data.data.paperlist[i].paperid
+                    }
                     this.Author.papers = this.Author.papers + 1
                     this.Author.downloads = this.Author.downloads + res.data.data.paperlist[i].n_citation
                     this.Paper[i] = paper
