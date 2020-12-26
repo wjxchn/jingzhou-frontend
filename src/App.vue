@@ -30,7 +30,7 @@ export default {
 }
 #app {
   margin:auto;
-  /*width: 1200px;*/
+  width: 1200px;
   display: flex;
   flex-direction: column;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -44,10 +44,12 @@ header{
   top:0;
 }
 main{
+
 }
 footer{
   z-index: 9999;
   box-shadow: 5px 5px 5px 5px #888888;
+  background-color:white;
   position:sticky;
   bottom:0;
 }
