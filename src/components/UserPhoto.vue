@@ -28,7 +28,7 @@
     methods: {
       submitUpload() {
         this.$refs.upload.submit();
-        
+        this.$router.push("/edit")
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
