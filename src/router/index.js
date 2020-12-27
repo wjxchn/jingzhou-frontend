@@ -56,8 +56,8 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'HomePage',
-      component: HomePage
+      name: 'NewHomePage',
+      component: NewHomePage
     },
     {
       path: '/PageDemo',
@@ -123,11 +123,6 @@ export default new Router({
       path: '/edit',
       name: 'Edit',
       component: Edit
-    },
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
     },
     {
       path: '/test',
