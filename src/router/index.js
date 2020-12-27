@@ -19,10 +19,16 @@ import Patent from '../components/Patent';
 import achievement from '../components/achievement';
 import Authentication from '../components/Authentication';
 import NewHomePage from '../components/NewHomePage'
+import Search from '../components/Search'
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path:'/Search',
+      name:'Search',
+      component: Search
+    },
     {
       path: '/NewHomePage',
       name:'NewHomePage',
