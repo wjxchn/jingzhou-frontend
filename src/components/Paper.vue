@@ -168,23 +168,28 @@ export default {
     }
   },
   mounted() {
-    const paperid = this.$route.query.paperid;
-
-
-    //const paperid = "53e99785b7602d9701f4471b";
-    this.getdata(paperid);
-    this.addclick(paperid);
-
-    // const paperid = "53a7258520f7420be8b514a9";
-
-    // const paperid = "53e99893b7602d97020ca4c1";
-
-    // const paperid = '1';
-    if(paperid === '1') {
-      alert('找不到论文信息');
+    if(localStorage.getItem('username') == null){
+      this.$router.push('/login')
     }
-    else {
+    else{
+      const paperid = this.$route.query.paperid;
+
+
+      //const paperid = "53e99785b7602d9701f4471b";
       this.getdata(paperid);
+      this.addclick(paperid);
+
+      // const paperid = "53a7258520f7420be8b514a9";
+
+      // const paperid = "53e99893b7602d97020ca4c1";
+
+      // const paperid = '1';
+      if(paperid === '1') {
+        alert('找不到论文信息');
+      }
+      else {
+        this.getdata(paperid);
+      }
     }
   },
 };

@@ -185,6 +185,10 @@
         },
 
         created: function(){
+            if(localStorage.getItem('username') == null){
+                this.$router.push('/login')
+            }
+            else{
             const name = this.$route.query.username;
             this.Author.name = this.$route.query.username;
             this.isPersonalaPage = false;
@@ -332,6 +336,7 @@
             this.Author.fans=res.data.data.cnt;
             }).catch((failResponse) => {
             });  
+            }
 
         }, 
     }

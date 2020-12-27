@@ -173,9 +173,14 @@ export default {
     },
   },
   mounted() {
-    const patentid = this.$route.query.patentid;
-    // const patentid = '2';
-    this.getdata(patentid);
+    if(localStorage.getItem('username') == null){
+      this.$router.push('/login')
+    }
+    else{
+      const patentid = this.$route.query.patentid;
+      // const patentid = '2';
+      this.getdata(patentid);
+    }
   },
 };
 </script>
