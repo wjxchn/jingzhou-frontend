@@ -5,7 +5,7 @@
   text-color="#fff"
   active-text-color="#ffd04b">
       <el-menu-item index="1">
-        <a href="/" class="header-link" >首页</a>
+        <a href="/NewHomePage" class="header-link" >首页</a>
       </el-menu-item>     
       <el-menu-item v-show="islogin" index="3" >
         <a href="/Message"  class="header-link">消息</a>

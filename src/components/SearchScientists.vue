@@ -28,7 +28,7 @@
 <div>
     <el-row class="lablea">
       <el-menu
-        default-active="2"
+        default-active="4"
         class="el-menu-demo"
         mode="horizontal"
         >
@@ -52,46 +52,28 @@
 <br>
 <template>
   <el-table
-    :data="patents"
+    :data="scientists"
     stripe
     style="width: 100%"
     >
     <el-table-column
-      prop="patentname"
-      label="专利名称"
-      width="200"
+      prop="username"
+      label="姓名"
+      width="300"
       align="center">
       <template slot-scope="scope">
-         <div @click="gopaperlink(scope.row)">{{scope.row.patentname}}</div>
+         <div @click="gopaperlink(scope.row)">{{scope.row.username}}</div>
       </template>
     </el-table-column>
     <el-table-column
-      prop="inventor"
-      label="发明人"
-      width="180"
-      align="center">
-    </el-table-column>
-    <el-table-column
-      prop="type"
-      label="专利类型"
-      width="180"
-      align="center">
-    </el-table-column>
-    <el-table-column
-      prop="applicant"
-      label="申请人"
+      prop="organization"
+      label="单位"
       width="300"
       align="center">
     </el-table-column>
     <el-table-column
-      prop="appdate"
-      label="申请日"
-      width="180"
-      align="center">
-    </el-table-column>
-    <el-table-column
-      prop="pubdate"
-      label="公开日"
+      prop="researchfields"
+      label="第一完成单位"
       align="center">
     </el-table-column>
   </el-table>
@@ -130,7 +112,7 @@ export default {
             }],
             page1: 0,
             text: "",
-            patents:[],
+            scientists:[],
             itemnumber1:0,
             index:0,
         }
@@ -155,10 +137,6 @@ export default {
                 this.$router.push({path:'/SearchAchievement',query:{pagenum:0,text:this.text,value:this.value}})
             this.$router.go(0);
             }
-            else if (num == 5) {
-                this.$router.push({path:'/SearchOrganizetion',query:{pagenum:0,text:this.text,value:this.value}})
-            this.$router.go(0);
-            }
             else if (num == 4) {
                 this.$router.push({path:'/SearchScientists',query:{pagenum:0,text:this.text,value:this.value}})
                 this.$router.go(0);
@@ -167,45 +145,67 @@ export default {
         },
         gopaperlink(row){
             console.log(row.id);
-            this.$router.push({path:'/patent',query:{patentid:row.patentid}})
+            this.$router.push({path:'/personalpage',query:{username:row.username}})
         },
         search(){
-            this.$router.push({path:'/SearchPatent',query:{pagenum:0,text:this.text}})
+            this.$router.push({path:'/SearchScientists',query:{pagenum:0,text:this.text}})
             this.$router.go(0);
         },
         nextpage(){
 
-            this.$router.push({path:'/SearchPatent',query:{pagenum:(Number(this.page1)+Number("1")),text:this.text}})
+            this.$router.push({path:'/SearchScientists',query:{pagenum:(Number(this.page1)+Number("1")),text:this.text}})
             this.$router.go(0);
         },
         lastpage(){
-            this.$router.push({path:'/SearchPatent',query:{pagenum:this.page1-1,text:this.text}})
+            this.$router.push({path:'/SearchScientists',query:{pagenum:this.page1-1,text:this.text}})
             this.$router.go(0);
         },
         search1() {
         var value = this.$route.query.value
         this.page1 = this.$route.query.pagenum
-          this.$axios.get('/api/api/fuzzysearchpatent',
+          this.$axios.get('/api/data/author/byfuzzyname',
             {
               params: {
                 pagenum: this.$route.query.pagenum,
-                keywords: this.$route.query.text
+                name: this.$route.query.text
               }
             }
           ).then((res) => {
-            this.patents=[]
-          this.itemnumber2 = res.data.data.patents.length
-          for(var i = 0; i < res.data.data.patents.length;i++){
-            var patent={}
-            patent.patentid=res.data.data.patents[i].patentid
-            patent.patentname=res.data.data.patents[i].patentname
-            patent.inventor=res.data.data.patents[i].inventor
-            patent.type=res.data.data.patents[i].type
-            patent.applicant=res.data.data.patents[i].applicant
-            patent.appdate=res.data.data.patents[i].appdate
-            patent.pubdate=res.data.data.patents[i].pubdate
-            this.patents[i]=patent
-          }}).catch((failResponse) => {
+            console.log(res.data.data.scientists)
+          this.scientists=[]
+          this.itemnumber1 = res.data.data.authorList.length
+          for(var i = 0; i < res.data.data.authorList.length;i++){
+            var author={}
+            author.username=res.data.data.authorList[i].name
+            if(res.data.data.authorList[i].orgs===null){
+              author.organization="无"
+            }
+            else if(res.data.data.authorList[i].orgs.length>0)
+            {
+              var orgs = res.data.data.authorList[i].orgs[0]
+              for(var j = 1;j<res.data.data.authorList[i].orgs.length;j++){
+                orgs = orgs +", "+ res.data.data.authorList[i].orgs[j]
+              }
+              author.organization=orgs
+            }
+            else{
+              author.organization="无"
+            }
+            if(res.data.data.authorList[i].position===null){
+              author.researchfield="无"
+            }
+            else{
+              author.researchfield = res.data.data.authorList[i].position
+            }
+            if(res.data.data.authorList[i].id===null){
+              author.authuserid=1
+            }
+            else{
+              author.authuserid=res.data.data.authorList[i].id
+            }
+            this.scientists[i]=author
+          }
+          }).catch((failResponse) => {
             this.itemnumber1=0
           });
         }

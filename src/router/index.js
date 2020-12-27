@@ -21,12 +21,29 @@ import Authentication from '../components/Authentication';
 import NewHomePage from '../components/NewHomePage'
 import Search from '../components/Search'
 import UserPhoto from '../components/UserPhoto'
-
+import SearchPatent from '../components/SearchPatent'
+import SearchAchievement from '../components/SearchAchievement'
+import SearchScientists from '../components/SearchScientists'
 
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path:'/SearchScientists',
+      name:'SearchScientists',
+      component:SearchScientists
+    },
+    {
+      path:'/SearchAchievement',
+      name:'SearchAchievement',
+      component:SearchAchievement
+    },
+    {
+      path:'/SearchPatent',
+      name:'SearchPatent',
+      component:SearchPatent
+    },
     {
       path:'/Search',
       name:'Search',

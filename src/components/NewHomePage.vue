@@ -27,7 +27,7 @@
     </el-input>
     </el-col>
     <el-col :span="1">
-    <el-button type="primary" icon="el-icon-search" >搜索</el-button>
+    <el-button type="primary" icon="el-icon-search" @click="gotoSearch()">搜索</el-button>
     </el-col>
     </el-row>
     </div>
@@ -78,23 +78,25 @@
                     label: '标题'
                     }, {
                     value: '选项2',
-                    label: '作者'
+                    label: '关键词'
                     }, {
                     value: '选项3',
-                    label: '主题'
+                    label: '科研人员'
                     }],
                 page7: 0,
                 itemnumber: 7,
                 papers: [],
                 papers_hot:[],
-                value: '',
+                value: '标题',
             }
             },
         beforeCreate() {
         document.querySelector('body').setAttribute('style','background-color:rgb(255,255,255)')
         },
-
-        method:{
+        methods:{
+          gotoSearch(){
+            this.$router.push({path:'/Search',query:{pagenum:0,text:this.input,value:this.value}})
+          }
         },
       created:function(){
        this.$axios.get('/api/trend/paper/citation/rank',
