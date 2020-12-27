@@ -20,6 +20,9 @@ import achievement from '../components/achievement';
 import Authentication from '../components/Authentication';
 import NewHomePage from '../components/NewHomePage'
 import Search from '../components/Search'
+import UserPhoto from '../components/UserPhoto'
+
+
 
 export default new Router({
   mode: 'history',
@@ -133,7 +136,12 @@ export default new Router({
       path: '/authentication',
       name: 'Authentication',
       component: Authentication
-    }
+    },
+    {
+      path: '/userphoto',
+      name: 'UserPhoto',
+      component: UserPhoto
+    }    
   ]
 })
 Vue.use(Router)
