@@ -136,8 +136,7 @@ export default {
     },
   },
   mounted() {
-    // const achievementid = this.$route.query.achievementid;
-    const achievementid = '1';
+    const achievementid = this.$route.query.achievementid;
     this.getdata(achievementid);
   },
 };

@@ -118,7 +118,7 @@ export default {
                 localStorage.setItem("isauth",response.data.data.user.isauth);
               }
               
-              this.$router.push('home');
+              this.$router.push('/');
               this.$router.go(0);
             }
             else if (response.data.code === 400)

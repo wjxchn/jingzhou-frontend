@@ -101,6 +101,9 @@
 
         },
         methods:{
+            editAvatar(){
+                this.$router.push('/userphoto')
+            },
             toChangePassword(){
                 location.href = "/RePassword";
             },

@@ -65,11 +65,6 @@ export default new Router({
       component: PageDemo
     },
     {
-      path: '/home',
-      name: 'HomePage',
-      component: HomePage
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login
