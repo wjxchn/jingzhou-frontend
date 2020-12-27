@@ -148,6 +148,7 @@
                         })
                         .then(response => {
                             if(response.data.code===200){
+                                console.log(response.data.code);
                                 alert('关注成功')
                                 this.followtext="取消关注";
                                 this.followicon="el-icon-minus";
