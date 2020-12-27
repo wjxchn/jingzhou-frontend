@@ -74,13 +74,13 @@
                 src:picture,
                 input: '',
                 options: [{
-                    value: '选项1',
+                    value: '标题',
                     label: '标题'
                     }, {
-                    value: '选项2',
+                    value: '关键词',
                     label: '关键词'
                     }, {
-                    value: '选项3',
+                    value: '科研人员',
                     label: '科研人员'
                     }],
                 page7: 0,

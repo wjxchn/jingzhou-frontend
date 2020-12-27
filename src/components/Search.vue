@@ -229,7 +229,7 @@ export default {
         else if(value==="科研人员"){
           this.$axios.get('/api/data/paper/authorfuzzyname',
             {
-              query: {
+              params: {
                 pagenum: this.$route.query.pagenum,
                 author: this.$route.query.text,
               }
@@ -276,9 +276,9 @@ export default {
         else if(value==="关键词"){
           this.$axios.get('/api/data/paper/fuzzykeyword',
             {
-              query: {
+              params: {
                 pagenum: this.$route.query.pagenum,
-                keyword: this.$route.query.text
+                keyword: this.$route.query.text,
               }
             }
           ).then((res) => {
