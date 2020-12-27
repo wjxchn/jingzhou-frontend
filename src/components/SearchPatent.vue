@@ -32,20 +32,17 @@
         class="el-menu-demo"
         mode="horizontal"
         >
-        <el-menu-item index="1" class="lablea-1" @click="show(1)">
+        <el-menu-item index="1" class="lablea-1" @click="show(1)" style="margin-left:100px">
           <div class="labela-2" style="font-size:15px">学术论文</div>
         </el-menu-item>
-        <el-menu-item index="2" class="lablea-1" style="margin-left:150px" @click="show(2)">
+        <el-menu-item index="2" class="lablea-1" style="margin-left:200px" @click="show(2)">
           <div class="labela-2" style="font-size:15px">专利</div>
         </el-menu-item>
-        <el-menu-item index="3" class="lablea-1" style="margin-left:150px" @click="show(3)">
+        <el-menu-item index="3" class="lablea-1" style="margin-left:200px" @click="show(3)">
           <div class="labela-2" style="font-size:15px">科研成果</div>
         </el-menu-item>
-        <el-menu-item index="4" class="lablea-1" style="margin-left:150px" @click="show(4)">
+        <el-menu-item index="4" class="lablea-1" style="margin-left:200px" @click="show(4)">
           <div class="labela-2" style="font-size:15px">科研人员</div>
-        </el-menu-item>
-        <el-menu-item index="6" class="lablea-1" style="margin-left:150px" @click="showhot()">
-          <div class="labela-2" style="font-size:15px">返回热点</div>
         </el-menu-item>
       </el-menu>
     </el-row>
