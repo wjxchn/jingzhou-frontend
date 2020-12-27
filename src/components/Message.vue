@@ -57,7 +57,12 @@
             </div>
         </div>
         <!------------------------------------------------我的关注部分---------------------------------------------------->
-        <div>
+        <div class="News fcolumn" v-show="selected_leftbar=='3'">
+            <div v-for="item in receivefollow" :key="item.id" class="msg fcolumn mt10">
+                <b class="ml10  rem08">收到关注通知</b>
+                <font class="ml20 mt05 rem08">{{item.content}}</font>
+                <el-divider></el-divider>
+            </div>
         </div>
         
     </div>
@@ -84,6 +89,7 @@
                     {id:'2', name:'李四',date:"2019-5-5",avatar_src:require('../assets/avatar.png'),content:["Hello, this is Lisi.","nice to meet you."]},
                     {id:'3',name:'王五',date:"2019-5-5",avatar_src:require('../assets/avatar.png'),content:["Hello, this is Wangwu.","nice to meet you."]},
                 ],
+                receivefollow:[],
                 tempchat:{id:'1', name:'张三',date:"2019-5-5",content:["Hello, this is Zhangsan.","nice to meet you."]},
                 news:[
                     {id:'1',title:"这是标题这是标题",content:"小车正穿行在落基山脉蜿蜒曲折的盘山公路上。克里斯朵夫·李维静静地望着窗外，发现每当车子即将行驶到无路的关头，路边都会出现一块交通指示牌‘前方转弯’或‘注意！急转弯’。而拐过每一道弯之后，前方照例又是一片柳暗花明，豁然开朗。山路弯弯，峰回路转，‘前方转弯’几个大字一次次地冲击着他的眼球，也渐渐叩醒了他的心扉：原来，不是路已到了尽头，而是该转弯了。路在脚下，更在心中，心随路转，心路常宽。学会转弯也是人生的智慧，因为挫折往往是转折，危机同时是转机。"}
@@ -129,6 +135,19 @@
         },
         mounted(){
             this.tempchat = this.chat[0];
+        },
+        created:function(){
+             this.$axios.post('/api/community/getfollowmessage',
+          {
+            params: {
+              receivername:localStorage.getItem('username'),
+            }
+          }
+        ).then((res) => {
+          this.data.receivefollow = res.data.messages;
+        }).catch((failResponse) => {
+          console.log(failResponse)
+        });
         }
     }
 </script>
