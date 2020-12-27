@@ -70,7 +70,7 @@
     </el-table-column>
     <el-table-column
       prop="researchfields"
-      label="第一完成单位"
+      label="领域"
       align="center">
     </el-table-column>
   </el-table>

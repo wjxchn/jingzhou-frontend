@@ -136,8 +136,14 @@ export default {
     },
   },
   mounted() {
-    const achievementid = this.$route.query.achievementid;
-    this.getdata(achievementid);
+    if(localStorage.getItem('username') == null){
+      this.$router.push('/login')
+    }
+    else{
+      const achievementid = this.$route.query.achievementid;
+      this.getdata(achievementid);
+    }
+    
   },
 };
 </script>
