@@ -247,7 +247,7 @@
             this.$axios({
                 method:'get',
                 url:'/api/data/paper/username',
-                params:{'authorusername':localStorage.getItem("username")}
+                params:{'username':localStorage.getItem("username")}
             })
             .then(res => {
                 console.log(res)

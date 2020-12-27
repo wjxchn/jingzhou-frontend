@@ -32,7 +32,6 @@
             </div>
             <el-divider></el-divider>
 
-
         </div>
     </div>
 </template>
