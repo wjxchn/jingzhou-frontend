@@ -39,7 +39,7 @@
             
             <div class="PersonalPage-main-right-mid fcolumn fyc" v-show="isauthuser">
                 
-                <div class="frow fye">
+                <div class="frow fye" v-show="isauthuser">
                     <a href="#" class="mt10 rem08">关注: {{Author.follows}}</a>
                     <el-divider direction="vertical"></el-divider>
                     <a href="#" class="mt10 rem08">粉丝: {{Author.fans}}</a>
@@ -122,7 +122,7 @@
                                 alert('取消关注成功')
                                 this.followtext="关注";
                                 this.followicon="el-icon-plus";
-                                this.Author.follows = this.Author.follows + (this.followed ? -1 : 1);
+                                this.Author.fans = this.Author.fans + (this.fans ? 1 : -1);
                                 this.followed = !this.followed;
                             }
                             else if(response.data.code===400){
@@ -152,7 +152,7 @@
                                 alert('关注成功')
                                 this.followtext="取消关注";
                                 this.followicon="el-icon-minus";
-                                this.Author.follows = this.Author.follows + (this.followed ? -1 : 1);
+                                this.Author.fans = this.Author.fans + (this.fans ? -1 : 1);
                                 this.followed = !this.followed;
                             }
                             else if(response.data.code===400){
@@ -310,42 +310,29 @@
                 console.log(err)
             });
 
-            // this.$axios.get('/api/user/showuserinfo',
-            // {
-            //     params: {
-            //     username: localStorage.getItem("username"),
-            //     }
-            // }
-            // ).then((res) => {
-            // console.log(res.data.data.user.userid)
-            // this.Author.name=res.data.data.user.username;
-            // this.Author.password=res.data.data.user.password;
-            // this.Author.email=res.data.data.user.email;
-            // this.Author.userid = res.data.data.user.userid;
-            // }).catch((failResponse) => {
-            // });
-            // this.$axios.get('/api/community/follow/num/self',
-            // {
-            //     params: {
-            //     username: localStorage.getItem("username"),
-            //     }
-            // }
-            // ).then((res) => {
-            // console.log(res.data.data.cnt)
-            // this.Author.follows=res.data.data.cnt;
-            // }).catch((failResponse) => {
-            // });
-            // this.$axios.get('/api/community/follower/num/self',
-            // {
-            //     params: {
-            //     username: localStorage.getItem("username"),
-            //     }
-            // }
-            // ).then((res) => {
-            // console.log(res.data.data.cnt)
-            // this.Author.fans=res.data.data.cnt;
-            // }).catch((failResponse) => {
-            // });
+            this.$axios.get('/api/community/follow/num',
+            {
+                params: {
+                userrealname: this.$route.query.username,
+                }
+            }
+            ).then((res) => {
+            console.log(res.data.data.cnt)
+            this.Author.follows=res.data.data.cnt;
+            }).catch((failResponse) => {
+            });
+            this.$axios.get('/api/community/follower/num',
+            {
+                params: {
+                userrealname: this.$route.query.username,
+                }
+            }
+            ).then((res) => {
+            console.log(res.data.data.cnt)
+            this.Author.fans=res.data.data.cnt;
+            }).catch((failResponse) => {
+            });  
+
         }, 
     }
     
