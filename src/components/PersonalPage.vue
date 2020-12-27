@@ -9,6 +9,12 @@
      
             </div>
             <el-divider></el-divider>
+            <font class="rem1 mt10 ml20">高被引论文</font>
+                <a class="ml20 mt15" v-for="(item, i) in CitationPaper">
+                    [{{item.num}}]
+                    <el-button @click="toPaperPage(item.id)" style="color:grey" type="text">{{item.name}}</el-button>
+                </a>
+            <el-divider></el-divider>
             <font class="rem1 mt10 ml20">发表论文</font>
                 <a class="ml20 mt15" v-for="(item, i) in Paper">
                     [{{item.num}}]
@@ -24,7 +30,7 @@
             <div class="PersonalPage-main-right-top fcolumn fyc">
 
                 <img :src="Author.avatar_src" style="width:50%" class="mt20">
-                <b class="rem15">{{Author.realname}}</b>
+                <b class="rem15">{{Author.name}}</b>
                 <el-divider></el-divider>
 
                 <font class="rem1 mt15"><a href="#">{{Author.organization}}</a></font>
@@ -52,7 +58,7 @@
 
             <div class="PersonalPage-main-right-bottom fcolumn fys">
                 <b class="rem1 mt10 ml10">研究领域：</b>
-                <p class="rem08 mt10 ml10 mr10 mb10" style="line-height:2;">{{Author.introduction}}</p>
+                <p class="rem08 mt10 ml10 mr10 mb10" style="line-height:2;">{{Author.fields}}</p>
             </div>
 
 
@@ -68,21 +74,24 @@
             return{
                 Author:{
                     id:1,
-                    avatar_src:require('../assets/avatar.png'),
-                    name:"张三",
-                    organization:"北京航空航天大学",
+                    avatar_src:'http://106.14.12.11:8443/pic.jpg',
+                    name:"",
+                    organization:"",
                     papers:15,
                     downloads:114,
                     references:514,
-                    fields:"计算机技术",
+                    fields:"",
                     fans:1024,
                     follows:15,
-                    thumbs:1987,
-                    introduction:"小车正穿行在落基山脉蜿蜒曲折的盘山公路上。克里斯朵夫·李维静静地望着窗外，发现每当车子即将行驶到无路的关头，路边都会出现一块交通指示牌‘前方转弯’或‘注意！急转弯’。而拐过每一道弯之后，前方照例又是一片柳暗花明，豁然开朗。山路弯弯，峰回路转，‘前方转弯’几个大字一次次地冲击着他的眼球，也渐渐叩醒了他的心扉：原来，不是路已到了尽头，而是该转弯了。路在脚下，更在心中，心随路转，心路常宽。学会转弯也是人生的智慧，因为挫折往往是转折，危机同时是转机。"
                 },
+                CitationPaper:[{
+                    num:1,
+                    name:"暂无论文",
+                    id:"",
+                }],
                 Paper:[{
                     num:1,
-                    name:"论文名",
+                    name:"暂无论文",
                     id:"",
                 }],
                 /*是否是已经关注的状态 */
@@ -176,6 +185,7 @@
 
         created: function(){
             const name = this.$route.query.username;
+            this.Author.name = this.$route.query.username;
             this.isPersonalaPage = false;
             console.log(name);
             this.Author.papers = 0
@@ -249,31 +259,55 @@
                 console.log(error)
             });
 
-            // this.$axios({
-            //     method:'get',
-            //     url:'/api/data/paper/authorusername/rank',
-            //     params:{'authorusername':localStorage.getItem("username")}
-            // })
-            // .then(res => {
-            //     console.log(res)
-            //     for(var i = 0;i<res.data.data.paperlist.length;i++){
-            //         var paper = {}
-            //         paper.num = i+1
-            //         paper.name = res.data.data.paperlist[i].title
-            //         if(res.data.data.paperlist[i].id!==null){
-            //             paper.id=res.data.data.paperlist[i].id
-            //         }
-            //         else{
-            //             paper.id=res.data.data.paperlist[i].paperid
-            //         }
-            //         this.Author.papers = this.Author.papers + 1
-            //         this.Author.downloads = this.Author.downloads + res.data.data.paperlist[i].n_citation
-            //         this.Paper[i] = paper
-            //     } 
-            // })
-            // .catch(err=>{
-            //     console.log(err)
-            // });
+            this.$axios({
+                method:'get',
+                url:'/api/data/paper/authorname/rank',
+                params:{'authorname':this.$route.query.username}
+             })
+             .then(res => {
+                console.log(res)
+                for(var i = 0;i<res.data.data.paperlist.length;i++){
+                    var paper = {}
+                    paper.num = i+1
+                    paper.name = res.data.data.paperlist[i].title
+                    if(res.data.data.paperlist[i].id!==null){
+                        paper.id=res.data.data.paperlist[i].id
+                    }
+                    else{
+                        paper.id=res.data.data.paperlist[i].paperid
+                    }
+                    this.CitationPaper[i] = paper
+                } 
+            })
+            .catch(err=>{
+                console.log(err)
+            });
+
+            this.$axios({
+                method:'get',
+                url:'/api/data/paper/realname',
+                params:{'realname':this.$route.query.username}
+            })
+            .then(res => {
+                console.log(res)
+                for(var i = 0;i<res.data.data.paperlist.length;i++){
+                    var paper = {}
+                    paper.num = i+1
+                    paper.name = res.data.data.paperlist[i].title
+                    if(res.data.data.paperlist[i].id!==null){
+                        paper.id=res.data.data.paperlist[i].id
+                    }
+                    else{
+                        paper.id=res.data.data.paperlist[i].paperid
+                    }
+                    this.Author.papers = this.Author.papers + 1
+                    this.Author.downloads = this.Author.downloads + res.data.data.paperlist[i].n_citation
+                    this.Paper[i] = paper
+                } 
+            })
+            .catch(err=>{
+                console.log(err)
+            });
 
             // this.$axios.get('/api/user/showuserinfo',
             // {
